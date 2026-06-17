@@ -1,5 +1,41 @@
 <?php
-require_once 'config/config.php';
+
+require_once 'encryption_key.php';
+require_once 'config.php';
+
+function loadUsers($pdo, $conditions = []) {
+    try {
+        $sql = "SELECT user_id, login, password, role FROM users";
+        $params = [];
+        
+        // выполняем запрос
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        
+        // получаем все записи
+        $users = $stmt->fetchAll();
+        
+        // расшифровываем пароли (если нужно)
+        foreach ($users as &$user) {
+            if (isset($user['password'])) {
+                $user['password'] = decryptPassword($user['password']);
+            }
+        }
+        
+        return $users;
+        
+    } catch(PDOException $e) {
+        error_log("Error loading users: " . $e->getMessage());
+        return [];
+    }
+}
+
+$users = loadUsers($pdo);
+/* foreach ($users as $user):
+    echo ('<pre>');
+    print_r($user);
+endforeach; */
+
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +58,7 @@ require_once 'config/config.php';
                         <h2>Admin Panel</h2>
                         <p>User Management</p>
                     </div>
-                    <button class="go-btn">Restaurant Accounting</button>
+                    <button class="go-btn">Guest Management</button>
                 </div>
             </header>
 
@@ -43,6 +79,17 @@ require_once 'config/config.php';
 
                 <!-- список пользователей -->
                 <div class="users-list">
+                    <?php foreach ($users as $user): ?>
+                        <div class="user-row">
+                            <div class="col-name"><?php echo htmlspecialchars($user['login']); ?></div>
+                            <div class="col-role"><?php echo htmlspecialchars($user['role']); ?></div>
+                            <div class="col-actions">
+                                <button class="action-btn edit-btn">Change</button>
+                                <button class="action-btn copy-btn">Copy</button>
+                                <button class="action-btn delete-btn">Delete</button>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
 
             </main>

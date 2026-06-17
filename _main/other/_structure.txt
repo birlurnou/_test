@@ -1,0 +1,22 @@
+project/
+├── index.php                # ТОЛЬКО роутинг (15 строк)
+├── config/
+│   └── config.php           # Подключение к БД
+├── handlers/
+│   └── ajax.php             # Вся AJAX логика (было в index.php)
+├── views/
+│   ├── layout/
+│   │   └── header.php       # Шапка сайта
+│   └── rooms.php            # Список комнат (было в index.php)
+├── helpers/
+│   └── functions.php        # Все вспомогательные функции
+└── .htaccess                # (опционально)
+
+
+
+(темный)
+#5B5778 
+#9D9AAE
+#59628B
+#C0C2C4
+#FFFFFF

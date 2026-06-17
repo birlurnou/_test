@@ -1,0 +1,391 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background: white;
+    min-height: 100vh;
+    padding-top: 90px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+.sticky-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #8C89A0;
+    /*background: linear-gradient(135deg, #5B5778, #8C89A0);*/
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05), 0 2px 6px rgba(0, 0, 0, 0.02);
+    z-index: 1000;
+    padding: 12px 24px;
+    border-bottom: 1px solid #8C89A0;
+}
+
+.header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px; /* равные промежутки между элементами */
+}
+
+.logo {
+    flex-shrink: 0; /* не сжимается */
+}
+
+.logo h1 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: white;
+    letter-spacing: -0.2px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.search-compact {
+    flex-grow: 1;   /* занимает всё свободное пространство */
+    text-align: center;
+}
+
+.search-compact input {
+    width: 100%;
+    max-width: 320px;   /* ограничиваем максимальную ширину */
+    padding: 8px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 40px;
+    font-size: 1.2rem;
+    font-family: 'Inter', sans-serif;
+    background: white;
+    transition: all 0.2s;
+    outline: none;
+    margin: 0 auto;     /* центрируем внутри контейнера */
+}
+
+.search-compact input:focus {
+    border-color: #8C89A0;
+    box-shadow: 0 0 0 2px rgba(140, 137, 160, 0.1);
+}
+
+.today-compact {
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #8C89A0;
+    background: #f1f5f9;
+    padding: 4px 12px;
+    border-radius: 30px;
+    white-space: nowrap;
+}
+
+/* основной контент */
+.app {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px 32px 24px;
+}
+
+/* комнаты и гости */
+.rooms-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.room-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #8C89A0;
+    transition: all 0.2s;
+}
+
+.room-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.room-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    cursor: pointer;
+    background: white;
+}
+
+.room-card-header:hover {
+    background: #edf0f5;
+}
+
+.room-number .number {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a2c3e;
+    padding: 0px 10px;
+}
+
+.room-stats {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.stat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.status-stat {
+    background: #f1f5f9;
+    min-width: 90px;
+    justify-content: center;
+}
+
+/* СТАТУСЫ КОМНАТ */
+.status-standard {
+    background: #e2e8f0;
+}
+.status-standard .stat-value {
+    color: #334155;
+}
+
+.status-club {
+    background: #fef9c3;
+}
+.status-club .stat-value {
+    color: #a16207;
+}
+
+.status-deluxe {
+    background: #e9d5ff;
+}
+.status-deluxe .stat-value {
+    color: #4c1d95;
+}
+
+.status-luxe {
+    background: #fecdd3;
+}
+.status-luxe .stat-value {
+    color: #9f1239;
+}
+
+.attendance-stat {
+    background: #ebeded;
+    min-width: 130px;
+    justify-content: center;
+}
+.attendance-stat .attended-count {
+    font-weight: 500;
+    color: #0a0a0a;
+}
+.attendance-stat.completed {
+    background: #dcfce7;
+}
+.attendance-stat.completed .attended-count {
+    color: #16a34a;
+}
+
+.room-toggle {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    border-radius: 50%;
+}
+.toggle-icon {
+    font-size: 12px;
+    color: #6c8aad;
+    transition: transform 0.3s;
+}
+.room-card.expanded .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.guests-list {
+    border-top: 1px solid #eef3fa;
+    background: #d6d5de;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.guest-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: white;
+    border-radius: 14px;
+    cursor: pointer;
+    border: 1px solid #eef3fa;
+    transition: all 0.2s;
+}
+.guest-card:hover {
+    transform: scale(1.01);
+    border-color: #dce5f0;
+}
+.guest-card.attended {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+.guest-avatar {
+    width: 60px;
+    height: 60px;
+    background: #E6E6FA;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    flex-shrink: 0;
+}
+.guest-card.attended .guest-avatar {
+    background: #dcfce7;
+}
+
+.guest-info {
+    flex: 1;
+}
+.guest-type {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+.guest-type.adult {
+    background: #E6E6FA;
+    color: #3b82f6;
+}
+.guest-type.child {
+    background: #fef3c7;
+    color: #d97706;
+}
+.guest-birth {
+    font-size: 16px;
+    color: #6c8aad;
+}
+.guest-status {
+    flex-shrink: 0;
+}
+.check-btn {
+    padding: 8px 18px;
+    border: 1px solid #5B5778;
+    border-radius: 40px;
+    background: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.2s;
+    color: #475569;
+}
+.check-btn:hover {
+    background: #f0e9f2;
+    border-color: #5B5778;
+}
+.check-btn.checked {
+    background: #16a34a;
+    border-color: #16a34a;
+    color: white;
+}
+.guest-attended-time {
+    font-size: 16px;
+    color: #16a34a;
+    margin-top: 4px;
+    font-family: monospace;
+}
+.birthday-badge {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0px 15px;
+    border-radius: 30px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.birthday-badge.exact {
+    background: linear-gradient(135deg, #ff9a3c, #ff4d4d);
+    color: white;
+    animation: birthdayPulse 1s ease infinite;
+}
+.birthday-badge.near {
+    background: #e2e8f0;
+    color: #334155;
+}
+@keyframes birthdayPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+.room-card.hidden-card {
+    display: none;
+}
+
+/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+@media (max-width: 700px) {
+    body {
+        padding-top: 80px; /* уменьшаем, так как хедер стал компактнее */
+    }
+    .sticky-header {
+        padding: 10px 16px;
+    }
+    .header-inner {
+        gap: 12px;
+    }
+    .logo h1 {
+        font-size: 1.2rem;
+        white-space: nowrap;
+    }
+    .search-compact input {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+        max-width: 220px;
+    }
+    .today-compact {
+        font-size: 0.9rem;
+        padding: 4px 10px;
+    }
+    .app {
+        padding: 0 16px 24px 16px;
+    }
+    .guest-card {
+        flex-wrap: wrap;
+    }
+    .guest-status {
+        width: 100%;
+    }
+    .check-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .birthday-badge {
+        margin-left: 0;
+        margin-top: 6px;
+        font-size: 12px;
+        display: inline-block;
+    }
+}
