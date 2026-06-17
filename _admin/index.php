@@ -41,8 +41,8 @@ require_once 'config/config.php';
                     <div class="col-actions">Actions</div>
                 </div>
 
-                <!-- список пользователей -->
                 <div class="users-list">
+                <!-- список пользователей -->
                 </div>
 
             </main>
