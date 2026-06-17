@@ -4,11 +4,13 @@ require_once 'encryption_key.php';
 
 header('Content-Type: application/json');
 
+// проверка, что запрос POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['success' => false, 'error' => 'Invalid request method']);
     exit;
 }
 
+// получение данных
 $login = trim($_POST['login'] ?? '');
 $password = $_POST['password'] ?? '';
 $role = $_POST['role'] ?? 'user';

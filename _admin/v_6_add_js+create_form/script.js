@@ -7,82 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const passwordInput = document.getElementById('userPassword');
     const loginInput = document.getElementById('userLogin');
     const roleSelect = document.getElementById('userRole');
-    const searchInput = document.querySelector('.search-input');
-    const usersList = document.querySelector('.users-list');
 
-    // Функция для загрузки пользователей с фильтром
-    function loadUsers(searchTerm = '') {
-        const formData = new FormData();
-        formData.append('search', searchTerm);
-        
-        fetch('get_users.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                renderUsers(data.users);
-            } else {
-                console.error('Error loading users:', data.error);
-            }
-        })
-        .catch(error => {
-            console.error('Connection error:', error);
-        });
-    }
-
-    // Функция для отрисовки пользователей
-    function renderUsers(users) {
-        if (!usersList) return;
-        
-        if (users.length === 0) {
-            usersList.innerHTML = `
-                <div style="text-align: center; padding: 40px 20px; color: #9D9AAE; font-size: 1rem;">
-                    No users found
-                </div>
-            `;
-            return;
-        }
-        
-        let html = '';
-        users.forEach(user => {
-            html += `
-                <div class="user-row">
-                    <div class="col-name">${escapeHtml(user.login)}</div>
-                    <div class="col-role">${escapeHtml(user.role)}</div>
-                    <div class="col-actions">
-                        <button class="action-btn edit-btn" data-userid="${user.user_id}">Change</button>
-                        <button class="action-btn copy-btn" data-userid="${user.user_id}">Copy</button>
-                        <button class="action-btn delete-btn" data-userid="${user.user_id}">Delete</button>
-                    </div>
-                </div>
-            `;
-        });
-        usersList.innerHTML = html;
-    }
-
-    // Функция для экранирования HTML
-    function escapeHtml(str) {
-        if (!str) return '';
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML;
-    }
-
-    // Поиск с задержкой (debounce)
-    let searchTimeout = null;
-    if (searchInput) {
-        searchInput.addEventListener('input', function() {
-            clearTimeout(searchTimeout);
-            const searchTerm = this.value.trim();
-            searchTimeout = setTimeout(() => {
-                loadUsers(searchTerm);
-            }, 300); // Задержка 300ms после окончания ввода
-        });
-    }
-
-    // Функции для модального окна
     function openModal() {
         modal.classList.add('active');
         loginInput.value = '';
@@ -92,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         togglePassword.textContent = '👁';
         document.body.style.overflow = 'hidden';
         
+        // Убираем ошибки при открытии
         loginInput.classList.remove('error');
         passwordInput.classList.remove('error');
         document.querySelectorAll('.error-message').forEach(el => el.classList.remove('visible'));
@@ -100,17 +26,19 @@ document.addEventListener('DOMContentLoaded', function() {
     function closeModal() {
         modal.classList.remove('active');
         document.body.style.overflow = '';
-        loadUsers(searchInput ? searchInput.value.trim() : '');
     }
 
+    // Открытие модального окна
     if (addBtn) {
         addBtn.addEventListener('click', openModal);
     }
 
+    // Закрытие по кнопке Close
     if (cancelBtn) {
         cancelBtn.addEventListener('click', closeModal);
     }
 
+    // Закрытие по клику на фон
     if (modal) {
         modal.addEventListener('click', function(e) {
             if (e.target === modal) {
@@ -119,12 +47,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Закрытие по Escape
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
             closeModal();
         }
     });
 
+    // Показать/скрыть пароль
     if (togglePassword) {
         togglePassword.addEventListener('click', function() {
             const type = passwordInput.type === 'password' ? 'text' : 'password';
@@ -133,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Функция для отображения ошибки
     function showError(inputElement, message) {
         inputElement.classList.add('error');
         const errorDiv = inputElement.parentElement.querySelector('.error-message');
@@ -140,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
             errorDiv.textContent = message;
             errorDiv.classList.add('visible');
         } else {
+            // Если нет элемента для ошибки, создаем его
             const newError = document.createElement('div');
             newError.className = 'error-message visible';
             newError.textContent = message;
@@ -152,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.error-message').forEach(el => el.classList.remove('visible'));
     }
 
+    // Сохранение пользователя
     if (saveBtn) {
         saveBtn.addEventListener('click', function() {
             clearErrors();
@@ -162,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             let isValid = true;
             
+            // Проверка логина
             if (!login) {
                 showError(loginInput, 'Login is required');
                 isValid = false;
@@ -170,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 isValid = false;
             }
             
+            // Проверка пароля
             if (!password) {
                 showError(passwordInput, 'Password is required');
                 isValid = false;
@@ -182,6 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
+            // Отправка данных на сервер
             const formData = new FormData();
             formData.append('login', login);
             formData.append('password', password);
@@ -196,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.success) {
                     alert('User created successfully!');
                     closeModal();
+                    location.reload(); // Перезагружаем страницу для обновления списка
                 } else {
                     alert('Error: ' + data.error);
                     if (data.error === 'User already exists') {
@@ -208,7 +145,4 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-
-    // Загрузка пользователей при старте
-    loadUsers();
 });

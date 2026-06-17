@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: #9D9AAE;
+  background-image: url("background.jpg");
+  padding: 30px; /* отступы от краёв экрана */
+}
+
+/* основной контейнер */
+.layout {
+  display: flex;
+  gap: 30px; /* отступ между левым блоком и правой частью */
+  min-height: calc(100vh - 60px); /* высота = 100vh - отступы body */
+}
+
+.area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* отступ между верхним блоком и контентом */
+}
+
+/* верхний блок */
+.top-block {
+  opacity: 0.9;
+  min-height: 10vh;
+  background: #5B5778;
+  color: #FFFFFF;
+  border-radius: 1px;
+  padding: 25px 30px; /* отступы внутри блока со всех сторон */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  /* центрирование с выставлением максимальной ширины */
+  width: 100%;
+  max-width: 900px;        /* ← максимальная ширина блока */
+  margin-left: auto;
+  margin-right: auto;      /* ← центрирование */
+}
+
+.top-block h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #FFFFFF;
+}
+
+.top-block p {
+  font-size: 1rem;
+  opacity: 0.9;
+  color: #FFFFFF;
+}
+
+/* основной контент */
+.content {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 1px;
+  padding: 30px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #2c2a3a;
+  /* центрирование с выставлением максимальной ширины */
+  width: 100%;
+  max-width: 900px;        /* ← максимальная ширина блока */
+  margin-left: auto;
+  margin-right: auto;      /* ← центрирование */
+}
+
+.content p {
+  font-size: 1.1rem;
+  color: #5B5778;
+}
+
+.content p:first-child {
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
