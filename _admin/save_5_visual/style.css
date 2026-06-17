@@ -192,7 +192,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding-right: 5px;
+    padding-right: 0px;
     min-height: 0; /* важно для корректной работы flex */
 }
 

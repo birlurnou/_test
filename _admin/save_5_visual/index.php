@@ -31,6 +31,10 @@ function loadUsers($pdo, $conditions = []) {
 }
 
 $users = loadUsers($pdo);
+foreach ($users as $user):
+    echo ('<pre>');
+    print_r($user);
+endforeach;
 
 ?>
 
