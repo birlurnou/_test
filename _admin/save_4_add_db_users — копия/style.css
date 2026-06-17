@@ -1,0 +1,325 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: #9D9AAE;
+  background-image: url("background.jpg");
+  padding: 30px; /* отступы от краёв экрана */
+}
+
+/* основной контейнер */
+.layout {
+  display: flex;
+  gap: 30px; /* отступ между левым блоком и правой частью */
+  height: calc(100vh - 60px);
+}
+
+.area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* отступ между верхним блоком и контентом */
+  height: 100%; /* ограничение высоты */
+  min-height: 0; /* ограничение высоты */
+}
+
+/* верхний блок */
+.top-block {
+  opacity: 0.9;
+  min-height: 10vh;
+  background: #5B5778;
+  color: #FFFFFF;
+  border-radius: 1px;
+  padding: 25px 30px; /* отступы внутри блока со всех сторон */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  /* центрирование с выставлением максимальной ширины */
+  width: 100%;
+  max-width: 900px;        /* ← максимальная ширина блока */
+  margin-left: auto;
+  margin-right: auto;      /* ← центрирование */
+}
+
+.top-block h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #FFFFFF;
+}
+
+.top-block p {
+  font-size: 1rem;
+  opacity: 0.9;
+  color: #FFFFFF;
+}
+
+/* основной контент */
+.content {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 1px;
+  padding: 30px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  /*justify-content: center;
+  align-items: center;*/
+  color: #2c2a3a;
+  overflow: hidden; /* важно! чтобы блок не растягивался */
+  min-height: 0; /* для корректной работы flex */
+  /* центрирование с выставлением максимальной ширины */
+  width: 100%;
+  max-width: 900px;        /* ← максимальная ширина блока */
+  margin-left: auto;
+  margin-right: auto;      /* ← центрирование */
+}
+
+.content p {
+  font-size: 1.1rem;
+  color: #5B5778;
+}
+
+.content p:first-child {
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+/* содержимое верхнего блока */
+.top-block-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* текст по центру */
+.center-text {
+    text-align: center;
+    flex: 1;
+}
+
+.center-text h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #FFFFFF;
+}
+
+.center-text p {
+    font-size: 1rem;
+    opacity: 0.9;
+    color: #FFFFFF;
+}
+
+/* кнопка добавить */
+.add-btn {
+    padding: 12px 24px;
+    border-radius: 1px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.add-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.7);
+    transform: scale(1.05);
+}
+
+.add-btn:active {
+    transform: scale(0.98);
+}
+
+.go-btn {
+    padding: 12px 24px;
+    border-radius: 1px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.go-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.7);
+    transform: scale(1.05);
+}
+
+.go-btn:active {
+    transform: scale(0.98);
+}
+
+/* таблица пользователей */
+.table-header {
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) 120px 1fr;
+    gap: 15px;
+    padding: 12px 20px;
+    background: rgba(91, 87, 120, 0.15);
+    border-radius: 1px;
+    font-weight: 600;
+    color: #2c2a3a;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 100%;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.users-list {
+    flex: 1;
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 5px;
+    min-height: 0; /* важно для корректной работы flex */
+}
+
+/* стилизация скроллбара */
+.users-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.users-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+
+.users-list::-webkit-scrollbar-thumb {
+    background: #5B5778;
+    border-radius: 3px;
+}
+
+.users-list::-webkit-scrollbar-thumb:hover {
+    background: #4a4762;
+}
+
+/* строка пользователя */
+.user-row {
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) 120px 1fr;
+    gap: 15px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 1px;
+    align-items: center;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+}
+
+.user-row:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* колонки */
+.col-name {
+    font-weight: 500;
+    color: #5B5778;
+}
+
+.col-role {
+    color: #5B5778;
+    font-weight: 500;
+}
+
+.col-actions {
+    color: #5B5778;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+/* кнопки действий */
+.action-btn {
+    padding: 6px 12px;
+    border: 1px solid rgba(91, 87, 120, 0.2);
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 1px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5B5778;
+    white-space: nowrap;
+    min-height: 32px;
+}
+
+.action-btn:hover {
+    background: #5B5778;
+    color: #FFFFFF;
+    border-color: #5B5778;
+    transform: scale(1.02);
+}
+
+.action-btn:active {
+    transform: scale(0.98);
+}
+
+.edit-btn:hover {
+    background: #F0D20F;
+    border-color: #F0D20F;
+}
+
+.copy-btn:hover {
+    background: #50b7a0;
+    border-color: #50b7a0;
+}
+
+.delete-btn:hover {
+    background: #d94a4a;
+    border-color: #d94a4a;
+}
+
+/* строка поиска */
+.search-container {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px 16px;
+    border: 1px solid rgba(91, 87, 120, 0.2);
+    border-radius: 1px;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    color: #2c2a3a;
+    transition: border-color 0.2s ease;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: #5B5778;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.search-input::placeholder {
+    color: #9D9AAE;
+}
