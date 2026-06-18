@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS breakfast_guests CASCADE;
 DROP TABLE IF EXISTS guests CASCADE;
 DROP TABLE IF EXISTS rooms CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 -- удаляем все данные
 DELETE FROM breakfast_guests;
@@ -43,6 +44,13 @@ CREATE TABLE comments (
     created_by VARCHAR(50)
 );
 CREATE INDEX idx_comments_guest ON comments(guest_id);
+CREATE TABLE IF NOT EXISTS users (
+    user_id SERIAL PRIMARY KEY,
+    login VARCHAR(50) NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    role VARCHAR(20) NOT NULL
+);
+CREATE INDEX idx_users_login ON users(login);
 
 
 -- вставляем данные
