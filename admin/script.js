@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const goBtn = document.querySelector('.go-btn');
     if (goBtn) {
         goBtn.addEventListener('click', function() {
-            window.location.href = '../_main/index.php';
+            window.location.href = '../main/index.php';
         });
     }
     
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData();
         formData.append('search', searchTerm);
         
-        fetch('api/get_users.php', {
+        fetch('core/get_users.php', {
             method: 'POST',
             body: formData
         })
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData();
         formData.append('user_id', userId);
         
-        fetch('api/get_user.php', {
+        fetch('core/get_user.php', {
             method: 'POST',
             body: formData
         })
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData();
         formData.append('user_id', userId);
         
-        fetch('api/get_user.php', {
+        fetch('core/get_user.php', {
             method: 'POST',
             body: formData
         })
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData();
         formData.append('user_id', userId);
         
-        fetch('api/delete_user.php', {
+        fetch('core/delete_user.php', {
             method: 'POST',
             body: formData
         })
@@ -306,18 +306,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            let url = 'api/create_user.php';
+            let url = 'core/create_user.php';
             const formData = new FormData();
             formData.append('login', login);
             formData.append('password', password);
             formData.append('role', role);
             
             if (currentAction === 'edit' && currentUserId) {
-                url = 'api/update_user.php';
+                url = 'core/update_user.php';
                 formData.append('user_id', currentUserId);
             } else if (currentAction === 'copy') {
                 // для copy используем create_user.php с проверкой на существование
-                url = 'api/create_user.php';
+                url = 'core/create_user.php';
             }
             
             fetch(url, {

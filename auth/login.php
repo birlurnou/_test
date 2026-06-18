@@ -2,10 +2,13 @@
 // login.php - API endpoint для авторизации
 header('Content-Type: application/json');
 
-require_once 'config.php';
-require_once 'encryption_key.php';
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../config/encryption_key.php';
 
-// Получаем данные из JSON
+// запускаем сессию
+session_start();
+
+// получаем данные из JSON
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (!$input || !isset($input['login']) || !isset($input['password'])) {
@@ -19,7 +22,7 @@ if (!$input || !isset($input['login']) || !isset($input['password'])) {
 $login = trim($input['login']);
 $password = $input['password'];
 
-// Валидация
+// валидация
 if (empty($login) || empty($password)) {
     echo json_encode([
         'success' => false,
@@ -29,27 +32,36 @@ if (empty($login) || empty($password)) {
 }
 
 try {
-    // Поиск пользователя по логину
+    // поиск пользователя по логину
     $stmt = $pdo->prepare("SELECT user_id, login, password, role FROM users WHERE login = :login");
     $stmt->execute([':login' => $login]);
     $user = $stmt->fetch();
     
     if ($user) {
-        // Расшифровываем пароль из БД
+        // расшифровываем пароль из БД
         $decryptedPassword = decryptPassword($user['password']);
         
-        // Сравниваем с введенным паролем
+        // сравниваем с введенным паролем
         if ($password === $decryptedPassword) {
-            // Успешная авторизация
+            // успешная авторизация - создаем сессию
+            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['login'] = $user['login'];
+            $_SESSION['role'] = $user['role'];
+            $_SESSION['logged_in'] = true;
+            
+            // определяем страницу для редиректа в зависимости от роли
+            $redirect = in_array($user['role'], ['manager', 'admin']) ? '../processing/index.php' : '../main/user.php';
+            
             echo json_encode([
                 'success' => true,
-                'redirect' => 'dashboard.php'
+                'redirect' => $redirect,
+                'role' => $user['role']
             ]);
             exit();
         }
     }
     
-    // Неверный логин или пароль
+    // неверный логин или пароль
     echo json_encode([
         'success' => false,
         'error' => 'Неверный логин или пароль'

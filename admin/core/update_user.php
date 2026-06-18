@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../config/encryption_key.php';
+require_once __DIR__ . '/../../config/config.php';
+require_once __DIR__ . '/../../config/encryption_key.php';
 
 header('Content-Type: application/json');
 
@@ -9,11 +9,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+$user_id = $_POST['user_id'] ?? 0;
 $login = trim($_POST['login'] ?? '');
 $password = $_POST['password'] ?? '';
 $role = $_POST['role'] ?? 'user';
 
-// валидация
+if (empty($user_id)) {
+    echo json_encode(['success' => false, 'error' => 'User ID is required']);
+    exit;
+}
+
 if (empty($login)) {
     echo json_encode(['success' => false, 'error' => 'Login is required']);
     exit;
@@ -41,37 +46,39 @@ if (!in_array($role, $allowed_roles)) {
 }
 
 try {
-    // проверка на существование пользователя
-    $checkStmt = $pdo->prepare("SELECT user_id FROM users WHERE login = :login");
-    $checkStmt->execute([':login' => $login]);
+    // проверяем, существует ли пользователь
+    $checkStmt = $pdo->prepare("SELECT user_id FROM users WHERE user_id = :user_id");
+    $checkStmt->execute([':user_id' => $user_id]);
     
-    if ($checkStmt->fetch()) {
-        echo json_encode(['success' => false, 'error' => 'User already exists']);
+    if (!$checkStmt->fetch()) {
+        echo json_encode(['success' => false, 'error' => 'User not found']);
         exit;
     }
     
-    // шифрование пароля
+    // шифруем пароль
     $encrypted_password = encryptPassword($password);
     
-    // вставка нового пользователя
+    // обновляем пользователя
     $stmt = $pdo->prepare("
-        INSERT INTO users (login, password, role) 
-        VALUES (:login, :password, :role)
+        UPDATE users 
+        SET login = :login, password = :password, role = :role 
+        WHERE user_id = :user_id
     ");
     
     $result = $stmt->execute([
         ':login' => $login,
         ':password' => $encrypted_password,
-        ':role' => $role
+        ':role' => $role,
+        ':user_id' => $user_id
     ]);
     
     if ($result) {
         echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false, 'error' => 'Failed to create user']);
+        echo json_encode(['success' => false, 'error' => 'Failed to update user']);
     }
     
 } catch (PDOException $e) {
-    error_log("Error creating user: " . $e->getMessage());
+    error_log("Error updating user: " . $e->getMessage());
     echo json_encode(['success' => false, 'error' => 'Database error']);
 }

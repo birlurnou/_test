@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../config/encryption_key.php';
+require_once __DIR__ . '/../../config/config.php';
+require_once __DIR__ . '/../../config/encryption_key.php';
 
 header('Content-Type: application/json');
 
@@ -9,16 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$user_id = $_POST['user_id'] ?? 0;
 $login = trim($_POST['login'] ?? '');
 $password = $_POST['password'] ?? '';
 $role = $_POST['role'] ?? 'user';
 
-if (empty($user_id)) {
-    echo json_encode(['success' => false, 'error' => 'User ID is required']);
-    exit;
-}
-
+// валидация
 if (empty($login)) {
     echo json_encode(['success' => false, 'error' => 'Login is required']);
     exit;
@@ -34,8 +29,8 @@ if (empty($password)) {
     exit;
 }
 
-if (strlen($password) < 4) {
-    echo json_encode(['success' => false, 'error' => 'Password must be at least 4 characters']);
+if (strlen($password) < 3) {
+    echo json_encode(['success' => false, 'error' => 'Password must be at least 3 characters']);
     exit;
 }
 
@@ -46,39 +41,37 @@ if (!in_array($role, $allowed_roles)) {
 }
 
 try {
-    // проверяем, существует ли пользователь
-    $checkStmt = $pdo->prepare("SELECT user_id FROM users WHERE user_id = :user_id");
-    $checkStmt->execute([':user_id' => $user_id]);
+    // проверка на существование пользователя
+    $checkStmt = $pdo->prepare("SELECT user_id FROM users WHERE login = :login");
+    $checkStmt->execute([':login' => $login]);
     
-    if (!$checkStmt->fetch()) {
-        echo json_encode(['success' => false, 'error' => 'User not found']);
+    if ($checkStmt->fetch()) {
+        echo json_encode(['success' => false, 'error' => 'User already exists']);
         exit;
     }
     
-    // шифруем пароль
+    // шифрование пароля
     $encrypted_password = encryptPassword($password);
     
-    // обновляем пользователя
+    // вставка нового пользователя
     $stmt = $pdo->prepare("
-        UPDATE users 
-        SET login = :login, password = :password, role = :role 
-        WHERE user_id = :user_id
+        INSERT INTO users (login, password, role) 
+        VALUES (:login, :password, :role)
     ");
     
     $result = $stmt->execute([
         ':login' => $login,
         ':password' => $encrypted_password,
-        ':role' => $role,
-        ':user_id' => $user_id
+        ':role' => $role
     ]);
     
     if ($result) {
         echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false, 'error' => 'Failed to update user']);
+        echo json_encode(['success' => false, 'error' => 'Failed to create user']);
     }
     
 } catch (PDOException $e) {
-    error_log("Error updating user: " . $e->getMessage());
+    error_log("Error creating user: " . $e->getMessage());
     echo json_encode(['success' => false, 'error' => 'Database error']);
 }

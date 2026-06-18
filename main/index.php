@@ -3,7 +3,7 @@
 date_default_timezone_set('Asia/Yekaterinburg');
 
 // подключаем файл с настройками для бд
-require_once 'config/config.php';
+require_once '../config/config.php';
 
 // текущая дата в формате yyyy-mm-dd
 $today = date('Y-m-d');

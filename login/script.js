@@ -16,19 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             field.classList.remove('error');
             field.style.animation = '';
-            // field.value = ''; // Очищаем поле
             field.placeholder = field === loginInput ? 'Enter your login' : 'Enter your password';
         }, 2000);
-    }
-    
-    // функция для очистки всех полей
-    function clearFields() {
-        loginInput.value = '';
-        passwordInput.value = '';
-        loginInput.classList.remove('error');
-        passwordInput.classList.remove('error');
-        loginInput.style.animation = '';
-        passwordInput.style.animation = '';
     }
     
     // функция для блокировки/разблокировки кнопки
@@ -69,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         try {
             // отправляем запрос на сервер
-            const response = await fetch('login.php', {
+            const response = await fetch('../auth/login.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.style.background = '#2e7d32';
                 
                 setTimeout(() => {
-                    window.location.href = data.redirect || 'dashboard.php';
+                    window.location.href = data.redirect;
                 }, 500);
             } else {
                 // ошибка авторизации - показываем ошибку на обоих полях
@@ -121,6 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (this.classList.contains('error')) {
             this.classList.remove('error');
             this.style.animation = '';
+            if (this.placeholder.includes('required') || this.placeholder.includes('Invalid') || this.placeholder.includes('Connection')) {
+                this.placeholder = 'Enter your login';
+            }
         }
     });
     
@@ -128,6 +120,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (this.classList.contains('error')) {
             this.classList.remove('error');
             this.style.animation = '';
+            if (this.placeholder.includes('required') || this.placeholder.includes('Invalid') || this.placeholder.includes('Connection')) {
+                this.placeholder = 'Enter your password';
+            }
         }
     });
     
