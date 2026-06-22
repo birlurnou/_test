@@ -9,6 +9,7 @@ body {
   min-height: 100vh;
   background: #9D9AAE;
   background: url('../assets/images/background.jpg') no-repeat center center fixed;
+  
   background-size: cover;
   padding: 30px; /* отступы от краёв экрана */
 }

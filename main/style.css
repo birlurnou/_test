@@ -11,6 +11,8 @@ html {
 body {
     font-family: 'Cairo', sans-serif;
     background: white;
+    background: url('../assets/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
     min-height: 100vh;
     padding-top: 90px;
     -webkit-font-smoothing: antialiased;

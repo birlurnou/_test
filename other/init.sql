@@ -53,6 +53,45 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE INDEX idx_users_login ON users(login);
 
 
+
+-- new
+
+CREATE TABLE records (
+    record_id SERIAL PRIMARY KEY,
+    room_id INT NOT NULL,
+    guest_id INT NOT NULL,
+    adult_count INT NOT NULL,
+    child_count INT NOT NULL,
+    arrival_date DATE NOT NULL,
+    departure_date DATE NOT NULL,
+    attended_date TIMESTAMP NULL DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+)
+
+CREATE TABLE guests (
+    guest_id SERIAL PRIMARY KEY,
+    guest_name_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE comments (
+    comment_id SERIAL PRIMARY KEY,
+    guest_id INT NOT NULL,
+    comment TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(50)
+);
+
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    login VARCHAR(50) NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    role VARCHAR(20) NOT NULL
+);
+CREATE INDEX idx_users_login ON users(login);
+
+
+
 -- вставляем данные
 INSERT INTO breakfast_guests (room_number, status, guest_type, birth_date, attended, attended_date, gender) VALUES
 ('0902', 'standard', 'adult', '1990-12-01', FALSE, NULL, 'male'),
