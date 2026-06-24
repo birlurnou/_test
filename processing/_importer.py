@@ -3,6 +3,7 @@ from psycopg2 import sql, extras
 from contextlib import contextmanager
 from typing import Optional, List, Dict, Any
 from datetime import date, datetime
+import pandas as pd
 
 
 class Database:
@@ -18,7 +19,6 @@ class Database:
 
     @contextmanager
     def get_cursor(self):
-        """Контекстный менеджер для работы с курсором"""
         conn = psycopg2.connect(**self.conn_params)
         try:
             yield conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -29,19 +29,8 @@ class Database:
         finally:
             conn.close()
 
-    def execute_query(self, query: str, params: tuple = None) -> List[Dict]:
-        """Выполнить запрос и вернуть результат"""
-        with self.get_cursor() as cursor:
-            cursor.execute(query, params)
-            return cursor.fetchall() if cursor.description else []
+    def insert_records(self, csv_file: str):
 
-    def execute_many(self, query: str, params_list: List[tuple]):
-        """Массовая вставка"""
-        with self.get_cursor() as cursor:
-            extras.execute_values(cursor, query, params_list)
-
-    def insert_guest(self, guest_data: dict) -> int:
-        """Пример вставки с возвратом ID"""
         query = """
             INSERT INTO guests (room_id, name, birth_date, arrival_date, 
                                departure_date, guest_type, gender)
@@ -52,3 +41,43 @@ class Database:
         with self.get_cursor() as cursor:
             cursor.execute(query, guest_data)
             return cursor.fetchone()['guest_id']
+
+    def import_birthdays(self, csv_file: str):
+
+        df = pd.read_csv(csv_file, sep=';', encoding='utf-8')
+
+        data = []
+        for _, row in df.iterrows():
+            data.append((
+                row['room_number'],
+                row['arrival_date'],
+                row['departure_date'],
+                row['birth_date']
+            ))
+
+        query = """
+            INSERT INTO birthdays (room_number, arrival_date, departure_date, birth_date)
+            VALUES %s
+        """
+        with self.get_cursor() as cursor:
+            extras.execute_values(cursor, query, data)
+
+def create_data(csv_file: str):
+
+    df = pd.read_csv(csv_file, sep=';', encoding='utf-8')
+
+    data = []
+    for _, row in df.iterrows():
+        data.append((
+            row['room_number'],
+            row['arrival_date'],
+            row['departure_date'],
+            row['birth_date']
+        ))
+    return data
+
+if __name__ == '__main__':
+
+    db = Database(password='')
+
+    db.import_birthdays('bdforecast-01.csv')

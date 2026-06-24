@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "Вход в админ-панель"
-AuthUserFile C:/xampp/htdocs/_test/_admin/.htpasswd
-Require valid-user

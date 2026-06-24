@@ -49,7 +49,7 @@ try:
         _logging(f'Файл {source_filename} прочитан, индексы извлечены')
 
 except Exception as e:
-    _logging(f'Ошибка: {e}')
+    _logging(f'Ошибка при структуризации исходного csv: {e}')
     exit()
 
 clean_filename = ''
@@ -63,7 +63,7 @@ try:
     _logging(f'Файл {clean_filename} создан, переход к обработке')
 
 except Exception as e:
-    _logging(f'Ошибка: {e}')
+    _logging(f'Ошибка при очищении исходного csv: {e}')
     exit()
 
 # перемещаем source_filename в папку archive
@@ -80,7 +80,7 @@ try:
     df = pd.read_csv(clean_filename, sep=';')
     _logging(f'Файл {clean_filename} прочитан, df создан')
 except Exception as e:
-    _logging(f'Ошибка: {e}')
+    _logging(f'Ошибка при создании необработанного dataframe: {e}')
     exit()
 
 # перемещаем clean_filename в папку cleaned
@@ -92,74 +92,77 @@ except Exception as e:
 #     _logging(f'Ошибка: {e}')
 #     exit()
 
+df.columns = df.columns.str.lower()
+
 try:
     df = df.rename(columns={
-        'ROOM': 'ROOM_NUMBER',
-        'PERSONS': 'GUEST_COUNT',
-        'ADULTS': 'ADULT_COUNT',
-        'CHILDREN': 'CHILD_COUNT',
-        'TRUNC_ARRIVAL': 'DATE_ARRIVAL',
-        'TRUNC_DEPARTURE': 'DATE_DEPARTURE',
-        'ROOM_CATEGORY': 'ROOM_CATEGORY_NUMERIC',
-        'ROOM_CATEGORY_LABEL': 'ROOM_CATEGORY'
+        'room': 'room_number',
+        'persons': 'guest_count',
+        'adults': 'adult_count',
+        'children': 'child_count',
+        'trunc_arrival': 'arrival_date',
+        'trunc_departure': 'departure_date',
+        'room_category': 'room_category_numeric',
+        'room_category_label': 'room_category'
     })
 
-    result = df[['ROOM_NUMBER', 'GUEST_COUNT', 'ADULT_COUNT', 'CHILD_COUNT', 'GUEST_NAME_ID', 'DATE_ARRIVAL',
-                 'DATE_DEPARTURE', 'ROOM_CATEGORY', 'ROOM_CLASS']].copy()
+    result = df[['room_number', 'adult_count', 'child_count', 'guest_name_id', 'arrival_date',
+                 'departure_date', 'room_category']].copy() # , 'room_class'
 
     # очистка пустых значений (гостей без номеров)
-    result['ROOM_NUMBER'] = result['ROOM_NUMBER'].fillna(0)
-    # фильтруем строки, которые не имеют ROOM_NUMBER
-    result = result.loc[result['ROOM_NUMBER'] != 0]
+    result['room_number'] = result['room_number'].fillna(0)
+    # фильтруем строки, которые не имеют room_number
+    result = result.loc[result['room_number'] != 0]
 
     # добавляем столбик со статусом
-    status_map = {
-        'ROOM': 'Standard',
-        'DELUX': 'VIP',
-        'STES': 'VIP',
-        'CLUB': 'Standard',
-        'PRES': 'VIP'
-    }
-    result['STATUS'] = result['ROOM_CLASS'].map(status_map)
+    # status_map = {
+    #     'ROOM': 'Standard',
+    #     'DELUX': 'VIP',
+    #     'STES': 'VIP',
+    #     'CLUB': 'Standard',
+    #     'PRES': 'VIP'
+    # }
+    # result['status'] = result['room_class'].map(status_map)
 
-    # изменяем тип данных ROOM_NUMBER
-    result['ROOM_NUMBER'] = result['ROOM_NUMBER'].astype('int')
+    # изменяем тип данных room_number
+    result['room_number'] = result['room_number'].astype('int')
 
     # форматируем дату заселения
-    result['DATE_ARRIVAL'] = pd.to_datetime(result['DATE_ARRIVAL'], format='%d-%b-%y')
+    result['arrival_date'] = pd.to_datetime(result['arrival_date'], format='%d-%b-%y')
 
     # форматируем дату выезда
-    result['DATE_DEPARTURE'] = pd.to_datetime(result['DATE_DEPARTURE'], format='%d-%b-%y')
+    result['departure_date'] = pd.to_datetime(result['departure_date'], format='%d-%b-%y')
 
     # количество заездов (сегодня)
     today = pd.Timestamp.now().normalize()
-    arrival_today = len(result.loc[result['DATE_ARRIVAL'] == today])
+    arrival_today = len(result.loc[result['arrival_date'] == today])
 
     # фильтруем дату заселения, оставляем тех, у кого будет завтрак (убираем тех, кто заселён сегодня и в будущем)
     today = pd.Timestamp.now().normalize()
-    result = result.loc[result['DATE_ARRIVAL'] < today]
+    result = result.loc[result['arrival_date'] < today]
+    result = result.loc[result['departure_date'] >= today]
 
     # сортируем данные
-    result = result.sort_values(['ROOM_NUMBER'], ascending=[True])
-    # result = result.sort_values(['DATE_ARRIVAL', 'ROOM_NUMBER'], ascending=[True, True])
-    # result = result.sort_values(['DATE_DEPARTURE'], ascending=[True])
+    result = result.sort_values(['room_number'], ascending=[True])
+    # result = result.sort_values(['arrival_date', 'ROOM_NUMBER'], ascending=[True, True])
+    # result = result.sort_values(['departure_date'], ascending=[True])
 
     complete_filename = f'completed_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.csv'
     result.to_csv(complete_filename, index=False, sep=';')
     _logging(f'Файл {complete_filename} успешно создан')
 
-    counts = result['ROOM_NUMBER'].value_counts()
+    counts = result['room_number'].value_counts()
     rooms_unique = len(counts)
     # more_than_1 = len(counts[counts > 1])
     _logging(f'Количество номеров (на заселение): {arrival_today}')
     _logging(f'Количество номеров (на завтрак): {rooms_unique}')
-    _logging(f'Количество взрослых (на завтрак): {result['ADULT_COUNT'].sum()}')
-    _logging(f'Количество детей (на завтрак): {result['CHILD_COUNT'].sum()}')
+    _logging(f'Количество взрослых (на завтрак): {result['adult_count'].sum()}')
+    _logging(f'Количество детей (на завтрак): {result['child_count'].sum()}')
     _logging(f'Размер: {[i for i in result.shape]}')
     _logging(f'{result.dtypes}')
 
 except Exception as e:
-    _logging(f'Ошибка: {e}')
+    _logging(f'Ошибка при финальной обработке: {e}')
     exit()
 
 # перемещаем complete_filename в папку completed

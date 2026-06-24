@@ -8,15 +8,18 @@
 body {
   min-height: 100vh;
   background: #9D9AAE;
-  background-image: url("background.jpg"); /* */
+  background: url('../assets/images/background.jpg') no-repeat center center fixed;
+  
+  background-size: cover;
   padding: 30px; /* отступы от краёв экрана */
 }
 
 /* основной контейнер */
+
 .layout {
   display: flex;
   gap: 30px; /* отступ между левым блоком и правой частью */
-  min-height: calc(100vh - 60px); /* высота = 100vh - отступы body */
+  height: calc(100vh - 60px);
 }
 
 .area {
@@ -24,9 +27,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 30px; /* отступ между верхним блоком и контентом */
+  height: 100%; /* ограничение высоты */
+  min-height: 0; /* ограничение высоты */
 }
 
 /* верхний блок */
+
 .top-block {
   opacity: 0.9;
   min-height: 10vh;
@@ -56,6 +62,7 @@ body {
 }
 
 /* основной контент */
+
 .content {
   flex: 1;
   background: rgba(255, 255, 255, 0.7);
@@ -66,9 +73,11 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /*justify-content: center;
+  align-items: center;*/
   color: #2c2a3a;
+  overflow: hidden; /* важно! чтобы блок не растягивался */
+  min-height: 0; /* для корректной работы flex */
   /* центрирование с выставлением максимальной ширины */
   width: 100%;
   max-width: 900px;        /* ← максимальная ширина блока */
@@ -85,4 +94,13 @@ body {
   font-weight: 600;
   font-size: 1.3rem;
   margin-bottom: 8px;
+}
+
+/* содержимое верхнего блока */
+
+.top-block-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }

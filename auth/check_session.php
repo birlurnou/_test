@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 session_start();
 
 // время жизни сессии
-$session_lifetime = 10;
+$session_lifetime = 5;
 
 $response = ['active' => false];
 
@@ -18,6 +18,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         } else {
             // сессия истекла - очищаем
             $_SESSION = array();
+            if (ini_get("session.use_cookies")) {
+                $params = session_get_cookie_params();
+                setcookie(session_name(), '', time() - 42000,
+                    $params["path"], $params["domain"],
+                    $params["secure"], $params["httponly"]
+                );
+            }
             session_destroy();
         }
     }

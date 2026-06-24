@@ -11,6 +11,11 @@ DROP TABLE IF EXISTS rooms CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
+DROP TABLE IF EXISTS records CASCADE;
+DROP TABLE IF EXISTS birthdays CASCADE;
+DROP TABLE IF EXISTS comments CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+
 -- удаляем все данные
 DELETE FROM breakfast_guests;
 
@@ -58,30 +63,34 @@ CREATE INDEX idx_users_login ON users(login);
 
 CREATE TABLE records (
     record_id SERIAL PRIMARY KEY,
-    room_id INT NOT NULL,
+    room_number INT NOT NULL,
     guest_id INT NOT NULL,
     adult_count INT NOT NULL,
     child_count INT NOT NULL,
     arrival_date DATE NOT NULL,
     departure_date DATE NOT NULL,
+    room_category VARCHAR(50) NOT NULL,
     attended_date TIMESTAMP NULL DEFAULT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-)
-
-CREATE TABLE guests (
-    guest_id SERIAL PRIMARY KEY,
-    guest_name_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
+CREATE TABLE visits (
+    visit_id
+)
+CREATE TABLE birthdays (
+    birthday_id SERIAL PRIMARY KEY,
+    room_number INT NOT NULL,
+    arrival_date DATE NOT NULL,
+    departure_date DATE NOT NULL,
+    birth_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 CREATE TABLE comments (
     comment_id SERIAL PRIMARY KEY,
     guest_id INT NOT NULL,
     comment TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by VARCHAR(50)
+    created_by VARCHAR(50) DEFAULT NULL
 );
-
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     login VARCHAR(50) NOT NULL UNIQUE,
@@ -91,6 +100,42 @@ CREATE TABLE users (
 CREATE INDEX idx_users_login ON users(login);
 
 
+-- ON CONFLICT (guest_name_id) DO NOTHING;
+INSERT INTO records (room_number, guest_id, adult_count, child_count, arrival_date, departure_date) VALUES 
+(500, '35254587', 3, 0, '2026-06-21', '2026-06-22'),
+(520, '13523105', 2, 0, '2026-06-21', '2026-06-22');
+INSERT INTO birthdays (room_number, arrival_date, departure_date, birth_date) VALUES
+(500, '2026-06-21', '2026-06-22', '1986-06-23');
+INSERT INTO comments (guest_id, comment) VALUES
+('35254587', 'крутой чел');
+
+select
+    r.*,
+    count(b.birth_date) as birth_count
+from records r
+left join birthdays b on
+r.room_number = b.room_number and
+date_trunc('day', r.created_at) = date_trunc('day', b.created_at)
+where date_trunc('day', r.created_at) = date_trunc('day', (select now() at time zone 'Asia/Yekaterinburg'))
+group by 1;
+
+select
+    r.*,
+    b.birth_date
+from records r
+left join birthdays b on
+r.room_number = b.room_number and
+date_trunc('day', r.created_at) = date_trunc('day', b.created_at)
+where date_trunc('day', r.created_at) = date_trunc('day', (select now() at time zone 'Asia/Yekaterinburg'));
+
+select
+    r.room_number,
+    b.birth_date
+from records r
+join birthdays b on
+r.room_number = b.room_number and
+date_trunc('day', r.created_at) = date_trunc('day', b.created_at)
+where date_trunc('day', r.created_at) = date_trunc('day', (select now() at time zone 'Asia/Yekaterinburg'));
 
 -- вставляем данные
 INSERT INTO breakfast_guests (room_number, status, guest_type, birth_date, attended, attended_date, gender) VALUES

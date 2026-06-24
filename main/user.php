@@ -12,6 +12,7 @@ if (!isset($_SESSION['login_time'])) {
 
 // Проверяем, не истекла ли сессия
 if (time() - $_SESSION['login_time'] > $session_lifetime) {
+    $_SESSION = array();
     session_unset();
     session_destroy();
     header('Location: ../login/index.php?expired=1');
@@ -62,6 +63,7 @@ $time_left = $session_lifetime - (time() - $login_time);
             .then(data => {
                 if (data.success) {
                     loginTime = data.login_time;
+                    updateTimer();
                 }
             })
             .catch(error => {
@@ -77,9 +79,9 @@ $time_left = $session_lifetime - (time() - $login_time);
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
                 timerElement.textContent = '00:00';
-                setTimeout(() => {
+                /* setTimeout(() => {
                     window.location.href = '../login/index.php?expired=1';
-                }, 2000);
+                }, 2000); */
                 return;
             }
             
@@ -93,10 +95,17 @@ $time_left = $session_lifetime - (time() - $login_time);
                 .then(response => response.json())
                 .then(data => {
                     if (!data.active) {
-                        window.location.href = '../login/index.php?expired=1';
-                    }
-                })
-                .catch(() => {});
+                    clearInterval(timerInterval);
+                    // Мгновенный переход
+                    window.location.href = '../login/index.php?expired=1';
+                } else if (data.login_time) {
+                    // Обновляем время с сервера
+                    loginTime = data.login_time;
+                }
+            })
+            .catch(() => {
+                window.location.href = '../login/index.php?expired=1';
+            });
         }
 
         function handleUserActivity() {
@@ -115,7 +124,7 @@ $time_left = $session_lifetime - (time() - $login_time);
 
         updateTimer();
         timerInterval = setInterval(updateTimer, 1000);
-        setInterval(checkSession, 10000);
+        setInterval(checkSession, 5000);
 
         function confirmLogout() {
             if (confirm('Вы уверены, что хотите выйти?')) {

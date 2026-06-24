@@ -29,7 +29,7 @@ if ($is_ajax) {
 }
 
 // перенаправляем на страницу входа
-header('Location: ../login/index.php');
+header('Location: ../login/index.php?logout=1');
 // header('Location: index.php');
 exit();
 ?>

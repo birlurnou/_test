@@ -1,5 +1,29 @@
 <?php
+// login/index.php
+session_start();
 
+// Если пользователь уже авторизован - перенаправляем
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    if ($_SESSION['role'] === 'user') {
+        header('Location: ../main/user.php');
+    } elseif (in_array($_SESSION['role'], ['manager', 'admin'])) {
+        header('Location: ../processing/index.php');
+    }
+    exit();
+}
+
+// Проверяем параметры
+$expired = isset($_GET['expired']) && $_GET['expired'] == 1;
+$logout = isset($_GET['logout']) && $_GET['logout'] == 1;
+
+// Если сессия истекла или вышел - показываем сообщение
+if ($expired) {
+    $message = 'Сессия истекла. Пожалуйста, войдите заново.';
+    $message_type = 'warning';
+} elseif ($logout) {
+    $message = 'Вы успешно вышли из системы.';
+    $message_type = 'success';
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">

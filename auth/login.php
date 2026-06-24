@@ -48,6 +48,8 @@ try {
             $_SESSION['login'] = $user['login'];
             $_SESSION['role'] = $user['role'];
             $_SESSION['logged_in'] = true;
+            $_SESSION['login_time'] = time();
+            $_SESSION['last_activity'] = time();
             
             // определяем страницу для редиректа в зависимости от роли
             $redirect = in_array($user['role'], ['manager', 'admin']) ? '../processing/index.php' : '../main/user.php';
