@@ -50,7 +50,7 @@ body {
 
 .search-section {
   flex: 1 1 auto;
-  max-width: 450px;
+  max-width: 1450px;
   min-width: 150px;
   margin-right: 40px;
 }
