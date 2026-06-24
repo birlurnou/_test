@@ -1,9 +1,7 @@
 <?php
-// index.php - страница для обычных пользователей
 session_start();
 
-// время жизни сессии (5 секунд для теста)
-$session_lifetime = 500000;
+$session_lifetime = 7200;
 
 // Проверяем время входа
 if (!isset($_SESSION['login_time'])) {
@@ -51,13 +49,13 @@ $time_left = $session_lifetime - (time() - $login_time);
             <header class="top-block">
                 <div class="top-block-content">
                     <div class="search-section">
-                        <input type="text" class="search-input" placeholder="Поиск комнаты...">
+                        <input type="text" class="search-input" placeholder="Search room...">
                     </div>
                     
                     <div class="right-section">
                         <div class="user-info">
                             <p class="username"><?php echo htmlspecialchars($_SESSION['login']); ?></p>
-                            <p>Осталось: <span id="timer"><?php echo gmdate('i:s', $time_left); ?></span></p>
+                            <p>Осталось: <span id="timer"><?php echo gmdate('H:i:s', $time_left); ?></span></p>
                         </div>
                         <button 
                           onclick="confirmLogout()" 
@@ -78,7 +76,7 @@ $time_left = $session_lifetime - (time() - $login_time);
                           "
                           onmouseenter="this.style.transform='scale(1.05)'"
                           onmouseleave="this.style.transform='scale(1)'"
-                          onmousedown="this.style.transform='scale(0.95)'"
+                          onmousedown="this.style.transform='scale(1.05)'"
                           onmouseup="this.style.transform='scale(1.05)'"
                         >
                           Выйти
