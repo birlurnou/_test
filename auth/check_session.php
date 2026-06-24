@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 session_start();
 
 // время жизни сессии
-$session_lifetime = 5;
+$session_lifetime = 500000;
 
 $response = ['active' => false];
 

@@ -9,16 +9,13 @@ body {
   min-height: 100vh;
   background: #9D9AAE;
   background: url('../assets/images/background.jpg') no-repeat center center fixed;
-  
   background-size: cover;
-  padding: 30px; /* отступы от краёв экрана */
+  padding: 30px;
 }
-
-/* основной контейнер */
 
 .layout {
   display: flex;
-  gap: 30px; /* отступ между левым блоком и правой частью */
+  gap: 30px;
   height: calc(100vh - 60px);
 }
 
@@ -26,26 +23,83 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 30px; /* отступ между верхним блоком и контентом */
-  height: 100%; /* ограничение высоты */
-  min-height: 0; /* ограничение высоты */
+  gap: 30px;
+  height: 100%;
+  min-height: 0;
 }
-
-/* верхний блок */
 
 .top-block {
   opacity: 0.9;
-  min-height: 10vh;
   background: #5B5778;
   color: #FFFFFF;
   border-radius: 1px;
-  padding: 25px 30px; /* отступы внутри блока со всех сторон */
+  padding: 25px 30px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  /* центрирование с выставлением максимальной ширины */
   width: 100%;
-  max-width: 900px;        /* ← максимальная ширина блока */
+  max-width: 900px;
   margin-left: auto;
-  margin-right: auto;      /* ← центрирование */
+  margin-right: auto;
+}
+
+.top-block-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.search-section {
+  flex: 1 1 auto;
+  max-width: 450px;
+  min-width: 150px;
+  margin-right: 40px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-input:focus {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 15px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.user-info .username {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.user-info p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  color: #FFFFFF;
 }
 
 .top-block h2 {
@@ -56,12 +110,10 @@ body {
 }
 
 .top-block p {
-  font-size: 1rem;
+  font-size: 0.9rem;
   opacity: 0.9;
   color: #FFFFFF;
 }
-
-/* основной контент */
 
 .content {
   flex: 1;
@@ -73,16 +125,13 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
-  /*justify-content: center;
-  align-items: center;*/
   color: #2c2a3a;
-  overflow: hidden; /* важно! чтобы блок не растягивался */
-  min-height: 0; /* для корректной работы flex */
-  /* центрирование с выставлением максимальной ширины */
+  overflow: hidden;
+  min-height: 0;
   width: 100%;
-  max-width: 900px;        /* ← максимальная ширина блока */
+  max-width: 900px;
   margin-left: auto;
-  margin-right: auto;      /* ← центрирование */
+  margin-right: auto;
 }
 
 .content p {
@@ -94,13 +143,4 @@ body {
   font-weight: 600;
   font-size: 1.3rem;
   margin-bottom: 8px;
-}
-
-/* содержимое верхнего блока */
-
-.top-block-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
 }

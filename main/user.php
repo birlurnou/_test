@@ -79,9 +79,6 @@ $time_left = $session_lifetime - (time() - $login_time);
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
                 timerElement.textContent = '00:00';
-                /* setTimeout(() => {
-                    window.location.href = '../login/index.php?expired=1';
-                }, 2000); */
                 return;
             }
             

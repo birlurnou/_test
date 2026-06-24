@@ -52,7 +52,8 @@ try {
             $_SESSION['last_activity'] = time();
             
             // определяем страницу для редиректа в зависимости от роли
-            $redirect = in_array($user['role'], ['manager', 'admin']) ? '../processing/index.php' : '../main/user.php';
+            // $redirect = in_array($user['role'], ['manager', 'admin']) ? '../processing/index.php' : '../main/user.php';
+            $redirect = in_array($user['role'], ['manager', 'admin']) ? '../processing/index.php' : '../_test_main/index.php';
             
             echo json_encode([
                 'success' => true,
