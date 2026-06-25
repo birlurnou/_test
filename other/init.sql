@@ -95,9 +95,57 @@ CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     login VARCHAR(50) NOT NULL UNIQUE,
     password TEXT NOT NULL,
-    role VARCHAR(20) NOT NULL
+    role VARCHAR(20) NOT NULL,
+    name VARCHAR(100) DEFAULT NULL
 );
 CREATE INDEX idx_users_login ON users(login);
+
+
+
+
+
+-- new new
+
+
+CREATE TABLE guests (
+    guest_id SERIAL PRIMARY KEY,
+    room_number INT NOT NULL,
+    adult_count INT NOT NULL,
+    child_count INT NOT NULL,
+    arrival_date DATE NOT NULL,
+    departure_date DATE NOT NULL,
+    room_category VARCHAR(50) NOT NULL,
+    attended_date TIMESTAMP NULL DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+
+);
+CREATE TABLE birthdays (
+    birthday_id SERIAL PRIMARY KEY,
+    room_number INT NOT NULL,
+    arrival_date DATE NOT NULL,
+    departure_date DATE NOT NULL,
+    birth_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE comments (
+    comment_id SERIAL PRIMARY KEY,
+    guest_id INT NOT NULL,
+    comment TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(50) DEFAULT NULL
+);
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    login VARCHAR(50) NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    name VARCHAR(100) DEFAULT NULL
+);
+CREATE INDEX idx_users_login ON users(login);
+
+
+
 
 
 -- ON CONFLICT (guest_name_id) DO NOTHING;

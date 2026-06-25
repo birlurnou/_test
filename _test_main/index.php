@@ -31,6 +31,17 @@ if ($_SESSION['role'] !== 'user') {
 
 $login_time = $_SESSION['login_time'];
 $time_left = $session_lifetime - (time() - $login_time);
+
+function truncateText($text, $length) {
+    if (mb_strlen($text) > $length) {
+        return mb_substr($text, 0, $length) . '...';
+    }
+    return $text;
+}
+
+$login = 'User: ' . htmlspecialchars($_SESSION['login']);
+$username = 'Осталось: ' . gmdate('H:i:s', $time_left);
+
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +49,7 @@ $time_left = $session_lifetime - (time() - $login_time);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management</title>
+    <title>Restaurant Accounting</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -48,15 +59,27 @@ $time_left = $session_lifetime - (time() - $login_time);
             <!-- верхний блок -->
             <header class="top-block">
                 <div class="top-block-content">
+
+                    <!-- лого -->
+                    <div class="logo-section">
+                        <img src="assets/logo.webp" alt="Logo" class="logo-image">
+                    </div>
+
+                    <!-- поисковая строка -->
                     <div class="search-section">
                         <input type="text" class="search-input" placeholder="Search room...">
                     </div>
-                    
+
+                    <!-- правая секция -->
                     <div class="right-section">
+
+                        <!-- информация о пользователе -->
                         <div class="user-info">
-                            <p class="username"><?php echo htmlspecialchars($_SESSION['login']); ?></p>
-                            <p>Осталось: <span id="timer"><?php echo gmdate('H:i:s', $time_left); ?></span></p>
+                            <p class="username"><?php echo $login; ?></p>
+                            <p><?php echo $username; ?></p>
                         </div>
+
+                        <!-- кнопка выхода -->
                         <button 
                           onclick="confirmLogout()" 
                           style="
@@ -65,8 +88,8 @@ $time_left = $session_lifetime - (time() - $login_time);
                             background-repeat: no-repeat;
                             background-position: center;
                             background-color: transparent;
-                            width: 40px;
-                            height: 40px;
+                            width: 33px;
+                            height: 33px;
                             border: none;
                             cursor: pointer;
                             text-indent: -9999px;
@@ -81,20 +104,22 @@ $time_left = $session_lifetime - (time() - $login_time);
                         >
                           Выйти
                         </button>
+
                     </div>
+                    
                 </div>
             </header>
 
-            <!-- основной контент -->
+            <!-- основной блок -->
             <main class="content">
 
             </main>
+
         </div>
     </div>
     
     <script src="script.js"></script>
     <script>
-        // Передаем данные из PHP в JS
         window.loginTime = <?php echo $login_time; ?>;
         window.sessionLifetime = <?php echo $session_lifetime; ?>;
     </script>
