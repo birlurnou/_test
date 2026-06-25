@@ -20,6 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentAction = null; // 'edit' или 'copy'
     let currentUserId = null;
 
+    // функция для сброса состояния пароля
+    function resetPasswordVisibility() {
+        passwordInput.type = 'password';
+        togglePassword.style.color = '#9D9AAE';
+    }
+
     // функция для загрузки пользователей с фильтром
     function loadUsers(searchTerm = '') {
         const formData = new FormData();
@@ -132,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 usernameInput.value = user.username;
                 loginInput.disabled = false; // блокируем изменение логина
                 document.querySelector('.modal-title').textContent = 'Edit User';
+                resetPasswordVisibility();
                 openModal();
             } else {
                 alert('Error loading user data');
@@ -166,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 loginInput.disabled = false;
                 usernameInput.disabled = false;
                 document.querySelector('.modal-title').textContent = 'Copy User';
+                resetPasswordVisibility();
                 openModal();
             } else {
                 alert('Error loading user data');
@@ -230,6 +238,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         clearErrors();
 
+        resetPasswordVisibility();
+
         loadUsers(searchInput ? searchInput.value.trim() : '');
     }
 
@@ -245,6 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
             usernameInput.disabled = false;
             document.querySelector('.modal-title').textContent = 'Create New User';
             openModal();
+            resetPasswordVisibility();
         });
     }
 

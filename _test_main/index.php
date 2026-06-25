@@ -84,13 +84,13 @@ $username = htmlspecialchars($_SESSION['username']);
                         <button 
                           onclick="confirmLogout()" 
                           style="
-                            background-image: url('assets/logout2.svg');
+                            background-image: url('assets/logout.svg');
                             background-size: contain;
                             background-repeat: no-repeat;
                             background-position: center;
                             background-color: transparent;
-                            width: 33px;
-                            height: 33px;
+                            width: 32px;
+                            height: 32px;
                             border: none;
                             cursor: pointer;
                             text-indent: -9999px;
