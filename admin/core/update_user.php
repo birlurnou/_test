@@ -13,6 +13,7 @@ $user_id = $_POST['user_id'] ?? 0;
 $login = trim($_POST['login'] ?? '');
 $password = $_POST['password'] ?? '';
 $role = $_POST['role'] ?? 'user';
+$username = trim($_POST['username'] ?? '');
 
 if (empty($user_id)) {
     echo json_encode(['success' => false, 'error' => 'User ID is required']);
@@ -45,6 +46,11 @@ if (!in_array($role, $allowed_roles)) {
     exit;
 }
 
+if (empty($username)) {
+    echo json_encode(['success' => false, 'error' => 'Username is required']);
+    exit;
+}
+
 try {
     // проверяем, существует ли пользователь
     $checkStmt = $pdo->prepare("SELECT user_id FROM users WHERE user_id = :user_id");
@@ -61,7 +67,7 @@ try {
     // обновляем пользователя
     $stmt = $pdo->prepare("
         UPDATE users 
-        SET login = :login, password = :password, role = :role 
+        SET login = :login, password = :password, role = :role, username = :username
         WHERE user_id = :user_id
     ");
     
@@ -69,7 +75,8 @@ try {
         ':login' => $login,
         ':password' => $encrypted_password,
         ':role' => $role,
-        ':user_id' => $user_id
+        ':user_id' => $user_id,
+        ':username' => $username
     ]);
     
     if ($result) {

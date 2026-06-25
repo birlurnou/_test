@@ -24,10 +24,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 
 // проверка роли
-if ($_SESSION['role'] !== 'user') {
-    header('Location: ../login/index.php');
-    exit();
-}
+// if ($_SESSION['role'] !== 'user') {
+//     header('Location: ../login/index.php');
+//     exit();
+// }
 
 $login_time = $_SESSION['login_time'];
 $time_left = $session_lifetime - (time() - $login_time);
@@ -39,8 +39,9 @@ function truncateText($text, $length) {
     return $text;
 }
 
-$login = 'User: ' . htmlspecialchars($_SESSION['login']);
-$username = 'Осталось: ' . gmdate('H:i:s', $time_left);
+$login = htmlspecialchars($_SESSION['login']) . ' ' . gmdate('H:i:s', $time_left);
+// $username = 'Осталось: ' . gmdate('H:i:s', $time_left);
+$username = htmlspecialchars($_SESSION['username']);
 
 ?>
 

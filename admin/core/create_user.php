@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $login = trim($_POST['login'] ?? '');
 $password = $_POST['password'] ?? '';
 $role = $_POST['role'] ?? 'user';
+$username = trim($_POST['username'] ?? '');
 
 // валидация
 if (empty($login)) {
@@ -40,6 +41,11 @@ if (!in_array($role, $allowed_roles)) {
     exit;
 }
 
+if (empty($username)) {
+    echo json_encode(['success' => false, 'error' => 'Username is required']);
+    exit;
+}
+
 try {
     // проверка на существование пользователя
     $checkStmt = $pdo->prepare("SELECT user_id FROM users WHERE login = :login");
@@ -55,14 +61,15 @@ try {
     
     // вставка нового пользователя
     $stmt = $pdo->prepare("
-        INSERT INTO users (login, password, role) 
-        VALUES (:login, :password, :role)
+        INSERT INTO users (login, password, role, username) 
+        VALUES (:login, :password, :role, :username)
     ");
     
     $result = $stmt->execute([
         ':login' => $login,
         ':password' => $encrypted_password,
-        ':role' => $role
+        ':role' => $role,
+        ':username' => $username
     ]);
     
     if ($result) {

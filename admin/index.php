@@ -76,6 +76,11 @@ require_once __DIR__ . '/../config/config.php';
                         <option value="admin">admin</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label class="form-label">Display Name</label>
+                    <input type="text" class="form-input" id="userUsername" placeholder="Enter name">
+                </div>
                 
                 <div class="modal-actions">
                     <button class="modal-btn save-btn" id="saveUserBtn">Save</button>

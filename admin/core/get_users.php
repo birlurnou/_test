@@ -8,12 +8,12 @@ header('Content-Type: application/json');
 $search = isset($_POST['search']) ? trim($_POST['search']) : '';
 
 try {
-    $sql = "SELECT user_id, login, role FROM users";
+    $sql = "SELECT user_id, login, role, username FROM users";
     $params = [];
     
     // если есть поисковый запрос, добавляем условие LIKE
     if (!empty($search)) {
-        $sql .= " WHERE login ILIKE :search"; // ILIKE для регистронезависимого поиска в PostgreSQL
+        $sql .= " WHERE login ILIKE :search OR username ILIKE :search";
         $params[':search'] = '%' . $search . '%';
     }
     

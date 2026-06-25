@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const passwordInput = document.getElementById('userPassword');
     const loginInput = document.getElementById('userLogin');
     const roleSelect = document.getElementById('userRole');
+    const usernameInput = document.getElementById('userUsername');
     const searchInput = document.querySelector('.search-input');
     const usersList = document.querySelector('.users-list');
     const goBtn = document.querySelector('.go-btn');
@@ -128,7 +129,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 loginInput.value = user.login;
                 passwordInput.value = user.password;
                 roleSelect.value = user.role;
-                loginInput.disabled = true; // блокируем изменение логина
+                usernameInput.value = user.username;
+                loginInput.disabled = false; // блокируем изменение логина
                 document.querySelector('.modal-title').textContent = 'Edit User';
                 openModal();
             } else {
@@ -160,7 +162,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 loginInput.value = '';
                 passwordInput.value = '';
                 roleSelect.value = user.role;
+                usernameInput.value = '';
                 loginInput.disabled = false;
+                usernameInput.disabled = false;
                 document.querySelector('.modal-title').textContent = 'Copy User';
                 openModal();
             } else {
@@ -211,10 +215,21 @@ document.addEventListener('DOMContentLoaded', function() {
     function closeModal() {
         modal.classList.remove('active');
         document.body.style.overflow = '';
+
+        loginInput.value = '';
+        loginInput.disabled = false;
+        passwordInput.value = '';
+        roleSelect.value = 'user';
+        usernameInput.value = '';
+        usernameInput.disabled = false;
+
         loginInput.disabled = false;
         document.querySelector('.modal-title').textContent = 'Create New User';
         currentAction = null;
         currentUserId = null;
+
+        clearErrors();
+
         loadUsers(searchInput ? searchInput.value.trim() : '');
     }
 
@@ -225,7 +240,9 @@ document.addEventListener('DOMContentLoaded', function() {
             loginInput.value = '';
             passwordInput.value = '';
             roleSelect.value = 'user';
+            usernameInput.value = '';
             loginInput.disabled = false;
+            usernameInput.disabled = false;
             document.querySelector('.modal-title').textContent = 'Create New User';
             openModal();
         });
@@ -283,6 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const login = loginInput.value.trim();
             const password = passwordInput.value;
             const role = roleSelect.value;
+            const username = usernameInput.value.trim();
             
             let isValid = true;
             
@@ -302,6 +320,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 isValid = false;
             }
             
+            if (!username) {
+                showError(usernameInput, 'Display name is required');
+                isValid = false;
+            } else if (username.length < 2) {
+                showError(usernameInput, 'Display name must be at least 2 characters');
+                isValid = false;
+            }
+
             if (!isValid) {
                 return;
             }
@@ -311,6 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('login', login);
             formData.append('password', password);
             formData.append('role', role);
+            formData.append('username', username);
             
             if (currentAction === 'edit' && currentUserId) {
                 url = 'core/update_user.php';

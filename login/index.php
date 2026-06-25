@@ -8,7 +8,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         // header('Location: ../main/user.php');
         header('Location: ../_test_main/index.php');
     } elseif (in_array($_SESSION['role'], ['manager', 'admin'])) {
-        header('Location: ../processing/index.php');
+        header('Location: ../_test_main/');
     }
     exit();
 }

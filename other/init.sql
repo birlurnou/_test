@@ -109,24 +109,20 @@ CREATE INDEX idx_users_login ON users(login);
 
 CREATE TABLE guests (
     guest_id SERIAL PRIMARY KEY,
+    birth_date DATE NOT NULL,
+    gender VARCHAR(50) NOT NULL,
     room_number INT NOT NULL,
     adult_count INT NOT NULL,
     child_count INT NOT NULL,
     arrival_date DATE NOT NULL,
     departure_date DATE NOT NULL,
     room_category VARCHAR(50) NOT NULL,
+    vip_status VARCHAR(50) NOT NULL,
+    deposit INT NULL DEFAULT NULL,
     attended_date TIMESTAMP NULL DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 
-);
-CREATE TABLE birthdays (
-    birthday_id SERIAL PRIMARY KEY,
-    room_number INT NOT NULL,
-    arrival_date DATE NOT NULL,
-    departure_date DATE NOT NULL,
-    birth_date DATE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE comments (
     comment_id SERIAL PRIMARY KEY,
@@ -146,7 +142,7 @@ CREATE INDEX idx_users_login ON users(login);
 
 
 ALTER TABLE users ADD COLUMN username VARCHAR(100) DEFAULT NULL;
-
+ALTER TABLE users ADD COLUMN username VARCHAR(100) NOT NULL DEFAULT '';
 
 
 

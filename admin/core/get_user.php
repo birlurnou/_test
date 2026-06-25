@@ -17,7 +17,7 @@ if (empty($user_id)) {
 }
 
 try {
-    $stmt = $pdo->prepare("SELECT user_id, login, password, role FROM users WHERE user_id = :user_id");
+    $stmt = $pdo->prepare("SELECT user_id, login, password, role, username FROM users WHERE user_id = :user_id");
     $stmt->execute([':user_id' => $user_id]);
     $user = $stmt->fetch();
     
