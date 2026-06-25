@@ -33,7 +33,7 @@ if (empty($login) || empty($password)) {
 
 try {
     // поиск пользователя по логину
-    $stmt = $pdo->prepare("SELECT user_id, login, password, role FROM users WHERE login = :login");
+    $stmt = $pdo->prepare("SELECT user_id, login, password, role, username FROM users WHERE login = :login");
     $stmt->execute([':login' => $login]);
     $user = $stmt->fetch();
     

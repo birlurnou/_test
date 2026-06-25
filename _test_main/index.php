@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-$session_lifetime = 7200;
+$session_lifetime = 14400;
 
-// Проверяем время входа
+// проверка времени входа
 if (!isset($_SESSION['login_time'])) {
     $_SESSION['login_time'] = time();
 }
 
-// Проверяем, не истекла ли сессия
+// проверка, не истекло ли время жизни сессии
 if (time() - $_SESSION['login_time'] > $session_lifetime) {
     $_SESSION = array();
     session_unset();
@@ -17,13 +17,13 @@ if (time() - $_SESSION['login_time'] > $session_lifetime) {
     exit();
 }
 
-// Проверка авторизации
+// проверка авторизации
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header('Location: ../login/index.php');
     exit();
 }
 
-// Проверка роли
+// проверка роли
 if ($_SESSION['role'] !== 'user') {
     header('Location: ../login/index.php');
     exit();
@@ -106,7 +106,7 @@ $username = 'Осталось: ' . gmdate('H:i:s', $time_left);
                         </button>
 
                     </div>
-                    
+
                 </div>
             </header>
 

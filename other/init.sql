@@ -140,10 +140,12 @@ CREATE TABLE users (
     login VARCHAR(50) NOT NULL UNIQUE,
     password TEXT NOT NULL,
     role VARCHAR(20) NOT NULL,
-    name VARCHAR(100) DEFAULT NULL
+    username VARCHAR(100) DEFAULT NULL
 );
 CREATE INDEX idx_users_login ON users(login);
 
+
+ALTER TABLE users ADD COLUMN username VARCHAR(100) DEFAULT NULL;
 
 
 
