@@ -106,7 +106,7 @@ try:
         'room_category_label': 'room_category'
     })
 
-    result = df[['room_number', 'adult_count', 'child_count', 'guest_name_id', 'arrival_date',
+    result = df[['room_number', 'display_name', 'adult_count', 'child_count', 'guest_name_id', 'arrival_date',
                  'departure_date', 'room_category']].copy() # , 'room_class'
 
     # очистка пустых значений (гостей без номеров)
@@ -139,6 +139,7 @@ try:
 
     # фильтруем дату заселения, оставляем тех, у кого будет завтрак (убираем тех, кто заселён сегодня и в будущем)
     today = pd.Timestamp.now().normalize()
+    print(today)
     result = result.loc[result['arrival_date'] < today]
     result = result.loc[result['departure_date'] >= today]
 

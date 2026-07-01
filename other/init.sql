@@ -4,130 +4,183 @@
 #C0C2C4 - добавочный
 #FFFFFF - добавочный
 
--- удаление
-DROP TABLE IF EXISTS breakfast_guests CASCADE;
-DROP TABLE IF EXISTS guests CASCADE;
-DROP TABLE IF EXISTS rooms CASCADE;
-DROP TABLE IF EXISTS comments CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
+-- boxes
+1   room_number                     -- номер комнаты                 -- int
+2   adult_count                     -- кол-во взрослых               -- int
+3   child_count                     -- кол-во детей                  -- int
+4   f_name                          -- полное имя (eng)              -- nvarchar(255)
+5   alt_f_name                      -- полное имя (rus)              -- nvarchar(255)
+6   title                           -- title                         -- nvarchar(25)
+7   birth_date                      -- дата рождения                 -- date
+8   vip_code                        -- vip статус (код)              -- nvarchar(25)
+9   vip_code_description            -- vip статус (расшифровка)      -- nvarchar(255)
+10  arrival_date                    -- дата заезда                   -- date
+11  departure_date                  -- дата выезда                   -- date
+12  membership_level_tng            -- уровень приорити в tng        -- nvarchar(255)
+13  room_type                       -- название комнаты              -- nvarchar(255)
+14  room_class                      -- класс комнаты                 -- nvarchar(255)
+15  language                        -- язык                          -- nvarchar(25)
+16  nationality_code                -- национальность (код)          -- nvarchar(25)
+17  nationality_code_description    -- национальность (расшифровка)  -- nvarchar(255)
+18  profile_id                      -- номер профайла                -- int
+19  reservation_id                  -- номер бронирования            -- int
+20  reservation_status              -- статус бронирования           -- nvarchar(255)
+21  arrival_time                    -- время заселения               -- nvarchar(25)
+22  departure_time                  -- время выселения               -- nvarchar(25)
 
-DROP TABLE IF EXISTS records CASCADE;
-DROP TABLE IF EXISTS birthdays CASCADE;
-DROP TABLE IF EXISTS comments CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
 
--- удаляем все данные
-DELETE FROM breakfast_guests;
+-- room box
+room_number
+room_type
 
--- структура
+language (any)
+nationality_code (any)
 
-CREATE TABLE rooms (
-    room_id SERIAL PRIMARY KEY,
-    room_number VARCHAR(10) NOT NULL UNIQUE,
-    room_type VARCHAR(20) NOT NULL CHECK (room_type IN ('standard', 'club', 'deluxe', 'luxe'))
-);
+adult_count
+child_count
+vip_code (vip_code_description)
+membership_level_tng
+
+
+-- guest box
+f_name
+alt_f_name
+birth_date
+arrival_date
+arrival_time
+departure_date
+departure_time
+language
+nationality_code_description
+profile_id
+
+*attended_at
+
+
+
+-- structure
+guests - гости
+records - дневные записи с гостями
+comments - комментарии, привязанные к гостям
+
+-- параметры, получаемые из отчёта
+1   room_number                     -- номер комнаты                 -- int
+2   adult_count                     -- кол-во взрослых               -- int
+3   child_count                     -- кол-во детей                  -- int
+4   f_name                          -- полное имя (eng)              -- nvarchar(255)
+5   alt_f_name                      -- полное имя (rus)              -- nvarchar(255)
+6   title                           -- title                         -- nvarchar(25)
+7   birth_date                      -- дата рождения                 -- date
+8   vip_code                        -- vip статус (код)              -- nvarchar(25)
+9   vip_code_description            -- vip статус (расшифровка)      -- nvarchar(255)
+10  arrival_date                    -- дата заезда                   -- date
+11  departure_date                  -- дата выезда                   -- date
+12  membership_level_tng            -- уровень приорити в tng        -- nvarchar(255)
+13  room_type                       -- название комнаты              -- nvarchar(255)
+14  room_class                      -- класс комнаты                 -- nvarchar(255)
+15  language                        -- язык                          -- nvarchar(25)
+16  nationality_code                -- национальность (код)          -- nvarchar(25)
+17  nationality_code_description    -- национальность (расшифровка)  -- nvarchar(255)
+18  profile_id                      -- номер профайла                -- int
+19  reservation_id                  -- номер бронирования            -- int
+20  reservation_status              -- статус бронирования           -- nvarchar(255)
+21  arrival_time                    -- время заселения               -- nvarchar(25)
+22  departure_time                  -- время выселения               -- nvarchar(25)
+
+-- [guests] as g
+guest_id
++
+(
+    f_name
+    alt_f_name
+    birth_date
+    profile_id
+    *created_at
+    *updated_at
+)
+
+-- [records] as r
+record_id
++
+(   
+    room_number
+    adult_count
+    child_count
+    title
+    vip_code
+    vip_code_description
+    arrival_date
+    departure_date
+    membership_level_tng
+    room_type
+    room_class
+    language
+    nationality_code
+    nationality_code_description
+    reservation_id
+    reservation_status
+    arrival_time
+    departure_time
+
+    g.guest_id
+    g.f_name
+    g.alt_f_name
+    g.birth_date
+    g.profile_id
+
+    *attended_at
+    *created_at
+)
+
+-- [comments] as c
+comment_id
++
+(
+    g.guest_id
+
+    *comment
+    *created_at
+    *created_by
+)
+
+-- таблицы
 CREATE TABLE guests (
     guest_id SERIAL PRIMARY KEY,
-    room_id INT NOT NULL REFERENCES rooms(room_id),
-    name VARCHAR(100) NOT NULL,
-    birth_date DATE NOT NULL,
-    arrival_date DATE NOT NULL,
-    departure_date DATE NOT NULL,
-    attended_date TIMESTAMP NULL DEFAULT NULL,
+    f_name VARCHAR(255),
+    alt_f_name VARCHAR(255),
+    birth_date DATE,
+    profile_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    guest_type VARCHAR(10) NOT NULL CHECK (guest_type IN ('adult', 'child')),
-    gender VARCHAR(10) CHECK (gender IN ('male', 'female', 'other'))
+    updated_at TIMESTAMP DEFAULT NULL
 );
-CREATE INDEX idx_guests_created_at ON guests(created_at);
-CREATE INDEX idx_guests_room ON guests(room_id);
-CREATE INDEX idx_guests_attended ON guests(attended_date) WHERE attended_date IS NOT NULL;
-CREATE TABLE comments (
-    comment_id SERIAL PRIMARY KEY,
-    guest_id INT NOT NULL REFERENCES guests(guest_id) ON DELETE CASCADE,
-    comment TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by VARCHAR(50)
-);
-CREATE INDEX idx_comments_guest ON comments(guest_id);
-CREATE TABLE IF NOT EXISTS users (
-    user_id SERIAL PRIMARY KEY,
-    login VARCHAR(50) NOT NULL UNIQUE,
-    password TEXT NOT NULL,
-    role VARCHAR(20) NOT NULL
-);
-CREATE INDEX idx_users_login ON users(login);
-
-
-
--- new
-
 CREATE TABLE records (
     record_id SERIAL PRIMARY KEY,
-    room_number INT NOT NULL,
-    guest_id INT NOT NULL,
-    adult_count INT NOT NULL,
-    child_count INT NOT NULL,
-    arrival_date DATE NOT NULL,
-    departure_date DATE NOT NULL,
-    room_category VARCHAR(50) NOT NULL,
-    attended_date TIMESTAMP NULL DEFAULT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-CREATE TABLE visits (
-    visit_id
-)
-CREATE TABLE birthdays (
-    birthday_id SERIAL PRIMARY KEY,
-    room_number INT NOT NULL,
-    arrival_date DATE NOT NULL,
-    departure_date DATE NOT NULL,
-    birth_date DATE NOT NULL,
+    room_number INT,
+    adult_count INT,
+    child_count INT,
+    title VARCHAR(25),
+    vip_code VARCHAR(25),
+    vip_code_description VARCHAR(255),
+    arrival_date DATE,
+    departure_date DATE,
+    membership_level_tng VARCHAR(255),
+    room_type VARCHAR(255),
+    room_class VARCHAR(255),
+    language VARCHAR(25),
+    nationality_code VARCHAR(25),
+    nationality_code_description VARCHAR(255),
+    reservation_id INT,
+    reservation_status VARCHAR(255),
+    arrival_time  VARCHAR(25),
+    departure_time VARCHAR(25),
+    guest_id INT REFERENCES guests(guest_id) ON DELETE CASCADE,
+    attended_at TIMESTAMP NULL DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE comments (
     comment_id SERIAL PRIMARY KEY,
-    guest_id INT NOT NULL,
-    comment TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by VARCHAR(50) DEFAULT NULL
-);
-CREATE TABLE users (
-    user_id SERIAL PRIMARY KEY,
-    login VARCHAR(50) NOT NULL UNIQUE,
-    password TEXT NOT NULL,
-    role VARCHAR(20) NOT NULL,
-    name VARCHAR(100) DEFAULT NULL
-);
-CREATE INDEX idx_users_login ON users(login);
-
-
-
-
-
--- new new
-
-
-CREATE TABLE guests (
-    guest_id SERIAL PRIMARY KEY,
-    birth_date DATE NOT NULL,
-    gender VARCHAR(50) NOT NULL,
-    room_number INT NOT NULL,
-    adult_count INT NOT NULL,
-    child_count INT NOT NULL,
-    arrival_date DATE NOT NULL,
-    departure_date DATE NOT NULL,
-    room_category VARCHAR(50) NOT NULL,
-    vip_status VARCHAR(50) NOT NULL,
-    deposit INT NULL DEFAULT NULL,
-    attended_date TIMESTAMP NULL DEFAULT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
-
-);
-CREATE TABLE comments (
-    comment_id SERIAL PRIMARY KEY,
-    guest_id INT NOT NULL,
-    comment TEXT NOT NULL,
+    guest_id INT REFERENCES guests(guest_id) ON DELETE CASCADE,
+    comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by VARCHAR(50) DEFAULT NULL
 );
@@ -138,664 +191,26 @@ CREATE TABLE users (
     role VARCHAR(20) NOT NULL,
     username VARCHAR(100) DEFAULT NULL
 );
+
+-- индексы
+CREATE INDEX idx_records_guest_id ON records(guest_id);
+CREATE INDEX idx_records_arrival_date ON records(arrival_date);
+CREATE INDEX idx_records_departure_date ON records(departure_date);
+CREATE INDEX idx_records_room_number ON records(room_number);
+CREATE INDEX idx_comments_guest_id ON comments(guest_id);
 CREATE INDEX idx_users_login ON users(login);
 
+-- удаление
+DROP TABLE IF EXISTS guests CASCADE;
+DROP TABLE IF EXISTS records CASCADE;
+DROP TABLE IF EXISTS comments CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
-ALTER TABLE users ADD COLUMN username VARCHAR(100) DEFAULT NULL;
-ALTER TABLE users ADD COLUMN username VARCHAR(100) NOT NULL DEFAULT '';
+-- удаляем все данные
+DELETE FROM guests;
+DELETE FROM records;
+DELETE FROM comments;
+DELETE FROM users;
 
-
-
--- ON CONFLICT (guest_name_id) DO NOTHING;
-INSERT INTO records (room_number, guest_id, adult_count, child_count, arrival_date, departure_date) VALUES 
-(500, '35254587', 3, 0, '2026-06-21', '2026-06-22'),
-(520, '13523105', 2, 0, '2026-06-21', '2026-06-22');
-INSERT INTO birthdays (room_number, arrival_date, departure_date, birth_date) VALUES
-(500, '2026-06-21', '2026-06-22', '1986-06-23');
-INSERT INTO comments (guest_id, comment) VALUES
-('35254587', 'крутой чел');
-
-select
-    r.*,
-    count(b.birth_date) as birth_count
-from records r
-left join birthdays b on
-r.room_number = b.room_number and
-date_trunc('day', r.created_at) = date_trunc('day', b.created_at)
-where date_trunc('day', r.created_at) = date_trunc('day', (select now() at time zone 'Asia/Yekaterinburg'))
-group by 1;
-
-select
-    r.*,
-    b.birth_date
-from records r
-left join birthdays b on
-r.room_number = b.room_number and
-date_trunc('day', r.created_at) = date_trunc('day', b.created_at)
-where date_trunc('day', r.created_at) = date_trunc('day', (select now() at time zone 'Asia/Yekaterinburg'));
-
-select
-    r.room_number,
-    b.birth_date
-from records r
-join birthdays b on
-r.room_number = b.room_number and
-date_trunc('day', r.created_at) = date_trunc('day', b.created_at)
-where date_trunc('day', r.created_at) = date_trunc('day', (select now() at time zone 'Asia/Yekaterinburg'));
-
--- вставляем данные
-INSERT INTO breakfast_guests (room_number, status, guest_type, birth_date, attended, attended_date, gender) VALUES
-('0902', 'standard', 'adult', '1990-12-01', FALSE, NULL, 'male'),
-('1003', 'club', 'adult', '1990-11-01', FALSE, NULL, 'male'),
-('1104', 'deluxe', 'adult', '2000-06-01', FALSE, NULL, 'female'),
-('1205', 'luxe', 'adult', '1980-05-31', FALSE, NULL, 'female'),
-('1206', 'luxe', 'child', '2015-06-03', FALSE, NULL, 'female')
-
-room_number =
-    500, 502, 504, 506, 508, 509, 510, 512, 514, 516, 518, 520, 522, 524, 526, 528, 530, 532, 534,
-    600, 602, 604, 606, 608, 609, 610, 612, 614, 616, 618, 620, 622, 624, 626, 628, 630, 632, 634,
-    700, 702, 704, 706, 708, 709, 710, 712, 714, 716, 717, 718, 720, 722, 724, 725, 726, 728, 730, 732, 734,
-    800, 802, 804, 806, 808, 809, 810, 812, 814, 816, 817, 818, 820, 822, 824, 825, 826, 828, 830, 832, 834,
-    900, 902, 904, 906, 908, 909, 910, 912, 914, 916, 917, 918, 920, 922, 924, 925, 926, 928, 930, 932, 934,
-    1000, 1002, 1004, 1006, 1008, 1009, 1010, 1012, 1014, 1016, 1017, 1018, 1020, 1022, 1024, 1025, 1026, 1028, 1030, 1032, 1034,
-    1100, 1102, 1104, 1106, 1108, 1109, 1110, 1112, 1114, 1116, 1117, 1118, 1120, 1122, 1124, 1125, 1126, 1128, 1130, 1132, 1134,
-    1200, 1202, 1204, 1206, 1208, 1209, 1210, 1212, 1214, 1216, 1217, 1218, 1220, 1222, 1224, 1225, 1226, 1228, 1230, 1232, 1234,
-    1300, 1302, 1304, 1306, 1308, 1309, 1310, 1312, 1314, 1316, 1317, 1318, 1320, 1322, 1324, 1325, 1326, 1328, 1330, 1332, 1334,
-    1400, 1402, 1404, 1406, 1408, 1409, 1410, 1412, 1414, 1416, 1417, 1418, 1420, 1422, 1424, 1425, 1426, 1428, 1430, 1432, 1434,
-    1500, 1502, 1504, 1506, 1508, 1509, 1510, 1512, 1514, 1516, 1517, 1518, 1520, 1522, 1524, 1525, 1526, 1528, 1530, 1532, 1534,
-    1600, 1602, 1604, 1606, 1608, 1609, 1610, 1612, 1614, 1616, 1617, 1618, 1620, 1622, 1624, 1625, 1626, 1628, 1630, 1632, 1634,
-    1700, 1702, 1704, 1706, 1708, 1709, 1710, 1712, 1714, 1716, 1717, 1718, 1720, 1722, 1724, 1725, 1726, 1728, 1730, 1732, 1734,
-    1800, 1802, 1804, 1806, 1807, 1808, 1810, 1811, 1812, 1814, 1816, 1818,
-    1902, 1904, 1906, 1908, 1910, 1911, 1912, 1914, 1916, 1918, 1919, 1920
-
-
-INSERT INTO rooms (room_number, room_type) VALUES
-('0500', 'deluxe'),
-('0502', 'standard'),
-('0504', 'club'),
-('0506', 'deluxe'),
-('0508', 'club'),
-('0509', 'deluxe'),
-('0510', 'luxe'),
-('0512', 'club'),
-('0514', 'luxe'),
-('0516', 'luxe'),
-('0518', 'club'),
-('0520', 'deluxe'),
-('0522', 'luxe'),
-('0524', 'standard'),
-('0526', 'deluxe'),
-('0528', 'deluxe'),
-('0530', 'deluxe'),
-('0532', 'standard'),
-('0534', 'standard'),
-('0600', 'standard'),
-('0602', 'standard'),
-('0604', 'standard'),
-('0606', 'club'),
-('0608', 'club'),
-('0609', 'club'),
-('0610', 'standard'),
-('0612', 'luxe'),
-('0614', 'club'),
-('0616', 'standard'),
-('0618', 'standard'),
-('0620', 'luxe'),
-('0622', 'standard'),
-('0624', 'deluxe'),
-('0626', 'deluxe'),
-('0628', 'luxe'),
-('0630', 'luxe'),
-('0632', 'luxe'),
-('0634', 'standard'),
-('0700', 'club'),
-('0702', 'standard'),
-('0704', 'luxe'),
-('0706', 'deluxe'),
-('0708', 'luxe'),
-('0709', 'luxe'),
-('0710', 'deluxe'),
-('0712', 'club'),
-('0714', 'standard'),
-('0716', 'luxe'),
-('0717', 'standard'),
-('0718', 'standard'),
-('0720', 'luxe'),
-('0722', 'deluxe'),
-('0724', 'deluxe'),
-('0725', 'club'),
-('0726', 'club'),
-('0728', 'standard'),
-('0730', 'deluxe'),
-('0732', 'standard'),
-('0734', 'club'),
-('0800', 'deluxe'),
-('0802', 'standard'),
-('0804', 'luxe'),
-('0806', 'standard'),
-('0808', 'luxe'),
-('0809', 'standard'),
-('0810', 'club'),
-('0812', 'luxe'),
-('0814', 'standard'),
-('0816', 'luxe'),
-('0817', 'club'),
-('0818', 'luxe'),
-('0820', 'standard'),
-('0822', 'club'),
-('0824', 'deluxe'),
-('0825', 'luxe'),
-('0826', 'standard'),
-('0828', 'club'),
-('0830', 'deluxe'),
-('0832', 'deluxe'),
-('0834', 'club'),
-('0900', 'standard'),
-('0902', 'luxe'),
-('0904', 'standard'),
-('0906', 'club'),
-('0908', 'luxe'),
-('0909', 'club'),
-('0910', 'luxe'),
-('0912', 'luxe'),
-('0914', 'club'),
-('0916', 'luxe'),
-('0917', 'luxe'),
-('0918', 'club'),
-('0920', 'luxe'),
-('0922', 'deluxe'),
-('0924', 'club'),
-('0925', 'standard'),
-('0926', 'standard'),
-('0928', 'club'),
-('0930', 'luxe'),
-('0932', 'standard'),
-('0934', 'club'),
-('1000', 'club'),
-('1002', 'deluxe'),
-('1004', 'standard'),
-('1006', 'club'),
-('1008', 'luxe'),
-('1009', 'club'),
-('1010', 'deluxe'),
-('1012', 'standard'),
-('1014', 'luxe'),
-('1016', 'luxe'),
-('1017', 'deluxe'),
-('1018', 'standard'),
-('1020', 'standard'),
-('1022', 'standard'),
-('1024', 'standard'),
-('1025', 'club'),
-('1026', 'deluxe'),
-('1028', 'luxe'),
-('1030', 'club'),
-('1032', 'club'),
-('1034', 'luxe'),
-('1100', 'standard'),
-('1102', 'deluxe'),
-('1104', 'club'),
-('1106', 'luxe'),
-('1108', 'luxe'),
-('1109', 'deluxe'),
-('1110', 'deluxe'),
-('1112', 'standard'),
-('1114', 'club'),
-('1116', 'standard'),
-('1117', 'luxe'),
-('1118', 'standard'),
-('1120', 'standard'),
-('1122', 'deluxe'),
-('1124', 'luxe'),
-('1125', 'luxe'),
-('1126', 'luxe'),
-('1128', 'deluxe'),
-('1130', 'luxe'),
-('1132', 'deluxe'),
-('1134', 'club'),
-('1200', 'standard'),
-('1202', 'deluxe'),
-('1204', 'club'),
-('1206', 'luxe'),
-('1208', 'luxe'),
-('1209', 'luxe'),
-('1210', 'standard'),
-('1212', 'club'),
-('1214', 'standard'),
-('1216', 'club'),
-('1217', 'luxe'),
-('1218', 'luxe'),
-('1220', 'deluxe'),
-('1222', 'standard'),
-('1224', 'club'),
-('1225', 'luxe'),
-('1226', 'luxe'),
-('1228', 'deluxe'),
-('1230', 'standard'),
-('1232', 'deluxe'),
-('1234', 'deluxe'),
-('1300', 'standard'),
-('1302', 'standard'),
-('1304', 'luxe'),
-('1306', 'luxe'),
-('1308', 'club'),
-('1309', 'club'),
-('1310', 'club'),
-('1312', 'deluxe'),
-('1314', 'standard'),
-('1316', 'standard'),
-('1317', 'deluxe'),
-('1318', 'club'),
-('1320', 'luxe'),
-('1322', 'deluxe'),
-('1324', 'deluxe'),
-('1325', 'club'),
-('1326', 'deluxe'),
-('1328', 'luxe'),
-('1330', 'luxe'),
-('1332', 'club'),
-('1334', 'standard'),
-('1400', 'standard'),
-('1402', 'deluxe'),
-('1404', 'standard'),
-('1406', 'deluxe'),
-('1408', 'club'),
-('1409', 'standard'),
-('1410', 'deluxe'),
-('1412', 'club'),
-('1414', 'luxe'),
-('1416', 'luxe'),
-('1417', 'deluxe'),
-('1418', 'deluxe'),
-('1420', 'luxe'),
-('1422', 'luxe'),
-('1424', 'deluxe'),
-('1425', 'club'),
-('1426', 'luxe'),
-('1428', 'luxe'),
-('1430', 'deluxe'),
-('1432', 'luxe'),
-('1434', 'deluxe'),
-('1500', 'deluxe'),
-('1502', 'deluxe'),
-('1504', 'club'),
-('1506', 'deluxe'),
-('1508', 'luxe'),
-('1509', 'luxe'),
-('1510', 'standard'),
-('1512', 'luxe'),
-('1514', 'deluxe'),
-('1516', 'club'),
-('1517', 'luxe'),
-('1518', 'luxe'),
-('1520', 'deluxe'),
-('1522', 'deluxe'),
-('1524', 'luxe'),
-('1525', 'luxe'),
-('1526', 'club'),
-('1528', 'deluxe'),
-('1530', 'club'),
-('1532', 'luxe'),
-('1534', 'standard'),
-('1600', 'luxe'),
-('1602', 'standard'),
-('1604', 'club'),
-('1606', 'luxe'),
-('1608', 'luxe'),
-('1609', 'luxe'),
-('1610', 'standard'),
-('1612', 'deluxe'),
-('1614', 'deluxe'),
-('1616', 'club'),
-('1617', 'club'),
-('1618', 'standard'),
-('1620', 'club'),
-('1622', 'luxe'),
-('1624', 'luxe'),
-('1625', 'standard'),
-('1626', 'standard'),
-('1628', 'standard'),
-('1630', 'deluxe'),
-('1632', 'club'),
-('1634', 'deluxe'),
-('1700', 'standard'),
-('1702', 'club'),
-('1704', 'standard'),
-('1706', 'club'),
-('1708', 'luxe'),
-('1709', 'luxe'),
-('1710', 'deluxe'),
-('1712', 'deluxe'),
-('1714', 'club'),
-('1716', 'luxe'),
-('1717', 'standard'),
-('1718', 'standard'),
-('1720', 'deluxe'),
-('1722', 'club'),
-('1724', 'luxe'),
-('1725', 'club'),
-('1726', 'luxe'),
-('1728', 'standard'),
-('1730', 'standard'),
-('1732', 'standard'),
-('1734', 'deluxe'),
-('1800', 'standard'),
-('1802', 'standard'),
-('1804', 'club'),
-('1806', 'deluxe'),
-('1807', 'club'),
-('1808', 'deluxe'),
-('1810', 'standard'),
-('1811', 'club'),
-('1812', 'deluxe'),
-('1814', 'club'),
-('1816', 'luxe'),
-('1818', 'standard'),
-('1902', 'deluxe'),
-('1904', 'deluxe'),
-('1906', 'club'),
-('1908', 'club'),
-('1910', 'club'),
-('1911', 'club'),
-('1912', 'deluxe'),
-('1914', 'luxe'),
-('1916', 'deluxe'),
-('1918', 'standard'),
-('1919', 'standard'),
-('1920', 'luxe')
-
-
-INSERT INTO guests (room_id, name, birth_date, arrival_date, departure_date, guest_type, gender) VALUES
-('62', 'Ray Unzicker', '1997-01-02', '2026-06-01', '2026-06-03', 'adult', 'male'),
-('234', 'Iris Fragoso', '2021-12-03', '2026-06-01', '2026-06-02', 'child', 'female'),
-('194', 'Todd Henry', '2019-05-20', '2026-06-02', '2026-06-05', 'child', 'male'),
-('256', 'Gary Hernandez', '1991-09-16', '2026-06-02', '2026-06-06', 'adult', 'male'),
-('279', 'Betty Moore', '2005-04-24', '2026-06-03', '2026-06-05', 'adult', 'female'),
-('19', 'Jimmy Netterville', '2004-08-14', '2026-06-03', '2026-06-06', 'adult', 'male'),
-('238', 'Elizabeth Witman', '2014-04-05', '2026-06-05', '2026-06-06', 'child', 'female'),
-('5', 'Donald Sannicolas', '1999-01-15', '2026-06-03', '2026-06-07', 'adult', 'male'),
-('36', 'William Maser', '2005-12-02', '2026-06-05', '2026-06-06', 'adult', 'male'),
-('49', 'Jack Seel', '1999-12-16', '2026-06-05', '2026-06-07', 'adult', 'male'),
-('130', 'Gary Bishop', '2006-11-01', '2026-06-02', '2026-06-05', 'adult', 'male'),
-('248', 'Paul Martinez', '2018-03-31', '2026-06-05', '2026-06-06', 'child', 'male'),
-('108', 'Mandy Hebert', '2005-02-16', '2026-06-01', '2026-06-03', 'adult', 'female'),
-('4', 'Frank May', '2018-05-04', '2026-06-01', '2026-06-03', 'child', 'male'),
-('138', 'Ralph Hinson', '2005-07-12', '2026-06-04', '2026-06-08', 'adult', 'male'),
-('130', 'Irene Finley', '2020-01-14', '2026-06-03', '2026-06-04', 'child', 'female'),
-('186', 'Raymond Keepers', '2005-07-05', '2026-06-04', '2026-06-05', 'adult', 'male'),
-('53', 'Julie Howard', '2007-09-08', '2026-06-02', '2026-06-06', 'adult', 'female'),
-('121', 'Diane Tosten', '2000-03-06', '2026-06-02', '2026-06-06', 'adult', 'female'),
-('198', 'Brian Morrell', '2008-10-13', '2026-06-05', '2026-06-06', 'adult', 'male'),
-('197', 'Jessica Frederick', '2020-03-12', '2026-06-02', '2026-06-03', 'child', 'female'),
-('207', 'Anna Shelvey', '2009-12-12', '2026-06-04', '2026-06-08', 'adult', 'female'),
-('67', 'James Uriarte', '1995-05-23', '2026-06-02', '2026-06-05', 'adult', 'male'),
-('208', 'Thomas Schroeder', '2012-03-24', '2026-06-01', '2026-06-05', 'adult', 'male'),
-('53', 'Michael Cheek', '1998-09-25', '2026-06-02', '2026-06-06', 'adult', 'male'),
-('280', 'Christopher Russell', '2007-01-01', '2026-06-04', '2026-06-07', 'adult', 'male'),
-('252', 'Eric Smith', '2021-04-27', '2026-06-05', '2026-06-06', 'child', 'male'),
-('189', 'Edgar Buchanan', '1992-04-09', '2026-06-02', '2026-06-06', 'adult', 'male'),
-('265', 'Ernest Dicicco', '2015-10-27', '2026-06-03', '2026-06-06', 'child', 'male'),
-('113', 'Floyd Fetty', '2012-07-12', '2026-06-02', '2026-06-06', 'adult', 'male'),
-('259', 'Kayla Shoup', '2001-05-26', '2026-06-01', '2026-06-05', 'adult', 'female'),
-('33', 'Kenneth King', '1996-12-06', '2026-06-05', '2026-06-09', 'adult', 'male'),
-('203', 'Cynthia Souers', '1991-01-22', '2026-06-02', '2026-06-05', 'adult', 'female'),
-('113', 'Maria Kyseth', '1998-01-04', '2026-06-03', '2026-06-05', 'adult', 'female'),
-('40', 'Timothy Woodward', '2019-08-31', '2026-06-01', '2026-06-02', 'child', 'male'),
-('126', 'Jeannette Penn', '2005-05-11', '2026-06-02', '2026-06-04', 'adult', 'female'),
-('13', 'Michael Gray', '2008-04-29', '2026-06-04', '2026-06-06', 'adult', 'male'),
-('91', 'Brenda Mcdonald', '2016-12-13', '2026-06-01', '2026-06-04', 'child', 'female'),
-('136', 'Nedra Brooks', '2013-06-17', '2026-06-03', '2026-06-06', 'child', 'female'),
-('242', 'Nelson Carter', '2002-10-25', '2026-06-03', '2026-06-07', 'adult', 'male'),
-('230', 'Sarah Oliver', '2011-12-31', '2026-06-03', '2026-06-05', 'adult', 'female'),
-('21', 'Augustine Hagen', '2013-05-28', '2026-06-04', '2026-06-08', 'child', 'male'),
-('228', 'Larry Lebeau', '2006-12-11', '2026-06-04', '2026-06-06', 'adult', 'male'),
-('32', 'Andrew Scheller', '2018-02-12', '2026-06-01', '2026-06-04', 'child', 'male'),
-('133', 'Ruby Gongora', '2014-02-14', '2026-06-04', '2026-06-08', 'child', 'female'),
-('169', 'Fidel Dobson', '2020-08-26', '2026-06-04', '2026-06-08', 'child', 'male'),
-('63', 'Saturnina Bell', '1996-06-17', '2026-06-03', '2026-06-06', 'adult', 'female'),
-('283', 'Todd Sherling', '2019-01-22', '2026-06-05', '2026-06-07', 'child', 'male'),
-('33', 'Thelma Black', '2001-01-27', '2026-06-05', '2026-06-07', 'adult', 'female'),
-('96', 'Patrick Jemerson', '1999-03-29', '2026-06-05', '2026-06-08', 'adult', 'male'),
-('95', 'Linda Edwards', '2004-10-17', '2026-06-01', '2026-06-05', 'adult', 'female'),
-('258', 'Tammy Harmon', '2013-10-03', '2026-06-03', '2026-06-04', 'child', 'female'),
-('105', 'Bobby Corathers', '2013-04-17', '2026-06-03', '2026-06-05', 'child', 'male'),
-('35', 'Minnie Fender', '2005-05-09', '2026-06-01', '2026-06-03', 'adult', 'female'),
-('214', 'Jonathan Solano', '1998-05-17', '2026-06-04', '2026-06-05', 'adult', 'male'),
-('74', 'Bertha Sanders', '1996-08-31', '2026-06-05', '2026-06-09', 'adult', 'female'),
-('257', 'Nina Allen', '2015-05-04', '2026-06-01', '2026-06-05', 'child', 'female'),
-('115', 'John Dreese', '2014-08-04', '2026-06-04', '2026-06-06', 'child', 'male'),
-('67', 'Michael Gray', '1991-05-31', '2026-06-03', '2026-06-04', 'adult', 'male'),
-('254', 'Jose Beckel', '2004-06-08', '2026-06-04', '2026-06-06', 'adult', 'male'),
-('125', 'Ellen Worrell', '2019-10-13', '2026-06-04', '2026-06-06', 'child', 'female'),
-('35', 'Curtis Darnell', '2007-12-02', '2026-06-02', '2026-06-06', 'adult', 'male'),
-('219', 'John Hatfield', '2009-02-11', '2026-06-05', '2026-06-06', 'adult', 'male'),
-('77', 'Alice Hamilton', '2013-11-09', '2026-06-03', '2026-06-05', 'child', 'female'),
-('259', 'Katherine Harris', '1990-02-18', '2026-06-05', '2026-06-09', 'adult', 'female'),
-('40', 'Deborah Dias', '2013-10-18', '2026-06-04', '2026-06-08', 'child', 'female'),
-('184', 'Tiffany Ferrero', '2012-09-08', '2026-06-05', '2026-06-06', 'adult', 'female'),
-('274', 'Eugene Andre', '2005-10-17', '2026-06-02', '2026-06-04', 'adult', 'male'),
-('274', 'Gia Daigle', '2001-02-05', '2026-06-01', '2026-06-04', 'adult', 'female'),
-('267', 'Bonnie Walling', '2008-09-24', '2026-06-01', '2026-06-02', 'adult', 'female'),
-('163', 'Frederick Tyler', '1995-03-26', '2026-06-05', '2026-06-09', 'adult', 'male'),
-('207', 'Jeff Hertzler', '2009-10-20', '2026-06-01', '2026-06-05', 'adult', 'male'),
-('69', 'Marvin Coombs', '2005-03-08', '2026-06-03', '2026-06-06', 'adult', 'male'),
-('36', 'Roscoe Larson', '2002-12-18', '2026-06-03', '2026-06-05', 'adult', 'male'),
-('288', 'Joe Oneil', '1997-12-05', '2026-06-01', '2026-06-02', 'adult', 'male'),
-('134', 'Jaime Bryant', '2013-08-08', '2026-06-01', '2026-06-05', 'child', 'male'),
-('75', 'Anne Mccready', '2010-07-06', '2026-06-04', '2026-06-07', 'adult', 'female'),
-('217', 'Shirley Shannon', '1995-09-03', '2026-06-02', '2026-06-03', 'adult', 'female'),
-('83', 'Paul Despain', '2005-09-16', '2026-06-04', '2026-06-07', 'adult', 'male'),
-('50', 'Mark Pelletier', '1993-10-15', '2026-06-01', '2026-06-05', 'adult', 'male'),
-('122', 'Francisco Boyd', '1993-03-28', '2026-06-03', '2026-06-07', 'adult', 'male'),
-('43', 'Joe Vogel', '2016-03-13', '2026-06-05', '2026-06-07', 'child', 'male'),
-('213', 'Christine Vines', '2004-08-28', '2026-06-05', '2026-06-08', 'adult', 'female'),
-('125', 'Leroy Martin', '1992-08-28', '2026-06-04', '2026-06-06', 'adult', 'male'),
-('282', 'Alan Thielen', '2003-12-16', '2026-06-03', '2026-06-05', 'adult', 'male'),
-('24', 'John Revell', '2015-12-29', '2026-06-04', '2026-06-07', 'child', 'male'),
-('136', 'Kimberly Gill', '2004-05-18', '2026-06-03', '2026-06-07', 'adult', 'female'),
-('8', 'Debra Eibell', '2014-03-29', '2026-06-02', '2026-06-04', 'child', 'female'),
-('59', 'Bette James', '2000-06-03', '2026-06-04', '2026-06-07', 'adult', 'female'),
-('204', 'Marie Jones', '1995-06-18', '2026-06-05', '2026-06-08', 'adult', 'female'),
-('142', 'Clarence Schoof', '1994-06-14', '2026-06-04', '2026-06-07', 'adult', 'male'),
-('67', 'Wanda Lumukanda', '2013-12-29', '2026-06-03', '2026-06-07', 'child', 'female'),
-('76', 'Mark Layland', '2000-07-13', '2026-06-03', '2026-06-06', 'adult', 'male'),
-('223', 'Lucile Ashcraft', '2006-06-08', '2026-06-05', '2026-06-08', 'adult', 'female'),
-('180', 'Hattie Lopez', '2003-12-30', '2026-06-03', '2026-06-06', 'adult', 'female'),
-('223', 'James Shary', '1990-03-01', '2026-06-01', '2026-06-03', 'adult', 'male'),
-('248', 'Laura Paxson', '2011-01-11', '2026-06-02', '2026-06-05', 'adult', 'female'),
-('257', 'Mary Dozier', '2003-02-10', '2026-06-03', '2026-06-05', 'adult', 'female'),
-('245', 'Ruby Esperon', '1990-09-10', '2026-06-04', '2026-06-08', 'adult', 'female'),
-('25', 'Deborah Refazo', '1993-11-09', '2026-06-01', '2026-06-03', 'adult', 'female'),
-('210', 'Joann Moran', '1994-08-07', '2026-06-01', '2026-06-02', 'adult', 'female'),
-('131', 'Jami Bang', '1999-09-23', '2026-06-05', '2026-06-09', 'adult', 'female'),
-('101', 'Gregory Warren', '1997-09-12', '2026-06-02', '2026-06-05', 'adult', 'male'),
-('238', 'Ebony Cortez', '2016-01-18', '2026-06-01', '2026-06-03', 'child', 'female'),
-('175', 'Jennifer Williams', '2019-02-03', '2026-06-04', '2026-06-07', 'child', 'female'),
-('4', 'Thomas Vo', '2003-09-29', '2026-06-01', '2026-06-05', 'adult', 'male'),
-('26', 'Antonio Powers', '1999-07-26', '2026-06-01', '2026-06-05', 'adult', 'male'),
-('284', 'Martina Hernandez', '2020-01-03', '2026-06-05', '2026-06-07', 'child', 'female'),
-('213', 'Grayce Collins', '2021-02-13', '2026-06-01', '2026-06-02', 'child', 'female'),
-('209', 'Todd Mayberry', '1992-03-03', '2026-06-03', '2026-06-04', 'adult', 'male'),
-('105', 'Robert Robinson', '2020-01-06', '2026-06-05', '2026-06-09', 'child', 'male'),
-('247', 'Sheila Catchings', '2010-03-30', '2026-06-03', '2026-06-04', 'adult', 'female'),
-('197', 'Walter Matthes', '2019-09-24', '2026-06-05', '2026-06-06', 'child', 'male'),
-('16', 'Lakesha Cogdill', '2007-08-13', '2026-06-04', '2026-06-08', 'adult', 'female'),
-('282', 'Victor Madden', '1998-08-15', '2026-06-01', '2026-06-03', 'adult', 'male'),
-('68', 'Angela Pearce', '2015-07-31', '2026-06-01', '2026-06-03', 'child', 'female'),
-('66', 'Joel Murillo', '2021-06-26', '2026-06-02', '2026-06-03', 'child', 'male'),
-('254', 'Felipe Mondino', '2011-08-01', '2026-06-05', '2026-06-07', 'adult', 'male'),
-('3', 'Patricia Gonzales', '1995-05-25', '2026-06-02', '2026-06-06', 'adult', 'female'),
-('98', 'Errol Leach', '2005-03-22', '2026-06-01', '2026-06-02', 'adult', 'male'),
-('265', 'Stephen Ceja', '2018-02-04', '2026-06-04', '2026-06-05', 'child', 'male'),
-('204', 'Raul Watkins', '1994-04-07', '2026-06-03', '2026-06-04', 'adult', 'male'),
-('260', 'Peter Carter', '2001-05-03', '2026-06-04', '2026-06-07', 'adult', 'male'),
-('220', 'Marie Rhodes', '2003-10-21', '2026-06-05', '2026-06-08', 'adult', 'female'),
-('191', 'Jack Borowski', '2008-04-17', '2026-06-01', '2026-06-05', 'adult', 'male'),
-('220', 'Rickie Lalley', '2019-07-31', '2026-06-01', '2026-06-03', 'child', 'female'),
-('131', 'Edna Reyes', '2003-12-05', '2026-06-03', '2026-06-06', 'adult', 'female'),
-('219', 'Michael Mann', '2013-07-01', '2026-06-02', '2026-06-03', 'child', 'male'),
-('187', 'Margery Thornley', '2020-04-18', '2026-06-01', '2026-06-05', 'child', 'female'),
-('202', 'Wanda Lindley', '2008-12-05', '2026-06-02', '2026-06-04', 'adult', 'female'),
-('188', 'David Bennett', '1996-05-15', '2026-06-04', '2026-06-07', 'adult', 'male'),
-('207', 'George Chase', '1997-03-20', '2026-06-03', '2026-06-07', 'adult', 'male'),
-('33', 'Gina Schulle', '1997-02-22', '2026-06-05', '2026-06-07', 'adult', 'female'),
-('206', 'Lashawn Back', '2020-10-20', '2026-06-03', '2026-06-05', 'child', 'female'),
-('254', 'Annie Karol', '2007-11-29', '2026-06-02', '2026-06-04', 'adult', 'female'),
-('125', 'Jimmy Burns', '2011-01-07', '2026-06-02', '2026-06-03', 'adult', 'male'),
-('238', 'Steven Campbell', '2013-07-05', '2026-06-01', '2026-06-02', 'child', 'male'),
-('51', 'Christian Sniff', '2009-09-13', '2026-06-04', '2026-06-05', 'adult', 'male'),
-('74', 'Mark Oakes', '2015-09-06', '2026-06-03', '2026-06-04', 'child', 'male'),
-('29', 'Gavin Guillory', '2005-05-14', '2026-06-01', '2026-06-03', 'adult', 'male'),
-('18', 'Teresa Jordan', '1997-10-06', '2026-06-05', '2026-06-07', 'adult', 'female'),
-('80', 'Darren Jackson', '2019-09-23', '2026-06-03', '2026-06-06', 'child', 'male'),
-('265', 'Albert Holman', '1993-10-07', '2026-06-05', '2026-06-09', 'adult', 'male'),
-('178', 'Donald Mitchell', '2001-02-03', '2026-06-05', '2026-06-06', 'adult', 'male'),
-('11', 'Brandon Scherer', '2016-02-05', '2026-06-03', '2026-06-04', 'child', 'male'),
-('113', 'Yasmin Silvia', '2002-05-21', '2026-06-04', '2026-06-05', 'adult', 'female'),
-('40', 'Fernando Puulei', '2006-06-25', '2026-06-03', '2026-06-06', 'adult', 'male'),
-('5', 'Gertrude Rafferty', '2000-01-17', '2026-06-05', '2026-06-07', 'adult', 'female'),
-('128', 'Jose Wu', '2003-08-04', '2026-06-01', '2026-06-03', 'adult', 'male'),
-('85', 'Robert Lubinski', '1990-01-16', '2026-06-05', '2026-06-09', 'adult', 'male'),
-('59', 'Elizabeth Jordan', '2002-06-26', '2026-06-05', '2026-06-07', 'adult', 'female'),
-('235', 'Michael Rivera', '1998-07-30', '2026-06-03', '2026-06-05', 'adult', 'male'),
-('5', 'Terry Numbers', '1992-01-14', '2026-06-04', '2026-06-06', 'adult', 'male'),
-('293', 'Billy Hoffman', '2013-12-14', '2026-06-05', '2026-06-06', 'child', 'male'),
-('286', 'Misty Castro', '2015-09-08', '2026-06-03', '2026-06-07', 'child', 'female'),
-('115', 'Deborah Whitehead', '1991-10-11', '2026-06-04', '2026-06-08', 'adult', 'female'),
-('229', 'Anna Johnson', '2014-05-25', '2026-06-02', '2026-06-05', 'child', 'female'),
-('11', 'Juanita London', '2019-10-08', '2026-06-05', '2026-06-08', 'child', 'female'),
-('148', 'Paul Davis', '2006-12-13', '2026-06-01', '2026-06-02', 'adult', 'male'),
-('275', 'Robert Badgley', '2019-04-27', '2026-06-04', '2026-06-07', 'child', 'male'),
-('262', 'Eddie Enama', '2005-09-02', '2026-06-02', '2026-06-06', 'adult', 'male'),
-('292', 'Donna Trujillo', '1999-11-14', '2026-06-02', '2026-06-06', 'adult', 'female'),
-('65', 'Megan Haddix', '2014-11-02', '2026-06-02', '2026-06-05', 'child', 'female'),
-('198', 'Eric Steele', '1995-05-07', '2026-06-04', '2026-06-05', 'adult', 'male'),
-('127', 'James Mix', '2000-06-24', '2026-06-04', '2026-06-08', 'adult', 'male'),
-('178', 'Anna Lundy', '2021-01-05', '2026-06-02', '2026-06-05', 'child', 'female'),
-('234', 'William Hebert', '2015-04-23', '2026-06-05', '2026-06-09', 'child', 'male'),
-('101', 'Jared Batista', '1998-11-08', '2026-06-03', '2026-06-05', 'adult', 'male'),
-('207', 'Kenneth Esteban', '1999-09-07', '2026-06-05', '2026-06-06', 'adult', 'male'),
-('44', 'Kristen Diaz', '2002-02-05', '2026-06-03', '2026-06-05', 'adult', 'female'),
-('256', 'Darrell Vandekieft', '2003-09-06', '2026-06-01', '2026-06-05', 'adult', 'male'),
-('183', 'Tara Stewart', '1994-01-09', '2026-06-01', '2026-06-03', 'adult', 'female'),
-('101', 'Christopher Hawkins', '1996-08-24', '2026-06-02', '2026-06-03', 'adult', 'male'),
-('14', 'Mary Wlodarek', '2013-03-30', '2026-06-04', '2026-06-05', 'child', 'female'),
-('12', 'Mamie Evans', '1991-12-03', '2026-06-01', '2026-06-03', 'adult', 'female'),
-('24', 'Angela Bond', '1994-12-26', '2026-06-02', '2026-06-06', 'adult', 'female'),
-('214', 'Robyn Dougherty', '2006-12-05', '2026-06-05', '2026-06-06', 'adult', 'female'),
-('20', 'Jaime Romero', '1997-02-22', '2026-06-03', '2026-06-05', 'adult', 'male'),
-('276', 'Sara Golden', '1996-11-15', '2026-06-03', '2026-06-07', 'adult', 'female'),
-('10', 'Bessie Montgomery', '2018-10-10', '2026-06-04', '2026-06-07', 'child', 'female'),
-('216', 'Michael Ross', '2000-01-25', '2026-06-05', '2026-06-07', 'adult', 'male'),
-('252', 'Robert Messenger', '2012-06-29', '2026-06-03', '2026-06-07', 'adult', 'male'),
-('33', 'Dale Devereaux', '2015-10-28', '2026-06-01', '2026-06-04', 'child', 'male'),
-('209', 'Kyle Dunham', '2004-02-02', '2026-06-03', '2026-06-04', 'adult', 'male'),
-('59', 'Mitchell Canez', '2015-11-01', '2026-06-03', '2026-06-04', 'child', 'male'),
-('72', 'Gena Crook', '2007-07-27', '2026-06-03', '2026-06-07', 'adult', 'female'),
-('124', 'Elsie Deason', '1994-07-04', '2026-06-05', '2026-06-09', 'adult', 'female'),
-('160', 'Donald Meath', '2009-07-12', '2026-06-04', '2026-06-08', 'adult', 'male'),
-('206', 'Victor Exler', '1992-06-05', '2026-06-01', '2026-06-03', 'adult', 'male'),
-('107', 'Linda Lewandowski', '2012-07-25', '2026-06-01', '2026-06-04', 'adult', 'female'),
-('9', 'Jessie Harrison', '1993-07-16', '2026-06-01', '2026-06-05', 'adult', 'female'),
-('267', 'Judy Mcdonald', '2006-02-09', '2026-06-01', '2026-06-03', 'adult', 'female'),
-('13', 'Benjamin Crosswell', '2000-06-26', '2026-06-04', '2026-06-07', 'adult', 'male'),
-('212', 'Richard Beck', '2018-08-30', '2026-06-05', '2026-06-06', 'child', 'male'),
-('240', 'Rudy Boyce', '2018-03-19', '2026-06-02', '2026-06-06', 'child', 'male'),
-('21', 'Frank Bell', '2000-08-04', '2026-06-03', '2026-06-04', 'adult', 'male'),
-('166', 'John Simmons', '1996-01-12', '2026-06-05', '2026-06-09', 'adult', 'male'),
-('247', 'Christopher Pilkington', '2009-12-13', '2026-06-03', '2026-06-04', 'adult', 'male'),
-('263', 'Earl Lott', '1998-03-20', '2026-06-03', '2026-06-07', 'adult', 'male'),
-('17', 'Jeremy Johnson', '1993-04-22', '2026-06-01', '2026-06-04', 'adult', 'male'),
-('111', 'Suzan Wright', '1994-10-27', '2026-06-01', '2026-06-04', 'adult', 'female'),
-('206', 'Thomas Moore', '2018-08-26', '2026-06-03', '2026-06-05', 'child', 'male'),
-('198', 'Jacob Thuringer', '2019-01-11', '2026-06-04', '2026-06-06', 'child', 'male'),
-('224', 'Elizabeth Kern', '1992-12-29', '2026-06-02', '2026-06-04', 'adult', 'female'),
-('42', 'Beverly Duncan', '2007-07-16', '2026-06-01', '2026-06-02', 'adult', 'female'),
-('12', 'Dorothy Cornett', '2015-12-14', '2026-06-01', '2026-06-03', 'child', 'female'),
-('70', 'Steve Folsom', '2020-11-20', '2026-06-01', '2026-06-04', 'child', 'male'),
-('144', 'Chad Fowler', '2021-09-10', '2026-06-04', '2026-06-05', 'child', 'male'),
-('242', 'Olivia Taylor', '2017-01-10', '2026-06-02', '2026-06-06', 'child', 'female'),
-('90', 'Thomas Bell', '2009-06-22', '2026-06-03', '2026-06-07', 'adult', 'male'),
-('43', 'Travis Edwards', '1992-12-18', '2026-06-03', '2026-06-06', 'adult', 'male'),
-('209', 'Michael Beck', '2013-03-15', '2026-06-01', '2026-06-05', 'child', 'male'),
-('95', 'Martha Moskal', '2020-01-19', '2026-06-04', '2026-06-06', 'child', 'female'),
-('235', 'Sharon Mazza', '2005-01-26', '2026-06-04', '2026-06-06', 'adult', 'female'),
-('92', 'Josephine Blevins', '2006-09-04', '2026-06-04', '2026-06-06', 'adult', 'female'),
-('19', 'Annie Mccarthy', '2004-10-05', '2026-06-04', '2026-06-07', 'adult', 'female'),
-('141', 'Gerard Bender', '2015-07-13', '2026-06-01', '2026-06-02', 'child', 'male'),
-('92', 'Lavern Brown', '2003-09-18', '2026-06-04', '2026-06-07', 'adult', 'female'),
-('237', 'Andrew Young', '2011-09-02', '2026-06-05', '2026-06-07', 'adult', 'male'),
-('232', 'Thomas Wade', '2010-05-13', '2026-06-01', '2026-06-05', 'adult', 'male'),
-('244', 'Ashley Erwin', '2016-02-07', '2026-06-04', '2026-06-08', 'child', 'female'),
-('259', 'Debora Alfano', '2007-10-28', '2026-06-01', '2026-06-02', 'adult', 'female'),
-('82', 'Kyle Haskins', '1999-04-29', '2026-06-05', '2026-06-08', 'adult', 'female'),
-('247', 'Sabrina Palmer', '2019-09-17', '2026-06-04', '2026-06-08', 'child', 'female'),
-('278', 'Lena Withers', '1997-01-19', '2026-06-03', '2026-06-07', 'adult', 'female'),
-('64', 'Christina Taylor', '1997-02-19', '2026-06-05', '2026-06-08', 'adult', 'female'),
-('25', 'Diane Gregory', '2015-05-14', '2026-06-01', '2026-06-05', 'child', 'female'),
-('160', 'Henry Shaw', '1998-01-25', '2026-06-05', '2026-06-09', 'adult', 'male'),
-('89', 'Alfred Adair', '1997-07-15', '2026-06-04', '2026-06-06', 'adult', 'male'),
-('169', 'Gerald Stalvey', '2017-01-05', '2026-06-01', '2026-06-02', 'child', 'male'),
-('261', 'Jeanne Chavarria', '2008-05-16', '2026-06-04', '2026-06-07', 'adult', 'female'),
-('125', 'Brittanie Johnson', '1996-11-19', '2026-06-02', '2026-06-04', 'adult', 'female'),
-('133', 'Vivian Edwards', '1990-03-27', '2026-06-01', '2026-06-03', 'adult', 'female'),
-('279', 'Dorothy Cordero', '2015-04-04', '2026-06-03', '2026-06-07', 'child', 'female'),
-('204', 'Allan Nichols', '2015-05-03', '2026-06-05', '2026-06-08', 'child', 'male'),
-('94', 'Dorothy Jackson', '2009-05-23', '2026-06-05', '2026-06-09', 'adult', 'female'),
-('189', 'John Walker', '2000-07-12', '2026-06-05', '2026-06-06', 'adult', 'male'),
-('111', 'Krystle Duty', '2000-09-26', '2026-06-01', '2026-06-04', 'adult', 'female'),
-('33', 'Ethel Staples', '1994-10-09', '2026-06-02', '2026-06-06', 'adult', 'female'),
-('227', 'Robert Szaflarski', '1994-06-26', '2026-06-02', '2026-06-04', 'adult', 'male'),
-('252', 'Carlos Fletcher', '1990-09-24', '2026-06-02', '2026-06-06', 'adult', 'male'),
-('256', 'Derek Johnson', '2013-08-20', '2026-06-05', '2026-06-06', 'child', 'male'),
-('228', 'Kathryn Baker', '1990-05-07', '2026-06-02', '2026-06-06', 'adult', 'female'),
-('89', 'Florence Southward', '2021-06-20', '2026-06-03', '2026-06-06', 'child', 'female'),
-('269', 'William Fisher', '1992-04-11', '2026-06-01', '2026-06-04', 'adult', 'male'),
-('164', 'William Diaz', '2010-03-22', '2026-06-04', '2026-06-05', 'adult', 'male'),
-('22', 'William Kopka', '1992-05-02', '2026-06-01', '2026-06-03', 'adult', 'male'),
-('2', 'Gilbert Sanchez', '2019-06-23', '2026-06-04', '2026-06-08', 'child', 'male'),
-('280', 'Victoria Billman', '2013-04-15', '2026-06-01', '2026-06-02', 'child', 'female'),
-('18', 'Kathleen Hartley', '1996-07-12', '2026-06-03', '2026-06-07', 'adult', 'female'),
-('73', 'Gary Anderson', '1990-10-11', '2026-06-03', '2026-06-06', 'adult', 'male'),
-('211', 'Bernardo Bryant', '1995-12-21', '2026-06-03', '2026-06-05', 'adult', 'male'),
-('154', 'Mark Moore', '1995-09-02', '2026-06-01', '2026-06-04', 'adult', 'male'),
-('147', 'Dorothy Earls', '2012-06-16', '2026-06-03', '2026-06-07', 'adult', 'female'),
-('226', 'Dolores Moore', '1999-12-16', '2026-06-05', '2026-06-09', 'adult', 'female'),
-('41', 'Nicole Thomas', '2014-07-04', '2026-06-04', '2026-06-08', 'child', 'female'),
-('19', 'Donald Dance', '1994-09-06', '2026-06-02', '2026-06-06', 'adult', 'male'),
-('80', 'David Smith', '2002-11-05', '2026-06-02', '2026-06-06', 'adult', 'male'),
-('91', 'Simon Cutler', '2021-06-19', '2026-06-05', '2026-06-09', 'child', 'male'),
-('126', 'Sandra Parpan', '2009-06-25', '2026-06-04', '2026-06-06', 'adult', 'female'),
-('292', 'Tanya White', '2021-06-14', '2026-06-03', '2026-06-07', 'child', 'female'),
-('108', 'Susan Link', '1998-04-28', '2026-06-05', '2026-06-07', 'adult', 'female'),
-('7', 'Jeffrey Mitkowski', '2014-11-04', '2026-06-01', '2026-06-05', 'child', 'male'),
-('43', 'Nereida Frija', '1999-04-29', '2026-06-05', '2026-06-08', 'adult', 'female'),
-('168', 'Timothy Joesph', '2018-01-16', '2026-06-01', '2026-06-03', 'child', 'male'),
-('122', 'Noah Reichenbach', '2020-10-04', '2026-06-01', '2026-06-05', 'child', 'male'),
-('151', 'Elizabeth Broome', '1994-08-01', '2026-06-03', '2026-06-06', 'adult', 'female'),
-('137', 'Michael Becker', '1997-01-22', '2026-06-03', '2026-06-05', 'adult', 'male'),
-('223', 'Willis Holmes', '2001-03-09', '2026-06-01', '2026-06-05', 'adult', 'male'),
-('234', 'Pamela Kearns', '2016-06-02', '2026-06-01', '2026-06-03', 'child', 'female'),
-('226', 'Leon Nolte', '1993-11-22', '2026-06-04', '2026-06-08', 'adult', 'male'),
-('236', 'Robert Moser', '2002-08-30', '2026-06-03', '2026-06-05', 'adult', 'male'),
-('273', 'Bryant Xu', '2013-08-31', '2026-06-03', '2026-06-05', 'child', 'male'),
-('23', 'Richard Carroll', '2003-04-28', '2026-06-04', '2026-06-07', 'adult', 'male'),
-('96', 'Jimmy Tims', '1997-02-17', '2026-06-05', '2026-06-09', 'adult', 'male'),
-('23', 'Chance Farrell', '1990-12-28', '2026-06-01', '2026-06-02', 'adult', 'male'),
-('189', 'Minnie Wilson', '1994-02-19', '2026-06-05', '2026-06-09', 'adult', 'female'),
-('152', 'Maria Asbill', '2016-08-08', '2026-06-02', '2026-06-06', 'child', 'female'),
-('216', 'Oscar Meyer', '2008-01-20', '2026-06-04', '2026-06-07', 'adult', 'male'),
-('240', 'John Roberts', '2018-10-04', '2026-06-01', '2026-06-03', 'child', 'male'),
-('162', 'Phil Castro', '2014-01-03', '2026-06-03', '2026-06-04', 'child', 'male'),
-('247', 'Robert Mckenny', '2017-06-22', '2026-06-05', '2026-06-09', 'child', 'male'),
-('64', 'William Hayes', '2004-04-04', '2026-06-03', '2026-06-05', 'adult', 'male'),
-('126', 'Robert Collins', '2021-11-03', '2026-06-01', '2026-06-05', 'child', 'male'),
-('208', 'Vernita Clark', '2011-06-28', '2026-06-01', '2026-06-03', 'adult', 'female'),
-('118', 'Marcus Porter', '1990-07-17', '2026-06-03', '2026-06-06', 'adult', 'male'),
-('43', 'Joshua Fullilove', '2013-03-01', '2026-06-04', '2026-06-06', 'child', 'male'),
-('110', 'Gayle Taggart', '1997-01-21', '2026-06-03', '2026-06-04', 'adult', 'female'),
-('256', 'Tiffany Fletcher', '2001-10-31', '2026-06-05', '2026-06-09', 'adult', 'female'),
-('200', 'Nathan Gonzales', '2010-09-08', '2026-06-02', '2026-06-05', 'adult', 'male'),
-('292', 'Paula Ash', '2008-11-14', '2026-06-02', '2026-06-05', 'adult', 'female'),
-('184', 'Carlos Dale', '1996-11-29', '2026-06-02', '2026-06-05', 'adult', 'male'),
-('187', 'Richard Williams', '1996-07-23', '2026-06-02', '2026-06-04', 'adult', 'male')
+-- нещашифрованная дата рождения
+rep_gen.dob_str(b.encrypted_birth_date)
