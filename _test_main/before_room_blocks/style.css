@@ -1,0 +1,171 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: #9D9AAE;
+  background: url('../assets/images/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  padding: 30px;
+}
+
+.layout {
+  display: flex;
+  gap: 30px;
+  height: calc(100vh - 60px);
+}
+
+.area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: 100%;
+  min-height: 0;
+}
+
+.top-block {
+  opacity: 0.9;
+  background: #5B5778;
+  color: #FFFFFF;
+  border-radius: 1px;
+  padding: 25px 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.top-block-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.search-section {
+  flex: 1 1 auto;
+  max-width: 2000px;
+  min-width: 50px;
+  margin-right: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  font-weight: 500;
+
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-input:focus {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 15px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Базовые стили */
+.user-info .username {
+    font-size: clamp(0.7rem, 2vw, 1.25rem);
+    max-width: clamp(60px, 20vw, 250px);
+    font-weight: 600;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-info p {
+    font-size: clamp(0.6rem, 1.5vw, 0.9rem);
+    max-width: clamp(60px, 20vw, 200px);
+    opacity: 0.9;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.top-block h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #FFFFFF;
+}
+
+.top-block p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  color: #FFFFFF;
+}
+
+.content {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 1px;
+  padding: 30px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  color: #2c2a3a;
+  overflow: hidden;
+  min-height: 0;
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content p {
+  font-size: 1.1rem;
+  color: #5B5778;
+}
+
+.content p:first-child {
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+/* Стили для логотипа */
+.logo-section {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.logo-image {
+    height: 30px;
+    width: auto;
+    display: block;
+}

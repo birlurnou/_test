@@ -73,21 +73,3 @@ function confirmLogout() {
         window.location.href = '../auth/logout.php';
     }
 }
-
-function toggleRoom(header) {
-    const guests = header.nextElementSibling;
-    const icon = header.querySelector('.toggle-icon');
-    
-    if (guests.style.display === 'flex') {
-        guests.style.display = 'none';
-        icon.textContent = '▼';
-    } else {
-        guests.style.display = 'flex';
-        icon.textContent = '▲';
-    }
-}
-
-function guestClick(element) {
-    const name = element.querySelector('.guest-name').textContent;
-    // alert('Вы выбрали: ' + name);
-}

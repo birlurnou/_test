@@ -113,23 +113,7 @@ $username = htmlspecialchars($_SESSION['username']);
 
             <!-- основной блок -->
             <main class="content">
-                <div class="rooms-list">
-                    <?php for ($i = 1; $i <= 20; $i++): ?>
-                    <div class="room-card">
-                        <div class="room-header" onclick="toggleRoom(this)">
-                            <span class="room-number">Номер <?php echo $i; ?></span>
-                            <span class="toggle-icon">▼</span>
-                        </div>
-                        <div class="room-guests">
-                            <?php for ($j = 1; $j <= 3; $j++): ?>
-                            <div class="guest-item" onclick="guestClick(this)">
-                                <span class="guest-name">Гость <?php echo $j; ?> (комната <?php echo $i; ?>)</span>
-                            </div>
-                            <?php endfor; ?>
-                        </div>
-                    </div>
-                    <?php endfor; ?>
-                </div>
+
             </main>
 
         </div>
