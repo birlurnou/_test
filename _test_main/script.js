@@ -75,7 +75,8 @@ function confirmLogout() {
 }
 
 function toggleRoom(header) {
-    const guests = header.nextElementSibling;
+    const card = header.closest('.room-card');
+    const guests = card.querySelector('.room-guests');
     const icon = header.querySelector('.toggle-icon');
     
     if (guests.style.display === 'flex') {
