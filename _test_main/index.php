@@ -156,33 +156,42 @@ $username = htmlspecialchars($_SESSION['username']);
                                 $guests = [['Иван С*', 'Male', 'Russia', 'Priority', 'Adult'], ['Алёна Д*', 'Female', 'Kazakhstan', 'Special Attention', 'Child'], ['Mahmed U*', 'Male', 'United States', 'Standard', 'Adult']];
                                 $guest = $guests[array_rand($guests)];
                             ?>
-                            <div class="guest-item">
-                                <div class="guest-header">
-                                    <!-- верхняя строка гостя -->
-                                    <div class="guest-row-top">
-                                        <span class="guest-badge guest-name-badge"><?php echo $guest[0]; ?></span>
-                                        <span class="guest-badge guest-status-badge"><?php echo $guest[3]; ?></span>
-                                        <span class="guest-badge guest-gender-badge"><?php echo $guest[1]; ?></span>
-                                        <span class="guest-badge guest-nationality-badge"><?php echo $guest[2]; ?></span>
-                                        <span class="guest-badge guest-maturity-badge"><?php echo $guest[4]; ?></span>
+                            <div class="guest-wrapper">
+                                <div class="guest-item" onclick="toggleGuest(this)">
+                                    <div class="guest-header">
+                                        <!-- верхняя строка гостя -->
+                                        <div class="guest-row-top">
+                                            <span class="guest-badge guest-name-badge"><?php echo $guest[0]; ?></span>
+                                            <span class="guest-badge guest-status-badge"><?php echo $guest[3]; ?></span>
+                                            <span class="guest-badge guest-gender-badge"><?php echo $guest[1]; ?></span>
+                                            <span class="guest-badge guest-nationality-badge"><?php echo $guest[2]; ?></span>
+                                            <span class="guest-badge guest-maturity-badge"><?php echo $guest[4]; ?></span>
+                                        </div>
+                                        <!-- средняя строка гостя -->
+                                        <div class="guest-row-middle">
+                                            <span class="guest-badge guest-arrival-date-badge">01.07.2026</span>
+                                            <span class="guest-badge guest-arrival-time-badge">16:20</span>
+                                            <span class="guest-badge guest-departure-date-badge">03.07.2026</span>
+                                            <span class="guest-badge guest-departure-time-badge">08:20</span>
+                                            <span class="guest-badge guest-comment-badge">3 comments</span>
+                                        </div>
+                                        <!-- нижняя строка гостя -->
+                                        <div class="guest-row-bottom">
+                                            <span class="guest-badge guest-res-stat-badge">Checked In</span>
+                                            <span class="guest-badge guest-birthday-badge exact">Happy Birthday</span>
+                                            <span class="guest-badge guest-attention-badge">Attention: 09:30:03</span>
+                                        </div>
                                     </div>
-                                    <!-- средняя строка гостя -->
-                                    <div class="guest-row-middle">
-                                        <span class="guest-badge guest-arrival-date-badge">01.07.2026</span>
-                                        <span class="guest-badge guest-arrival-time-badge">16:20</span>
-                                        <span class="guest-badge guest-departure-date-badge">03.07.2026</span>
-                                        <span class="guest-badge guest-departure-time-badge">08:20</span>
-                                        <span class="guest-badge guest-comment-badge">1 comments</span>
-                                    </div>
-                                    <!-- нижняя строка гостя -->
-                                    <div class="guest-row-bottom">
-                                        <span class="guest-badge guest-res-stat-badge">Checked In</span>
-                                        <span class="guest-badge guest-birthday-badge exact">Happy Birthday</span>
-                                        <span class="guest-badge guest-attention-badge">Attention: 09:30:03</span>
-                                    </div>
+                                    <!-- кликабельная область справа -->
+                                    <div class="guest-click-area" onclick="event.stopPropagation(); guestClick(this, 'Гость <?php echo $j; ?> (комната 100<?php echo $i; ?>)')"></div>
                                 </div>
-                                <!-- кликабельная область справа -->
-                                <div class="guest-click-area" onclick="guestClick(this, 'Гость <?php echo $j; ?> (комната 100<?php echo $i; ?>)')"></div>
+                                
+                                <!-- ВЫПАДАЮЩЕЕ ПОЛЕ (ПОД БЛОКОМ) -->
+                                <div class="guest-dropdown">
+                                    <div class="comment">Многострочный комментарий 1</div>
+                                    <div class="comment">Многострочный комментарий 2</div>
+                                    <div class="comment">Многострочный комментарий 3</div>
+                                </div>
                             </div>
                             <?php endfor; ?>
                         </div>

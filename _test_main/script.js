@@ -91,3 +91,20 @@ function toggleRoom(header) {
 function guestClick(element, guestName) {
     alert('Вы выбрали: ' + guestName);
 }
+
+function toggleGuest(element) {
+    const wrapper = element.closest('.guest-wrapper');
+    const dropdown = wrapper.querySelector('.guest-dropdown');
+    const toggle = element.querySelector('.guest-toggle');
+    
+    if (dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+    } else {
+        // Закрываем все другие
+        document.querySelectorAll('.guest-dropdown').forEach(d => {
+            d.style.display = 'none';
+            const t = d.closest('.guest-wrapper').querySelector('.guest-toggle');
+        });
+        dropdown.style.display = 'block';
+    }
+}

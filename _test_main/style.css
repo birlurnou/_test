@@ -341,7 +341,7 @@ body {
 .room-guests {
     display: none;
     padding: 16px 24px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.25);
     flex-direction: column;
     gap: 10px;
 }
@@ -349,12 +349,13 @@ body {
 /* Гости - отдельные кликабельные блоки */
 .guest-item {
     position: relative;
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.5);
     padding: 14px 18px;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
     min-height: 70px;
+    cursor: pointer;
 }
 
 .guest-item:hover {
@@ -512,6 +513,47 @@ body {
 .guest-click-area:active::after {
     transform: scale(0.8);
 }
+
+
+
+
+
+
+
+
+
+/* обертка для гостя + выпадающего поля */
+.guest-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+/* выпадающее поле под блоком */
+.guest-dropdown {
+    display: none;
+    width: 100%;
+    padding: 15px 15px;
+    background: rgba(91, 87, 120, 0.2);
+    margin-top: 0px;
+}
+
+.guest-dropdown .comment {
+    padding: 8px 10px;
+    margin-bottom: 16px;
+    font-size: 1.0rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.5);
+    color: rgba(91, 87, 120, 1);
+}
+
+.guest-dropdown .comment:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+
+
+
 
 /* Адаптив для мобильных */
 @media (max-width: 768px) {
