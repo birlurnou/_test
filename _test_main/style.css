@@ -248,7 +248,7 @@ body {
     padding: 4px;
     background: rgba(255, 255, 255, 0.15);
     border-radius: 0px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 500;
     color: #FFFFFF;
     display: inline-flex;
@@ -258,56 +258,60 @@ body {
     white-space: nowrap;
     min-width: 100px;
     vertical-align: middle;
-    font-weight: 500;
 }
 
 /* Бейдж номера */
 .room-number-badge {
-    font-size: 1.1rem;
-    font-weight: 500;
 }
 
 /* Бейдж типа комнаты */
 .room-type-badge {
-    font-size: 1.1rem;
 }
 
 /* Бейдж гостей */
 .room-guests-badge {
-    min-width: 160;
-    font-size: 1.1rem;
+    min-width: 150px;
 }
 
 /* Бейдж статуса */
 .status-badge {
-    min-width: 140;
-    background: rgba(255, 193, 7, 0.25);
-    color: #FFD54F;
+    min-width: 160px;
+    background: linear-gradient(135deg, rgba(185, 242, 255, 0.6), rgba(0, 186, 255, 0.6));
+    color: white;
 }
 
 /* Бейдж национальности */
 .nationality-badge {
-    background: rgba(33, 150, 243, 0.2);
-    color: #64B5F6;
     text-transform: uppercase;
+    min-width: 60px;
 }
 
 /* Бейдж языка */
 .language-badge {
-    background: rgba(76, 175, 80, 0.2);
-    color: #81C784;
+}
+
+/* Бейдж статуса бронирования */
+.reservation-badge {
+    min-width: 150px;
 }
 
 /* Бейдж дня рождения */
 .birthday-badge {
-    color: #FFB74D;
 }
+
+.birthday-badge.near {
+    min-width: 150px;
+    color: white;
+    font-size: 0.9rem;
+    padding: 6px;
+}
+
 .birthday-badge.exact {
-    min-width: 140px;
-    background: linear-gradient(135deg, #ff9a3c, #ff4d4d);
-    opacity: 0.8;
+    min-width: 150px;
+    background: linear-gradient(135deg, rgba(255, 154, 60, 1), rgba(255, 77, 77, 1));
     color: white;
     animation: birthdayPulse 1.2s ease infinite;
+    gap: 8px;
 }
 
 @keyframes birthdayPulse {
@@ -344,26 +348,169 @@ body {
 
 /* Гости - отдельные кликабельные блоки */
 .guest-item {
+    position: relative;
     background: rgba(255, 255, 255, 0.35);
     padding: 14px 18px;
-    cursor: pointer;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    min-height: 70px;
 }
 
 .guest-item:hover {
     background: rgba(255, 255, 255, 0.45);
-    transform: translateX(4px);
 }
 
 .guest-item:active {
-    transform: scale(0.98);
+    transform: scale(1.0);
 }
 
-.guest-name {
-    font-size: 0.95rem;
-    color: #2c2a3a;
-    font-weight: 500;
+.guest-header {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     pointer-events: none;
+}
+
+.guest-row-top,
+.guest-row-middle,
+.guest-row-bottom {
+    display: flex;
+    gap: 11px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+.guest-row-bottom {
+    padding-bottom: 0px;
+}
+
+.guest-badge {
+    padding: 4px 10px;
+    background: rgba(91, 87, 120, 0.2);
+    border-radius: 0px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #2c2a3a;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    background: rgba(91, 87, 120, 0.7);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.guest-name-badge {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.guest-status-badge {
+    color: white;
+    background: rgba(0, 186, 255, 0.8);
+}
+
+.guest-nationality-badge {
+    /* text-transform: uppercase; */
+    /* background: rgba(255, 193, 7, 0.2); */
+    /* color: #7a6200; */
+    min-width: 40px;
+}
+
+.guest-gender-badge {
+    /* background: rgba(255, 182, 193, 1); */
+    background: rgba(135, 206, 250, 1);
+    color: #ffffff;
+    min-width: 40px;
+}
+
+.guest-maturity-badge {
+    /* background: rgba(255, 193, 7, 0.2); */
+    /* color: #7a6200; */
+    background: rgba(152, 105, 96, 1);
+    min-width: 40px;
+}
+
+.guest-arrival-date-badge {
+    background: rgba(76, 175, 80, 0.6);
+    /* color: #1e5c21; */
+}
+
+.guest-arrival-time-badge {
+    background: rgba(76, 175, 80, 0.45);
+    /* color: #1e5c21; */
+}
+
+.guest-departure-date-badge {
+    background: rgba(156, 39, 176, 0.6);
+    /* color: #4a1a5c; */
+}
+
+.guest-departure-time-badge {
+    background: rgba(156, 39, 176, 0.45);
+    /* color: #4a1a5c; */
+}
+
+.guest-comment-badge {
+    background: rgba(238, 184, 104, 0.8);
+    color: white;
+}
+
+.guest-res-stat-badge {
+    background: rgba(76, 175, 80, 1);
+}
+
+.guest-attention-badge {
+}
+
+.guest-birthday-badge.near {
+    min-width: 150px;
+    color: white;
+    font-size: 0.9rem;
+    padding: 6px;
+}
+
+.guest-birthday-badge.exact {
+    background: linear-gradient(135deg, rgba(255, 154, 60, 0.6), rgba(255, 77, 77, 0.6));
+    color: white;
+    /* animation: birthdayPulse 1.2s ease infinite; */
+}
+
+/* Кликабельная область справа (30px) */
+.guest-click-area {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 90px;
+    height: 100%;
+    cursor: pointer;
+    background: rgba(76, 175, 80, 0.7);
+    transition: background 0.2s ease;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.guest-click-area::after {
+    content: 'Attended';
+    color: rgba(91, 87, 120, 0.8);
+    color: white;
+    font-size: 1.0rem;
+    transition: transform 0.2s ease;
+}
+
+.guest-click-area:hover {
+    background: rgba(91, 87, 120, 0.3);
+}
+
+.guest-click-area:hover::after {
+    transform: translateX(2px);
+}
+
+.guest-click-area:active::after {
+    transform: scale(0.8);
 }
 
 /* Адаптив для мобильных */

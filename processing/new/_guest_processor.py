@@ -5,10 +5,12 @@ import os
 import shutil
 import glob
 import re
+import traceback
 
 # создание директорий
 # source_folder = r'D:\MICROS\OPERA\export\OPERA\yekhr'
-source_folder = r'C:\xampp\htdocs\_test\processing\new\data'
+source_folder = r'\\yekhrpmsnod01\d$\MICROS\OPERA\export\OPERA\yekhr'
+# source_folder = r'C:\xampp\htdocs\_test\processing\new'
 
 # for folder in ['archive', 'archive/completed', 'logs']:
 for folder in ['archive', 'logs']:
@@ -18,12 +20,14 @@ for folder in ['archive', 'logs']:
 start_log_time = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
 
 def _logging(log_text):
-    # print(log_text)
     try:
         with open(f'logs/log_processor_{start_log_time}.txt', 'a', encoding='utf-8') as f:
             f.write(f'[{str(datetime.datetime.now())[:-7]}] {log_text}\n')
     except:
         pass
+
+def _error(e):
+    _logging(f'Ошибка: {str(e)}\nТип: {type(e).__name__}\nTraceback:\n{traceback.format_exc()}')
 
 # структуризация сырых данных
 
@@ -36,7 +40,6 @@ if files:
     _logging(f'Найден исходный файл по пути {source_filename}')
 else:
     _logging(f'Исходный файл не найден в директории {source_folder}, завершение работы')
-    _logging('\n')
     exit()
 
 try:
@@ -50,21 +53,20 @@ try:
             continue
         if re.match(pattern, line.strip()[0:5]):
             if start_idx is None:
-                start = line.split(';')[0:5]
+                # start = line.split(';')[0:5]
                 start_idx = i
-            last = line.split(';')[0:5]
+            # last = line.split(';')[0:5]
             end_idx = i
 
     if start_idx and end_idx:
-        # print(f'start_idx: {start_idx}')
-        # print(f'end_idx: {end_idx}')
-        # print(f'start: {start}')
-        # print(f'last: {last}')
-        # print(f'Всего гостей: {abs(start_idx - end_idx) + 1}')
-        _logging(f'Прочитан исходный файл {source_filename}, нужные индексы извлечены')
+        _logging(f'Прочитан исходный файл {source_filename}, нужные индексы извлечены:')
+        _logging(f'Стартовый индекс: {start_idx}')
+        _logging(f'Конечный индекс: {end_idx}')
+        _logging(f'Всего строк: {abs(start_idx - end_idx) + 1}')
 
 except Exception as e:
     _logging(f'Ошибка при структуризации исходного csv: {e}')
+    _error(e)
     exit()
 
 clean_filename = ''
@@ -79,17 +81,17 @@ try:
 
 except Exception as e:
     _logging(f'Ошибка при очищении исходного файла: {e}')
+    _error(e)
     exit()
 
 # перемещаем source_filename в папку archive
 
 try:
-    # shutil.move(source_filename, f'archive/guest_profile_extract_for_web_archive_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}')
     shutil.move(source_filename, f'archive/{source_filename.split('\\')[-1]}_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}')
-    # shutil.move(source_filename, f'archive/{source_filename}')
     _logging(f'Файл {source_filename} перемещен в archive')
 except Exception as e:
-    _logging(f'Ошибка: {e}')
+    _logging(f'Ошибка при перемещении source_filename: {e}')
+    _error(e)
     exit()
 
 # обработка сырых данных
@@ -99,14 +101,17 @@ try:
     _logging(f'Прочитан обработанный файл {clean_filename}, создан DataFrame')
 except Exception as e:
     _logging(f'Ошибка при создании необработанного DataFrame: {e}')
+    _error(e)
     exit()
 
-try:
-    os.remove(clean_filename)
-    _logging(f'Удалён файл с чистыми данными {clean_filename}')
-except:
-    _logging(f'Ошибка при удалении файл с чистыми данными: {e}')
-    exit()
+def remove_clean_filename():
+    try:
+        os.remove(clean_filename)
+        _logging(f'Удалён файл с чистыми данными {clean_filename}')
+    except:
+        _logging(f'Ошибка при удалении файл с чистыми данными: {e}')
+        _error(e)
+        exit()
 
 try:
     df.columns = ['room_number',
@@ -222,22 +227,29 @@ try:
     result['departure_time'] = result['departure_time'].apply(lambda x: str(x).replace('*', '') if not pd.isna(x) else None)
     # print(f'departure_time: {df['departure_time'].unique()}')
 
-
     def _():
         pass
 
-
-
-    # фильтруем дату заселения
+    # фильтруем даты заселения и выезда
     today = pd.Timestamp.now().normalize()
-    # arrival_today = len(result.loc[result['arrival_date'] == today])
     condition = (
-            (result['arrival_date'] != today) |  # заехали не сегодня
-            # (result['arrival_time'].isna()) |  # время не указано
-            (result['arrival_time'] < '05:00')  # заехали сегодня до 5 утра
+        # (result['arrival_date'] == today) &     # заезжают сегодня
+        # (result['arrival_time'] < '05:00') &    # до 5 утра
+        # (result['arrival_time'] > '00:00') |    # после полуночи
+
+        # (result['arrival_time'].isna()) |       # время не указано
+
+        # (result['arrival_date'] < today) |      # уже заехали ранее
+
+        # (result['reservation_status'] in ['checked in', 'due out', 'due in', 'walkin', 'no show'])
+
+        # (result['departure_date'] == today) &     # выезжают сегодня
+        # (result['departure_time'] > '00:00') &    # после полуночи
+        # (result['departure_time'] < '04:00') |    # до 4 утра
+
+        # (result['departure_date'] > today)        # выезжают позже
     )
-    result = result.loc[condition]
-    result = result.loc[result['departure_date'] >= today]
+    # result = result.loc[condition]
 
     # сортируем данные order by room_number asc
     result = result.sort_values(['room_number'], ascending=[True])
@@ -248,11 +260,11 @@ try:
     # формируем и сохраняем итоговый csv
     complete_filename = f'completed_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.csv'
     result.to_csv(complete_filename, index=False, sep=';')
+    remove_clean_filename()
     _logging(f'Создан итоговый файл: {complete_filename}')
 
     counts = result['room_number'].value_counts()
     rooms_unique = len(counts)
-    # more_than_1 = len(counts[counts > 1])
     _logging(f'Количество номеров (на завтрак): {rooms_unique}')
     _logging(f'Количество гостей (на завтрак): {len(result['profile_id'].value_counts())}')
     _logging(f'Количество взрослых (на завтрак): {result['adult_count'].sum()}')
@@ -262,14 +274,5 @@ try:
 
 except Exception as e:
     _logging(f'Ошибка при финальной обработке: {e}')
+    _error(e)
     exit()
-
-
-# перемещаем complete_filename в папку completed
-
-# try:
-#     shutil.move(complete_filename, f'completed/{complete_filename}')
-#     _logging(f'Файл {complete_filename} перемещен в completed')
-# except Exception as e:
-#     _logging(f'Ошибка при перемещении файла completed: {e}')
-#     exit()

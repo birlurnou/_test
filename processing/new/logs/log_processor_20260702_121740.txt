@@ -1,0 +1,10 @@
+[2026-07-02 12:17:40] Найден исходный файл по пути C:\xampp\htdocs\_test\processing\new\guest_profile_extract_for_web_134887744.csv
+[2026-07-02 12:17:40] Прочитан исходный файл C:\xampp\htdocs\_test\processing\new\guest_profile_extract_for_web_134887744.csv, нужные индексы извлечены:
+[2026-07-02 12:17:40] Стартовый индекс: 3
+[2026-07-02 12:17:40] Конечный индекс: 282
+[2026-07-02 12:17:40] Всего строк: 280
+[2026-07-02 12:17:40] Создан файл с чистыми данными cleaned_20260702_121740.csv, переход к обработке
+[2026-07-02 12:17:40] Файл C:\xampp\htdocs\_test\processing\new\guest_profile_extract_for_web_134887744.csv перемещен в archive
+[2026-07-02 12:17:40] Прочитан обработанный файл cleaned_20260702_121740.csv, создан DataFrame
+[2026-07-02 12:17:40] Удалён файл с чистыми данными cleaned_20260702_121740.csv
+[2026-07-02 12:17:40] Ошибка при финальной обработке: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().

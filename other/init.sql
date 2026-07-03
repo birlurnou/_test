@@ -1,8 +1,14 @@
-#5B5778 - основной
+#5B5778 - основной rgba(91, 87, 120, 1);
 #9D9AAE - вторичный
 #59628B - добавочный
 #C0C2C4 - добавочный
 #FFFFFF - добавочный
+
+#ffb6c1 rgba(255, 182, 193, 1);
+#87cefa rgba(135, 206, 250, 1);
+#6a5acd rgba(106, 90, 205, 1);
+
+#ff7f50 rgba(255, 127, 80, 1);
 
 -- boxes
 1   room_number                     -- номер комнаты                 -- int
@@ -205,6 +211,10 @@ DROP TABLE IF EXISTS guests CASCADE;
 DROP TABLE IF EXISTS records CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
+
+TRUNCATE TABLE guests RESTART IDENTITY CASCADE;
+TRUNCATE TABLE records RESTART IDENTITY CASCADE;
+
 
 -- удаляем все данные
 DELETE FROM guests;

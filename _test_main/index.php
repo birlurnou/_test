@@ -115,48 +115,74 @@ $username = htmlspecialchars($_SESSION['username']);
             <!-- основной блок -->
             <main class="content">
                 <div class="rooms-list">
-                    <?php for ($i = 1; $i <= 20; $i++): 
-                        // Для разнообразия статусов
-                        $statuses = ['Priority', 'Standard', 'High Priority'];
+                    <?php for ($i = 1; $i <= 20; $i++):
+                        $statuses = ['Priority', 'Standard', 'High Priority', 'Special Attention'];
                         $status = $statuses[array_rand($statuses)];
-                        $nationalities = ['RU', 'BY', 'KZ', 'US', 'GB'];
-                        $langs = ['Russian', 'English'];
+                        $nationalities = ['RU', 'BY', 'KZ', 'US', 'GB'];  
                         $nationality1 = $nationalities[array_rand($nationalities)];
                         $nationality2 = $nationalities[array_rand($nationalities)];
-                        $lang1 = $langs[array_rand($langs)];
-                        $lang2 = $langs[array_rand($langs)];
+                        $res_stats = ['Checked In', 'Due In', 'Due Out', 'No Show', 'Walk In'];
+                        $res_stat = $res_stats[array_rand($res_stats)];
                         $hasBirthday = $i % 3 == 0;
                     ?>
                     <div class="room-card">
                         <div class="room-header" onclick="toggleRoom(this)">
                             <div class="room-content">
-                                <!-- Верхняя строка -->
+                                <!-- верхняя строка комнаты -->
                                 <div class="room-row-top">
                                     <div class="room-badge room-number-badge">100<?php echo $i; ?></div>
                                     <div class="room-badge room-type-badge">KING</div>
                                     <div class="room-badge room-guests-badge">Attended 0 / 3</div>
                                     <?php if ($hasBirthday): ?>
-                                    <div class="room-badge birthday-badge exact">Happy Birthday</div>
+                                    <div class="room-badge birthday-badge near">Birthday was 3 days ago</div>
                                     <?php endif; ?>
                                 </div>
-                                <!-- Нижняя строка -->
+                                <!-- нижняя строка комнаты -->
                                 <div class="room-row-bottom">
                                     <div class="room-badge status-badge"><?php echo $status; ?></div>
                                     <div class="room-badge nationality-badge"><?php echo $nationality1; ?></div>
                                     <div class="room-badge nationality-badge"><?php echo $nationality2; ?></div>
-                                    <div class="room-badge language-badge"><?php echo $lang1; ?></div>
-                                    <div class="room-badge language-badge"><?php echo $lang2; ?></div>
+                                    <div class="room-badge reservation-badge"><?php echo $res_stat; ?></div>
                                 </div>
                             </div>
-                            <!-- Кнопка переключателя отдельно -->
+                            <!-- кнопка переключателя -->
                             <div class="room-badge toggle-badge" onclick="event.stopPropagation(); toggleRoom(this.closest('.room-card').querySelector('.room-header'));">
                                 <span class="toggle-icon">▼</span>
                             </div>
                         </div>
+                        <!-- блоки с гостями -->
                         <div class="room-guests">
-                            <?php for ($j = 1; $j <= 3; $j++): ?>
-                            <div class="guest-item" onclick="guestClick(this)">
-                                <span class="guest-name">Гость <?php echo $j; ?> (комната 100<?php echo $i; ?>)</span>
+                            <?php for ($j = 1; $j <= 3; $j++):
+                                $guests = [['Иван С*', 'Male', 'Russia', 'Priority', 'Adult'], ['Алёна Д*', 'Female', 'Kazakhstan', 'Special Attention', 'Child'], ['Mahmed U*', 'Male', 'United States', 'Standard', 'Adult']];
+                                $guest = $guests[array_rand($guests)];
+                            ?>
+                            <div class="guest-item">
+                                <div class="guest-header">
+                                    <!-- верхняя строка гостя -->
+                                    <div class="guest-row-top">
+                                        <span class="guest-badge guest-name-badge"><?php echo $guest[0]; ?></span>
+                                        <span class="guest-badge guest-status-badge"><?php echo $guest[3]; ?></span>
+                                        <span class="guest-badge guest-gender-badge"><?php echo $guest[1]; ?></span>
+                                        <span class="guest-badge guest-nationality-badge"><?php echo $guest[2]; ?></span>
+                                        <span class="guest-badge guest-maturity-badge"><?php echo $guest[4]; ?></span>
+                                    </div>
+                                    <!-- средняя строка гостя -->
+                                    <div class="guest-row-middle">
+                                        <span class="guest-badge guest-arrival-date-badge">01.07.2026</span>
+                                        <span class="guest-badge guest-arrival-time-badge">16:20</span>
+                                        <span class="guest-badge guest-departure-date-badge">03.07.2026</span>
+                                        <span class="guest-badge guest-departure-time-badge">08:20</span>
+                                        <span class="guest-badge guest-comment-badge">1 comments</span>
+                                    </div>
+                                    <!-- нижняя строка гостя -->
+                                    <div class="guest-row-bottom">
+                                        <span class="guest-badge guest-res-stat-badge">Checked In</span>
+                                        <span class="guest-badge guest-birthday-badge exact">Happy Birthday</span>
+                                        <span class="guest-badge guest-attention-badge">Attention: 09:30:03</span>
+                                    </div>
+                                </div>
+                                <!-- кликабельная область справа -->
+                                <div class="guest-click-area" onclick="guestClick(this, 'Гость <?php echo $j; ?> (комната 100<?php echo $i; ?>)')"></div>
                             </div>
                             <?php endfor; ?>
                         </div>

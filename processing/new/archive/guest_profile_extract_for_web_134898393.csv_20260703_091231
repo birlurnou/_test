@@ -1,0 +1,317 @@
+A
+a
+C9;C15;C24;C27;C30;C33;C39;C60;C66;C75;C78;C84;C87;C90;C93;C102;C105;C135;C138;C144;C147;C150
+0502;2;0;Gorbunov, Ilya;Горбунов, Илья Алексеевич;Mr;17.03.1992;;;01-JUL-26;07-JUL-26;;TWIN;ROOM;R;RU;Russia;35365882;47938562;CHECKED IN;17:41;12:00
+0502;0;0;Rybin, Boris;Рыбин, Борис Леонидович;Mr;19.05.1985;;;01-JUL-26;07-JUL-26;;TWIN;ROOM;R;RU;Russia;35365883;47938574;CHECKED IN;17:41;12:00
+0504;1;0;Sivoplyas, Denis;Сивопляс, Денис Александрович;Mr;02.10.1988;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35365880;47938571;CHECKED IN;21:45;12:00
+0506;1;0;Maksimenko, Dmitriy;Максименко, Дмитрий Викторович;Mr;29.06.1992;;;01-JUL-26;07-JUL-26;;TWIN;ROOM;R;RU;Russia;35365888;47938582;CHECKED IN;15:39;12:00
+0508;1;0;Sentyaev, Vladimir;Сентяев, Владимир Вячеславови;Mr;05.04.1989;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35255690;47938558;CHECKED IN;19:54;12:00
+0510;1;0;Okunev, Maksim;Окунев, Максим Владимирович;Mr;14.10.1991;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35365873;47938560;CHECKED IN;19:54;12:00
+0512;1;0;Nesterova, Anastasia;Нестерова, Анастасия Владимиров;Ms;03.02.1990;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35365879;47938570;CHECKED IN;15:33;12:00
+0514;1;0;Nasrenov, Vitaliy;Насренов, Виталий Владимирович;Mr;06.11.1987;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35365871;47938557;CHECKED IN;15:29;12:00
+0516;1;0;Morozov, Roman;Морозов, Роман Олегович;Mr;27.12.1990;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35365870;47938553;CHECKED IN;16:48;12:00
+0518;1;0;Malyk, Mikhail;Малык, Михаил Васильевич;Mr;16.03.1990;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35255692;47938563;CHECKED IN;19:46;12:00
+0520;1;0;Lenshin, Pavel;Леньшин, Павел Юрьевич;Mr;08.06.1998;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35365874;47938564;CHECKED IN;15:35;12:00
+0526;1;0;Golovanov, Igor;Голованов, Игорь Владимирович;Mr;04.11.1983;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;34908994;47938580;CHECKED IN;15:41;12:00
+0528;1;0;Sokolov, Ivan;Соколов, Иван Андреевич;Mr;31.12.1994;;;01-JUL-26;07-JUL-26;;TWIN;ROOM;R;RU;Russia;35365881;47938572;CHECKED IN;15:24;12:00
+0530;1;0;Borodin, Aleksey;Бородин, Алексей Анатольевич;Mr;12.01.1982;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35365889;47938584;CHECKED IN;16:41;12:00
+0532;1;0;Pribylov, Ivan;Прибылов, Иван Александрович;Mr;25.08.1989;;;01-JUL-26;07-JUL-26;;TWIN;ROOM;R;RU;Russia;35365892;47938590;CHECKED IN;15:32;12:00
+0600;2;0;Pechenenko, Vladimir;Печененко, Владимир Владимирови;Mr;09.11.1968;V3;Special Attention;02-JUL-26;05-JUL-26;;RGSK;STES;R;RU;Russia;5163910;47938614;CHECKED IN;17:29;00:00
+0600;0;0;Pechenenko, Natalia;Печененко, Наталья Валерьевна;Ms;11.03.1974;;;02-JUL-26;05-JUL-26;;RGSK;STES;R;RU;Russia;35150097;47939411;CHECKED IN;17:30;00:00
+0602;1;0;Sudarev, Dmitriy;Сударев, Дмитрий Юрьевич;Mr;29.12.1999;;;01-JUL-26;07-JUL-26;;TWIN;ROOM;R;RU;Russia;35257480;47938568;CHECKED IN;15:46;12:00
+0604;1;0;Sarkisova, Ilona;Саркисова, Илона Рафаиловна;Ms;02.09.1993;;;02-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35354039;47937523;DUE OUT;23:31;12:00
+0606;2;0;Udovidchenko, Mikhail;Удовидченко, Михаил Владимирович;Mr;02.09.1995;;;01-JUL-26;07-JUL-26;;TWIN;ROOM;R;RU;Russia;35026504;47938576;CHECKED IN;19:47;12:00
+0606;0;0;Tikhonov, Vladislav;Тихонов, Владислав Витальевич;Mr;31.12.1995;;;01-JUL-26;07-JUL-26;;TWIN;ROOM;R;RU;Russia;35365886;47938578;CHECKED IN;15:45;12:00
+0610;1;0;Kultygin, Leonid;Култыгин, Леонид Вячеславович;Mr;22.09.1980;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35023244;47934415;DUE OUT;14:44;00:00
+0612;1;0;Pshenichnikova, Arina;Пшеничникова, Арина Алексеевна;Ms;08.01.1979;;;02-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35364464;47937411;CHECKED IN;16:48;12:00
+0614;1;0;Imenina, Daria;Именина, Дарья Дмитриевна;Ms;02.03.1999;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35358619;47931624;DUE OUT;14:59;12:00
+0616;1;0;Kamneva, Anna;Камнева, Анна Вячеславовна;Ms;29.08.1995;;;01-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35362022;47935231;CHECKED IN;19:10;12:00
+0618;1;0;Alyakrinskiy, Artem;Алякринский, Артем Анатольевич;Mr;19.01.1983;;;02-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35364376;47937303;DUE OUT;16:07;18:00
+0620;1;0;Koval, Tatiana;Коваль, Татьяна Александровн;Ms;21.01.1999;;;02-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35358456;47931409;CHECKED IN;19:47;12:00
+0622;1;0;Moskaleva, Varvara;Москалева, Варвара Евгеньевна;Ms;20.06.1995;;;02-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35356925;47930061;CHECKED IN;22:45;12:00
+0624;1;0;Yashin, Dmitriy;Яшин, Дмитрий Владимирович;Mr;13.04.1978;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35130543;47939172;CHECKED IN;*03:58;12:00
+0626;1;0;Bokunov, Anton;Бокунов, Антон Александрович;Mr;17.02.1996;;;28-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35356414;47928883;DUE OUT;23:02;12:00
+0628;1;1;Gorenko, Maria;Горенко, Мария Сергеевна;Ms;08.06.1978;;;03-JUL-26;04-JUL-26;;TWIN;ROOM;R;RU;Russia;35053650;47932676;DUE IN;15:00;12:00
+0630;1;0;Pronina, Anastasia;Пронина, Анастасия Александро;Ms;31.03.1991;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35358615;47931620;DUE OUT;14:56;12:00
+0632;1;1;Glazov, Maksim;Глазов, Максим Андреевич;Mr;05.02.1990;;;03-JUL-26;05-JUL-26;;TWIN;ROOM;R;RU;Russia;35096648;47928380;DUE IN;;00:00
+0700;2;0;Mikaelyan, Evgenia;Микаелян, Евгения Александровн;Ms;26.05.1989;PP;Priority Plus;02-JUL-26;05-JUL-26;PRIORITY PLUS;RGSK;STES;R;RU;Russia;35023246;47926627;CHECKED IN;03:15;12:00
+0700;0;0;Mikaelyan, Artur;Микаелян, Артур Микаелович;Mr;27.09.1988;V3;Special Attention;02-JUL-26;05-JUL-26;;RGSK;STES;R;RU;Russia;35082704;47938612;CHECKED IN;13:57;12:00
+0702;1;0;Safonova, Alena;Сафонова, Алена Александровна;Ms;20.12.1992;;;01-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35072909;47938645;DUE OUT;18:49;12:00
+0704;1;0;Krykanova, Ekaterina;Крыканова, Екатерина Яковлевна;Mrs;17.04.1988;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;34908869;47936520;CHECKED IN;21:38;12:00
+0706;1;0;Abazyan, Davit;;Mr;;;;02-JUL-26;06-JUL-26;;TWIN;ROOM;R;;;35366543;47939331;CHECKED IN;03:29;00:00
+0710;1;0;Steblivets, Ivan;Стебливец, Иван Олегович;Mr;01.08.2002;;;28-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35272939;47928882;DUE OUT;23:09;12:00
+0712;1;0;Tonshev, Igor;Тоньшев, Игорь Евгеньевич;Mr;02.12.1990;;;28-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35272933;47928884;DUE OUT;23:01;12:00
+0714;1;0;Yurkin, Vsevolod;Юркин, Всеволод Сергеевич;Mr;03.01.2000;;;28-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35183079;47928885;DUE OUT;23:04;12:00
+0716;1;0;Levitskiy, Boris;Левицкий, Борис Юрьевич;Mr;09.05.1994;;;28-JUN-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35164986;47928881;CHECKED IN;16:09;12:00
+0718;1;0;Kurbakov, Evgeniy;Курбаков, Евгений Олегович;Mr;08.01.1984;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;10167088;47936510;CHECKED IN;21:43;12:00
+0720;1;0;Vasilyeva, Maria;Васильева, Мария Михайловна;Ms;06.05.1990;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;7152211;47936517;CHECKED IN;21:38;12:00
+0722;1;0;Karpukhin, Konstantin;Карпухин, Константин Сергеевич;Mr;23.07.1986;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;26551108;47936514;CHECKED IN;19:12;12:00
+0724;1;0;Ortikov, Temur;Ортиков, Темур Хамза Угли;Mr;17.06.1996;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;UZ;Uzbekistan;35358618;47931623;DUE OUT;15:01;12:00
+0725;1;0;Ivanov, Evgeniy;Иванов, Евгений Александрови;Mr;24.06.1985;V3;Special Attention;01-JUL-26;07-JUL-26;;DLXK;DELUX;R;RU;Russia;34908863;47936509;CHECKED IN;21:45;12:00
+0726;1;0;Esakov, Nikolay;Есаков, Николай Игоревич;Mr;12.08.1994;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35250710;47936512;CHECKED IN;21:42;12:00
+0728;2;0;Solovyeva, Anna;Соловьева, Анна Сергеевна;Ms;23.11.1987;;;30-JUN-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35363684;47936457;DUE OUT;18:06;12:00
+0728;0;0;Solovyeva, Daria;Соловьева, Дарья Николаевна;Ms;15.08.2012;;;30-JUN-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35363686;47936458;DUE OUT;18:06;12:00
+0730;1;0;Antsiferova, Ekaterina;Анциферова, Екатерина Валериевна;Ms;11.05.1977;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35144210;47936521;CHECKED IN;21:41;12:00
+0732;2;0;Babayan, Ruben;;Mr;;;;02-JUL-26;06-JUL-26;;TWIN;ROOM;R;;;35366546;47939334;CHECKED IN;03:32;00:00
+0732;0;0;Sedrakyan, Arman;;Mr;;;;02-JUL-26;06-JUL-26;;TWIN;ROOM;R;;;35366547;47939335;CHECKED IN;03:33;00:00
+0734;1;0;Petrutsa, Roman;Петруца, Роман Васильевич;Mr;16.07.1977;V3;Special Attention;03-JUL-26;08-JUL-26;;RGSK;STES;R;RU;Russia;35001971;47892567;DUE IN;15:00;12:00
+0802;2;0;Lavrichenko, Anna;Лавриченко, Анна;;;;;03-JUL-26;05-JUL-26;;TWIN;ROOM;;;;35366770;47939551;DUE IN;15:00;12:00
+0802;1;0;Syrkin, Sergey;Сыркин, Сергей Александрович;Mr;27.04.1988;;;02-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35324468;47938807;DUE OUT;12:56;12:00
+0804;1;0;Babakaev, Evgenij;Бабакаев, Евгений;;;;;03-JUL-26;04-JUL-26;;KING;ROOM;;;;35366771;47939556;DUE IN;15:00;12:00
+0804;1;0;Alekseytseva, Elena;Алексейцева, Елена Николаевна;Ms;14.12.1978;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;25231373;47934471;DUE OUT;15:27;00:00
+0806;2;0;Terenteva, Kseniya;Терентьева, Ксения;;;;;03-JUL-26;05-JUL-26;;TWIN;ROOM;;;;35366758;47939535;DUE IN;15:00;12:00
+0806;1;0;Yushina, Elena;Юшина, Елена Николаевна;Ms;09.10.1987;;;02-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35365461;47938246;DUE OUT;13:48;12:00
+0810;1;0;Vedenyapina, Svetlana;Веденяпина, Светлана Дмитриевна;Ms;20.02.1979;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;25183919;47936516;CHECKED IN;21:38;12:00
+0812;1;0;Vasko, Oleg;Васько, Олег Олегович;Mr;27.04.1978;;;29-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35121773;47919832;DUE OUT;20:52;12:00
+0814;1;0;Lyavrik, Vyacheslav;Ляврик, Вячеслав Владимирови;Mr;26.09.1968;;;02-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35363471;47936226;CHECKED IN;*03:56;00:00
+0816;1;0;Vereschagina, Anzhela;Верещагина, Анжела Таировна;Ms;01.11.1989;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35028489;47936513;CHECKED IN;21:44;12:00
+0818;1;0;Leskova, Tatiana;Лескова, Татьяна Александровн;Ms;14.08.1994;;;02-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35358457;47931410;CHECKED IN;19:48;12:00
+0820;1;0;Shvetskaya, Volha;Швецкая, Ольга;Ms;21.10.1977;;;02-JUL-26;03-JUL-26;;KING;ROOM;E;BY;Belarus;35357649;47939436;DUE OUT;19:15;00:00
+0822;1;1;Kuchuk, Svetlana;Кучук, Светлана Валерьевна;Ms;15.11.1986;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35157720;47939466;CHECKED IN;17:00;12:00
+0822;1;0;Zilberman, Maksim;Зильберман, Максим Феликсович;Mr;08.06.1985;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;29005107;47938031;CHECKED IN;16:54;12:00
+0822;0;0;Zilberman, Agata;Зильберман, Агата Максимова;Ms;25.04.2022;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35025533;47939468;CHECKED IN;17:00;12:00
+0824;1;0;Enoyarvi, Andrey;Эноярви, Андрей Васильевич;Mr;07.03.1976;;;02-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35344673;47938217;CHECKED IN;16:15;12:00
+0825;1;0;Arzamastsev, Andrey;Арзамасцев, Андрей Александрович;Mr;18.12.1974;;;30-JUN-26;03-JUL-26;;DLXK;DELUX;R;RU;Russia;35007159;47928879;DUE OUT;14:29;12:00
+0826;1;0;Novozhilov, Valeriy;Новожилов, Валерий Евгеньевич;Mr;13.09.2003;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35363724;47936524;CHECKED IN;21:41;12:00
+0828;1;0;Bychkova, Ekaterina;Бычкова, Екатерина Константин;Ms;12.02.1990;;;01-JUL-26;05-JUL-26;;TWIN;ROOM;R;RU;Russia;35366496;47939243;CHECKED IN;02:14;12:00
+0828;1;0;Bychkov, Pavel;Бычков, Павел Алексеевич;Mr;26.04.1990;;;01-JUL-26;07-JUL-26;;TWIN;ROOM;R;RU;Russia;35365890;47938586;CHECKED IN;16:22;12:00
+0830;1;0;Khlystov, Egor;Хлыстов, Егор Игоревич;Mr;20.06.1988;;;28-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35154759;47928886;DUE OUT;23:06;12:00
+0832;1;0;Anokhin, Andrey;Анохин, Андрей Сергеевич;Mr;05.08.1995;;;01-JUL-26;07-JUL-26;;TWIN;ROOM;R;RU;Russia;35365891;47938588;CHECKED IN;15:45;12:00
+0902;1;0;German, Oleg;Герман, Олег Богданович;Mr;12.11.1975;;;03-JUL-26;05-JUL-26;;TWIN;ROOM;R;RU;Russia;35173154;47939505;DUE IN;20:00;00:00
+0904;1;0;Valkova, Sofia;Валькова, Софья Дмитриевна;Ms;12.03.2000;;;01-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35349362;47922335;CHECKED IN;19:39;12:00
+0906;2;0;Mishin, Nikolay;Мишин, Николай Николаевич;Mr;06.07.1988;;;01-JUL-26;05-JUL-26;;TWIN;ROOM;R;RU;Russia;35240319;47935566;CHECKED IN;03:51;12:00
+0906;0;0;Kuryan, Evgeniy;Курьян, Евгений Валентинович;Mr;09.03.1987;;;01-JUL-26;05-JUL-26;;TWIN;ROOM;R;BY;Belarus;35365975;47938862;CHECKED IN;04:04;12:00
+0908;1;0;Martynenko, Vadim;Мартыненко, Вадим;Mr;;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;;;35361207;47933924;DUE IN;15:00;12:00
+0908;1;0;Zubkova, Natalia;Зубкова, Наталья Николаевна;Ms;06.08.1978;;;30-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35259721;47930700;DUE OUT;17:15;12:00
+0910;1;0;Ponomareva, Nigara;Пономарёва, Нигара Шавкатовна;Ms;20.07.1987;;;30-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;27824858;47927625;DUE OUT;23:35;12:00
+0910;1;0;Bogatova, Maria;Богатова, Мария Викторовна;Ms;03.08.1981;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;21628855;47933465;DUE IN;15:00;12:00
+0912;1;0;Marton, Nikita;Мартон, Никита Сергеевич;Mr;25.08.1996;;;30-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35037501;47928880;DUE OUT;03:41;12:00
+0912;1;0;Kuzmin, Kirill;Кузьмин, Кирилл;Mr;;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;;;35360903;47933463;DUE IN;15:00;12:00
+0914;1;0;Zmeeva, Daria;Змеева, Дарья Витальевна;Ms;10.10.2001;;;30-JUN-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35195322;47931579;CHECKED IN;03:40;12:00
+0916;1;0;Manukyan, David;Манукян, Давид Гамлетович;Mr;27.08.1987;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35096646;47928383;DUE IN;;00:00
+0916;1;0;Chetverikov, Yuriy;Четвериков, Юрий Алексеевич;Mr;17.12.1992;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35358616;47931621;DUE OUT;14:58;12:00
+0917;1;0;Martirosyan, Nazeli;;Ms;;;;02-JUL-26;06-JUL-26;;TWIN;ROOM;R;;;35366544;47939332;CHECKED IN;03:26;00:00
+0918;1;0;Prokhorov, Ivan;Прохоров, Иван Викторович;Mr;01.09.1984;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35358613;47931618;DUE OUT;15:00;12:00
+0918;1;0;Martirosyan, David;Мартиросян, Давид Николаевич;Mr;18.07.1983;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35058896;47939406;DUE IN;15:00;12:00
+0920;1;0;Maniucov, Nicolae;Манюков, Николай;Mr;27.12.1997;HP;High Priority;28-JUN-26;12-JUL-26;HIGH PRIORITY;KING;ROOM;R;ES;Spain;35110949;47938030;CHECKED IN;00:48;00:00
+0922;2;0;Guimet Bigas, Sergi;Гиме, Бигас Серхи;Mr;02.07.1998;;;28-JUN-26;12-JUL-26;;KING;ROOM;E;ES;Spain;35213069;47937976;CHECKED IN;*03:00;00:00
+0922;0;0;Polidano, Garbin;Полидано Гарбин, Паула;Ms;28.11.1998;;;28-JUN-26;12-JUL-26;;KING;ROOM;R;ES;Spain;35364882;47938025;CHECKED IN;*03:01;00:00
+0924;2;0;Cherkashina, Anastasia;Черкашина, Анастасия Алексеевна;Ms;15.04.1984;;;02-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35350704;47923178;CHECKED IN;14:58;12:00
+0924;0;0;Gverzhdis, Aleksey;Гверждис, Алексей Александрови;Mr;29.01.1985;;;02-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35366668;47939417;CHECKED IN;14:58;12:00
+0925;2;0;Meshkov, Yu;Мешков, Ю;;;;;03-JUL-26;05-JUL-26;;DLXK;DELUX;;;;35366518;47939273;DUE IN;15:00;12:00
+0926;2;0;Savich, Valentin;Савич, Валентин Игоревич;Mr;21.07.1996;;;02-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35352910;47925470;DUE OUT;16:54;13:00
+0926;1;0;Babakhanyan, Vardan;;Mr;;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;;;35366660;47939408;DUE IN;15:00;12:00
+0926;0;0;Roschektaeva, Alena;Рощектаева, Алена Игоревна;Ms;03.04.1999;;;02-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35366702;47939465;DUE OUT;16:51;13:00
+0928;1;0;Sagidullin, Aleksandr;Сагидуллин, Александр Вильевич;Mr;14.04.1985;;;01-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35084489;47939035;DUE OUT;16:34;12:00
+0928;1;0;German, Oleg;Герман, Олег Богданович;Mr;12.11.1975;;;03-JUL-26;05-JUL-26;;TWIN;ROOM;R;RU;Russia;35173154;47939509;DUE IN;20:00;00:00
+0930;2;0;Kim, Olesya;Ким, Олеся Георгиевна;Ms;12.06.1981;;;02-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;27902856;47938069;DUE OUT;16:56;12:00
+0930;1;0;Vasilyan, Pavel;;Mr;;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;;;35366658;47939407;DUE IN;15:00;12:00
+0930;0;0;Tandalov, Mikhail;Тандалов, Михаил Владимирович;Mr;09.08.1980;;;02-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35271916;47938211;DUE OUT;16:56;12:00
+0932;2;0;Allemandi, Lucas;Альеманди, Лукас;Mr;23.09.2000;;;28-JUN-26;05-JUL-26;;TWIN;ROOM;E;AR;Argentina;35242173;47937998;CHECKED IN;13:35;00:00
+0932;0;0;Allemandi, Tomas Emanuel;Альеманди, Томас Эмануэль;Mr;24.06.1998;;;29-JUN-26;05-JUL-26;;TWIN;ROOM;E;AR;Argentina;35230984;47937999;CHECKED IN;20:09;00:00
+1002;2;0;Sanchez, Alfonso;Санчес Арриага, Альфонсо;Mr;10.08.1998;;;28-JUN-26;05-JUL-26;;TWIN;ROOM;E;ES;Spain;35328709;47927556;CHECKED IN;00:48;00:00
+1002;0;0;Forastello Merino, Juan Cruz;Форастельо, Мерино Хуан Крус;Mr;14.02.2006;;;28-JUN-26;05-JUL-26;;TWIN;ROOM;E;AR;Argentina;35295406;47927557;CHECKED IN;03:03;00:00
+1004;1;0;Skryl, Matvey;;Mr;;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;;;35366452;47939181;DUE IN;15:00;12:00
+1004;1;0;Shashkov, Aleksandr;Шашков, Александр Владимиров;Mr;10.12.1993;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35358617;47931622;DUE OUT;14:55;12:00
+1006;2;0;Gonzales, Matias;Гонзалес, Матиас;Mr;06.12.1997;;;28-JUN-26;05-JUL-26;;TWIN;ROOM;E;AR;Argentina;35335122;47927560;CHECKED IN;03:01;00:00
+1006;0;0;Peiron, Fabricio Ivan;Пейрон, Фабрисио Иван;Mr;20.07.2001;;;28-JUN-26;05-JUL-26;;TWIN;ROOM;E;AR;Argentina;35270797;47927561;CHECKED IN;03:02;00:00
+1008;1;0;Patrushev, Aleksandr;Патрушев, Александр Михайлович;Mr;02.09.1981;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;29180106;47938641;DUE IN;15:00;12:00
+1008;1;0;Vesnina, Eleonora;Веснина, Элеонора Олеговна;Ms;25.01.1985;;;29-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;15745104;47935892;DUE OUT;15:29;00:00
+1010;1;1;Kirievskaya, Galina;Кириевская, Галина Михайловна;Ms;06.01.1962;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35361250;47933985;CHECKED IN;19:56;12:00
+1010;0;0;Geda, Vera;Геда, Вера Алесандровна;Ms;18.10.2020;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35366745;47939522;CHECKED IN;19:57;12:00
+1012;2;0;Shipko, Sergey;Шипко, Сергей Владимирович;Mr;24.01.1984;;;30-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35335001;47936786;DUE OUT;09:54;12:00
+1012;1;0;Grigoryan, Gor;Григорян, Гор Эдуардович;Mr;17.07.1974;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;25964360;47938642;DUE IN;15:00;12:00
+1012;0;0;Beskostina, Tatyana;Бескостина, Татьяна Александровн;Ms;11.05.1999;;;30-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35335057;47938546;DUE OUT;09:55;12:00
+1014;2;0;Ismagilova, Lilia;;Ms;;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;;;35366638;47939380;DUE IN;15:00;21:00
+1014;1;0;Shestoperova, Ekaterina;Шестоперова, Екатерина Ивановна;Ms;10.08.1992;;;02-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35357737;47930707;DUE OUT;16:43;12:00
+1016;1;0;Efimova, Ksenia;Ефимова, Ксения Александровна;Ms;13.02.1995;;;01-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35266950;47935944;CHECKED IN;03:18;17:30
+1017;1;0;Shukuryan, Armen;;Mr;;;;02-JUL-26;06-JUL-26;;TWIN;ROOM;R;;;35366548;47939336;CHECKED IN;03:37;00:00
+1018;1;0;Petrunyak, Daria;Петруняк, Дарья Анатольевна;Ms;26.12.2000;;;01-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35351419;47923980;CHECKED IN;19:37;12:00
+1020;1;0;Materukhin, Nikolay;Матерухин, Николай Сергеевич;Mr;19.12.1991;;;29-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35072885;47936175;DUE OUT;14:25;12:00
+1020;1;2;Kuznetsova, Irina;;Ms;;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;;;35365936;47938667;DUE IN;15:00;12:00
+1022;1;0;Sehad, Wassil;Сехад, Вассиль;Mr;05.10.1996;;;02-JUL-26;05-JUL-26;;KING;ROOM;E;DZ;Algeria;35132705;47939108;CHECKED IN;*03:13;00:00
+1024;1;0;Rikhter, Artem;;Mr;;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;;;35366776;47938218;CHECKED IN;*03:12;00:00
+1025;2;0;Spirin, Andrey;Спирин, Андрей Геннадьевич;Mr;;;;03-JUL-26;04-JUL-26;;DLXK;DELUX;R;;;35356707;47929247;DUE IN;15:00;12:00
+1026;2;0;Geda, Aleksandr;Геда, Александр Андреевич;Mr;05.10.1990;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35361239;47933970;CHECKED IN;19:55;12:00
+1026;0;0;Geda, Ekaterina;Геда, Екатерина Михайловна;Ms;12.07.1989;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35361241;47933972;CHECKED IN;19:55;12:00
+1028;1;0;Zakaryan, Nazeli;;Ms;;;;02-JUL-26;06-JUL-26;;TWIN;ROOM;R;AM;Armenia;35366541;47939330;CHECKED IN;03:31;00:00
+1030;1;0;Volkov, Oleg;Волков, Олег Сергеевич;Mr;26.02.1974;;;29-JUN-26;03-JUL-26;STANDARD;KING;ROOM;R;RU;Russia;35366533;47938169;DUE OUT;23:13;00:00
+1032;1;0;Udina, Yana;Удина, Яна Александровна;Ms;01.06.1980;;;02-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35364397;47937322;DUE OUT;00:15;12:00
+1032;1;0;Novikov, Aleksandr;;Mr;;;;03-JUL-26;07-JUL-26;;TWIN;ROOM;R;;;35366705;47939467;DUE IN;15:00;12:00
+1034;1;0;Snikkars, Pavel;Сниккарс, Павел Николаевич;Mr;24.12.1978;V3;Special Attention;02-JUL-26;03-JUL-26;;RGSK;STES;R;RU;Russia;34908128;47938632;DUE OUT;22:44;12:00
+1102;2;0;Rudenko, Mikhail;;Mr;;;;03-JUL-26;07-JUL-26;;TWIN;ROOM;R;;;35366709;47939472;DUE IN;15:00;12:00
+1102;1;0;Gergelevich, Aleksandra;Гергелевич, Александра Дмитриевн;Mr;02.06.2000;;;02-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35365918;47938637;DUE OUT;13:51;12:00
+1102;0;0;Nashvilyev, Aleksey;;Mr;;;;03-JUL-26;07-JUL-26;;TWIN;ROOM;;;;35366710;47939474;DUE IN;15:00;12:00
+1104;2;1;Dubrovskaya, Aleksandra;;;;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;;;35366748;47939525;DUE IN;;18:00
+1104;0;0;Dubrovskaya, Elis;;Ms;;;;03-JUL-26;04-JUL-26;;KING;ROOM;;;;35366750;47939527;DUE IN;;18:00
+1104;0;0;Dubrovskiy, Vladimir;;Mr;;;;03-JUL-26;04-JUL-26;;KING;ROOM;;;;35366749;47939526;DUE IN;;18:00
+1108;1;0;Golubev, Andrey;Голубев, Андрей Петрович;Mr;14.11.1973;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;19794105;47933513;DUE OUT;00:29;12:00
+1108;1;0;Petrikova, Maria;;Ms;;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;;;35356791;47929852;DUE IN;04:00;12:00
+1110;1;0;Luchnikov, Andrey;ЛУЧНИКОВ, АНДРЕЙ;Mr;;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;;;35365432;47923171;DUE IN;15:00;12:00
+1110;1;0;Kostyuchenko, Anastasia;Костюченко, Анастасия Александро;Ms;16.11.1980;;;02-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;28068357;47930647;DUE OUT;19:36;12:00
+1112;1;0;Azarova, Yulia;Азарова, Юлия;Ms;;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;;;35366714;47939478;DUE IN;23:00;12:00
+1114;1;0;Nikolaev, Danila;Николаев, Данила Анатольевич;Mr;27.08.1983;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35353107;47936574;DUE IN;15:00;12:00
+1116;1;0;Morozova, Daria;Морозова, Дарья Александровна;Ms;;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;;;35365409;47938170;DUE IN;15:00;12:00
+1118;2;0;Shagiakhmetov, Ilshat;Шагиахметов, Ильшат Ильгизович;Mr;;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;;;35363757;47936569;DUE IN;15:00;12:00
+1118;1;0;Semyeshkin, Evgeniy;Семьешкин, Евгений Николаевич;Mr;04.05.1979;;;02-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;28161607;47930698;DUE OUT;19:38;12:00
+1120;2;0;Gnatyuk, Alisa;ГНАТЮК, АЛИСА;Ms;;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;;;35361540;47934500;DUE IN;15:00;12:00
+1120;0;0;Loza, Ilya;;Mr;;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;;;35361655;47934853;DUE IN;15:00;12:00
+1122;2;0;Safin, Aydar;Сафин, Айдар Ильхамович;Mr;;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;;;35363696;47936472;DUE IN;15:00;12:00
+1122;1;0;Dolzhikova, Vita;Должикова, Вита Валентиновна;Ms;30.01.1969;;;29-JUN-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35356879;47930005;DUE OUT;19:16;12:00
+1122;0;0;Safina, Aynaz;;Ms;;;;03-JUL-26;05-JUL-26;;KING;ROOM;;;;35363707;47936486;DUE IN;15:00;12:00
+1124;2;0;Chernykh, Vitaliy;Черных, Виталий Владимирович;Mr;21.01.1976;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35242870;47939183;DUE IN;15:00;12:00
+1124;1;0;Bigun, Tatiana;Бигун, Татьяна Александровн;Ms;31.01.1967;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;26519106;47936427;DUE OUT;19:27;12:00
+1125;2;0;Makarov, Ivan;Макаров, Иван Афанасьевич;Mr;07.05.1945;V3;Special Attention;01-JUL-26;05-JUL-26;;DLXK;DELUX;R;RU;Russia;29600357;47920565;CHECKED IN;16:12;12:00
+1125;0;0;Makarova, Lidia;Макарова, Лидия Николаевна;Ms;30.11.1945;;;01-JUL-26;05-JUL-26;;DLXK;DELUX;R;RU;Russia;35128967;47920643;CHECKED IN;16:12;12:00
+1126;2;0;Kutepov, Vladimir;Кутепов, Владимир Николаевич;Mr;25.04.1978;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35054406;47938252;DUE IN;15:00;00:00
+1128;1;1;Kutepov, Vladimir;Кутепов, Владимир Николаевич;Mr;25.04.1978;;;03-JUL-26;04-JUL-26;;TWIN;ROOM;R;RU;Russia;35054406;47938253;DUE IN;15:00;00:00
+1128;1;0;Melnikov, Nikita;Мельников, Никита Владимирович;Mr;25.01.1989;;;01-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35318265;47938648;DUE OUT;23:27;12:00
+1130;1;0;Coetzee, Shaun;Коеци, Шон;Mr;11.02.1987;;;02-JUL-26;05-JUL-26;;KING;ROOM;E;ZA;South Africa;35206819;47939109;CHECKED IN;*03:13;00:00
+1132;2;0;Lykov, Andrey;;Mr;;;;03-JUL-26;07-JUL-26;;TWIN;ROOM;R;;;35366712;47939475;DUE IN;15:00;12:00
+1132;1;0;Khayretdinov, Renat;Хайретдинов, Ренат Айратович;Mr;20.03.1980;;;02-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35364396;47937321;DUE OUT;20:24;12:00
+1132;0;0;Savostin, Mikhail;;Mr;;;;03-JUL-26;07-JUL-26;;TWIN;ROOM;;;;35366713;47939477;DUE IN;15:00;12:00
+1200;2;0;Gokhvays, Sergey;Гохвайс, Сергей Александрович;Mr;03.07.1973;V3;Special Attention;03-JUL-26;04-JUL-26;;RGSK;STES;R;RU;Russia;9690005;47939342;DUE IN;18:00;00:00
+1202;1;0;Korolev, Aleksey;;Mr;;;;03-JUL-26;07-JUL-26;;TWIN;ROOM;R;;;35366706;47939469;DUE IN;15:00;12:00
+1202;1;0;Fedoseeva, Natalia;Федосеева, Наталья Юрьевна;Ms;20.03.1976;;;02-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35366463;47939199;DUE OUT;13:46;12:00
+1204;2;0;Goltsova, Maria;Гольцова, Мария Станиславовна;Ms;04.08.1981;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35107719;47939153;DUE IN;12:00;14:00
+1204;2;0;Gladkov, Dmitriy;Гладков, Дмитрий Викторович;Mr;01.12.1988;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35025589;47937524;NO SHOW;;00:00
+1206;1;0;Zakaev, Elnur;;Mr;;;;03-JUL-26;07-JUL-26;;TWIN;ROOM;R;;;35366708;47939471;DUE IN;15:00;12:00
+1206;1;0;Konischev, Nikolay;Конищев, Николай Иванович;Mr;04.09.1978;;;01-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;34897367;47938672;DUE OUT;19:25;12:00
+1208;1;0;Yang, Jia;Ян, Цзя;Mr;07.10.1982;;;29-JUN-26;04-JUL-26;;KING;ROOM;E;CN;China;35364414;47937342;CHECKED IN;16:19;12:00
+1210;1;0;Li, Chunjiang;Ли, Чуньцзян;Mr;24.02.1980;;;29-JUN-26;04-JUL-26;;KING;ROOM;E;CN;China;35364413;47937341;CHECKED IN;16:17;12:00
+1212;1;0;Li, Na;Ли, На;Mr;03.02.1988;;;29-JUN-26;04-JUL-26;;KING;ROOM;E;CN;China;35364417;47937987;CHECKED IN;16:23;12:00
+1214;1;0;Trzaki, Piotr;;Mr;;;;02-JUL-26;05-JUL-26;;KING;ROOM;E;;;35366779;47939111;CHECKED IN;*03:14;00:00
+1216;1;0;Chen, Zhigang;Чэнь, Чжиган;Mr;01.02.1990;;;29-JUN-26;04-JUL-26;;KING;ROOM;E;CN;China;35364415;47937343;CHECKED IN;16:15;12:00
+1218;1;0;Lin, Lin;Линь, Линь;Ms;12.09.1983;;;29-JUN-26;04-JUL-26;;KING;ROOM;E;CN;China;35227125;47937517;CHECKED IN;16:16;12:00
+1220;1;0;Zhang, Baocheng;Чжан, Баочэн;Mr;10.02.1979;;;29-JUN-26;04-JUL-26;;KING;ROOM;E;CN;China;35364412;47937340;CHECKED IN;16:19;12:00
+1222;2;0;Shibanova, Yana;Шибанова, Яна Валерьевна;Ms;22.02.1981;;;03-JUL-26;04-JUL-26;;KING;ROOM;E;RU;Russia;22930605;47936578;DUE IN;14:00;12:00
+1222;1;0;Sadovskaya, Anna;Садовская, Анна Владимировна;Ms;10.10.1986;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35356129;47928566;DUE OUT;18:53;12:00
+1224;1;0;Eremin, Anatoliy;Ерёмин, Анатолий Александров;Mr;13.06.1978;HP;High Priority;02-JUL-26;05-JUL-26;HIGH PRIORITY;KING;ROOM;R;RU;Russia;12600606;47934850;CHECKED IN;19:16;00:00
+1225;2;0;Makda, Mokhammad;Мокда, Мохаммад Фархан;Mr;08.12.1972;;;01-JUL-26;05-JUL-26;;DLXK;DELUX;E;US;United States;35364682;47937881;CHECKED IN;03:35;12:00
+1225;0;0;Ermakova, Elizaveta;Ермакова, Елизавета Алексеевна;Ms;07.07.1993;;;30-JUN-26;05-JUL-26;;DLXK;DELUX;R;RU;Russia;35364689;47937888;CHECKED IN;*03:15;12:00
+1226;1;0;Hao, Qiang;Хао, Цян;Mr;24.05.1980;;;29-JUN-26;04-JUL-26;;KING;ROOM;E;CN;China;35074009;47937345;CHECKED IN;16:17;12:00
+1228;1;0;Tarasova, Natalia;;Ms;;;;03-JUL-26;05-JUL-26;;TWIN;ROOM;R;;;35366004;47938776;DUE IN;15:00;12:00
+1228;1;0;Shvidkovskiy, Sergey;Швидковский, Сергей Леонтьевич;Mr;31.10.1991;;;02-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35324946;47938631;DUE OUT;22:45;12:00
+1230;1;0;Gorokhov, Roman;Горохов, Роман Владимирович;Mr;04.04.1978;HP;High Priority;02-JUL-26;05-JUL-26;HIGH PRIORITY;KING;ROOM;R;RU;Russia;30864856;47934849;CHECKED IN;19:16;00:00
+1232;2;0;Qu, Jianxiang;Цю, Цзяньсян;Mr;06.05.1981;;;29-JUN-26;04-JUL-26;;TWIN;ROOM;E;CN;China;35364411;47937338;CHECKED IN;16:14;12:00
+1232;0;0;Liu, Hongliang;Лю, Хунлян;Mr;15.01.1978;;;29-JUN-26;04-JUL-26;;TWIN;ROOM;E;CN;China;35364408;47937336;CHECKED IN;16:21;12:00
+1234;1;0;Tarakanova, Irina;Тараканова, Ирина Олеговна;Ms;12.08.1994;V3;Special Attention;03-JUL-26;04-JUL-26;;RGSK;STES;R;RU;Russia;29694856;47933055;DUE IN;15:01;00:00
+1300;2;0;Troshina, Valentina;GUESTA, GUESTA;Ms;;V3;Special Attention;03-JUL-26;04-JUL-26;;RGSK;STES;R;;;35366755;47939532;DUE IN;15:00;12:00
+1302;2;0;Malyshev, Aleksandr;Малышев, Александр Владимиров;Mr;13.09.1991;;;29-JUN-26;05-JUL-26;;TWIN;ROOM;R;RU;Russia;35364443;47937388;CHECKED IN;15:32;12:00
+1302;0;0;Ignashov, Aleksey;;Mr;;;;03-JUL-26;05-JUL-26;;TWIN;ROOM;R;;;35364444;47937389;DUE IN;15:00;12:00
+1304;1;0;Kukarskikh, Olga;Кукарских, Ольга Евгеньевна;Ms;29.01.1966;HP;High Priority;26-JUN-26;03-JUL-26;HIGH PRIORITY;KING;ROOM;R;RU;Russia;3869910;47933424;DUE OUT;15:24;12:00
+1304;1;0;Abbasov, Lev;;Mr;;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;;;35364445;47937390;DUE IN;15:00;12:00
+1306;2;0;Ismonov, Ildot;Исмонов, Ильдот Курбоналиевич;Mr;20.04.1999;;;28-JUN-26;05-JUL-26;;TWIN;ROOM;R;RU;Russia;35303920;47937385;CHECKED IN;00:36;12:00
+1306;0;0;Lukashevich, Roman;Лукашевич, Роман Иванович;Mr;05.08.1991;;;28-JUN-26;05-JUL-26;;TWIN;ROOM;R;RU;Russia;35303919;47937386;CHECKED IN;00:34;12:00
+1308;2;0;Egorov, Artem;Егоров, Артем Викторович;Mr;29.12.1980;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35147217;47939506;DUE IN;15:00;12:00
+1308;1;0;Mazurin, Denis;Мазурин, Денис Андреевич;Mr;25.06.1992;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35017043;47938548;DUE OUT;22:45;00:00
+1310;2;0;Kotlyarova, Irina;Котлярова, Ирина Сергеевна;Ms;08.01.1978;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35188771;47935562;DUE IN;20:00;00:00
+1312;1;0;Tolokonnikova, Veronika;Толоконникова, Вероника Владиславов;Ms;17.07.1997;;;01-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35363921;47936883;CHECKED IN;20:37;12:00
+1314;1;0;Lebedeva, Olga;Лебедева, Ольга Юрьевна;Ms;20.06.1993;;;01-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35349168;47922053;CHECKED IN;19:38;12:00
+1316;1;0;Kavaliou, Uladzislau;Кавалев, Владислав;Mr;10.07.1998;;;28-JUN-26;05-JUL-26;;KING;ROOM;R;BY;Belarus;35278433;47937384;CHECKED IN;00:34;12:00
+1318;1;0;Wamugunda, Gladys;Уомугунда, Гладис Мутони;Ms;17.03.1990;;;02-JUL-26;05-JUL-26;;KING;ROOM;E;KE;Kenya;35150366;47939110;CHECKED IN;*03:11;00:00
+1320;2;0;Pankratov, Dmitriy;Панкратов, Дмитрий Валерьевич;Mr;01.11.1985;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;32676107;47881003;DUE IN;14:00;12:00
+1320;1;0;Kuznetsov, Anton;Кузнецов, Антон Евгеньевич;Mr;19.03.1981;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35063203;47936108;DUE OUT;18:28;12:00
+1320;0;0;Pankratova, Dobryana;Панкратова, Добряна Игоревна;Ms;22.07.1986;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;32693356;47881005;DUE IN;14:00;12:00
+1322;1;0;Navruzov, Gadzhi;Наврузов, Гаджи Надирович;Mr;11.04.1989;;;29-JUN-26;05-JUL-26;;KING;ROOM;R;RU;Russia;34929377;47937387;CHECKED IN;15:28;12:00
+1324;2;0;Zemlyankin, Andrey;Землянкин, Андрей;Mr;;;;03-JUL-26;04-JUL-26;;KING;ROOM;R;;;35364905;47938055;DUE IN;15:00;12:00
+1324;1;0;Ovchinnikov, Yuriy;Овчинников, Юрий Борисович;Mr;14.12.1971;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;26910358;47936094;DUE OUT;20:02;00:00
+1325;2;1;Khripko, Stanislav;Хрипко, Станислав Владимиров;Mr;25.02.1974;;;02-JUL-26;03-JUL-26;;DLXK;DELUX;R;RU;Russia;8264719;47938780;DUE OUT;14:38;14:00
+1325;0;0;Khripko, Maria;Хрипко, Мария Станиславовна;Ms;17.09.2018;;;02-JUL-26;03-JUL-26;;DLXK;DELUX;R;RU;Russia;35366010;47938782;DUE OUT;14:39;14:00
+1325;0;0;Ipatova, Evgeniya;Ипатова, Евгения Александровн;Ms;18.05.1989;;;02-JUL-26;03-JUL-26;;DLXK;DELUX;R;RU;Russia;8297718;47938781;DUE OUT;14:39;14:00
+1326;1;1;Deeva, Aleksandra;Деева, Александра Фёдоровна;Ms;19.02.1990;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35366772;47937975;CHECKED IN;02:36;00:00
+1326;0;0;Gazanfar, Sitora;Газанфар, Ситора Сулеймановна;Ms;21.02.2016;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35366773;47939557;CHECKED IN;02:37;00:00
+1328;2;0;Deev, Fedor;Деев, Федор Витальевич;Mr;18.11.1969;;;02-JUL-26;05-JUL-26;;TWIN;ROOM;R;RU;Russia;35238358;47937974;CHECKED IN;18:04;00:00
+1328;0;0;Deeva, Zinaida;Деева, Зинаида Мавлитовна;Ms;31.10.1970;;;02-JUL-26;05-JUL-26;;TWIN;ROOM;R;RU;Russia;35238527;47939500;CHECKED IN;18:04;00:00
+1330;1;0;Lepekhin, Dmitry;Лепехин, Дмитрий Алексеевич;Mr;12.07.1989;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;10252858;47930596;DUE OUT;00:29;12:00
+1330;1;0;Tselinskaya, Irina;Целинская, Ирина Сергеевна;Ms;;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;;;35349431;47922451;DUE IN;15:00;12:00
+1332;1;0;Lyavrik, Aleksandra;Ляврик, Александра Вячеславо;Ms;07.03.1990;;;02-JUL-26;04-JUL-26;;TWIN;ROOM;R;RU;Russia;35363418;47936133;CHECKED IN;00:37;12:00
+1334;2;0;Ahmed, Ruman;Ахмед, Руман;Mr;11.04.1993;V3;Special Attention;30-JUN-26;04-JUL-26;;RGSK;STES;E;IN;India;35364880;47938021;CHECKED IN;02:36;00:00
+1334;0;0;Khan, Zaid Ahmed;Кхан, Заид Ахмед;Mr;19.10.1992;;;30-JUN-26;04-JUL-26;;RGSK;STES;E;IN;India;35179868;47938822;CHECKED IN;02:36;00:00
+1402;1;0;Khalatyan, Liana;;Ms;;;;02-JUL-26;06-JUL-26;;TWIN;ROOM;R;;;35366545;47939333;CHECKED IN;03:26;00:00
+1404;1;0;Taushev, Dmitriy;Таушев, Дмитрий Петрович;Mr;15.08.1981;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;24558356;47938551;CHECKED IN;19:09;12:00
+1406;2;0;Khokhlovskaya, Kristina;;Ms;;;;03-JUL-26;05-JUL-26;;TWIN;ROOM;R;;;35365970;47938711;DUE IN;15:00;12:00
+1406;1;0;Pushkina, Ekaterina;Пушкина, Екатерина Викторовна;Ms;05.07.1990;;;01-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35366385;47939076;DUE OUT;12:29;00:00
+1406;1;0;Dzhafarova, Tunzala;Джафарова, Тунзала Интизам Кызы;Ms;15.09.1987;;;01-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;29287606;47936106;DUE OUT;12:28;00:00
+1408;1;0;Bogachev, Artem;Богачев, Артем Вадимович;Mr;18.09.1995;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;35365869;47938552;CHECKED IN;16:48;12:00
+1409;1;0;Dashkin, Nikita;Дашкин, Никита Юрьевич;Mr;18.06.1988;;;02-JUL-26;03-JUL-26;;DLXK;DELUX;R;RU;Russia;27041357;47939540;DUE OUT;23:53;00:00
+1410;2;0;Torvin, Bogdan;;Mr;;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35366041;47938819;DUE IN;;00:00
+1410;1;0;Kuzin, Vladimir;Кузин, Владимир Анатольевич;Mr;15.05.1990;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35190143;47931619;DUE OUT;14:56;12:00
+1412;1;0;Kudryavtsev, Aleksandr;Кудрявцев, Александр Вячеславов;Mr;23.09.1983;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;34967361;47938550;CHECKED IN;21:45;12:00
+1414;1;0;Kisidayova, Maria;;Ms;;;;02-JUL-26;05-JUL-26;;KING;ROOM;E;;;35366778;47939107;CHECKED IN;*03:14;00:00
+1416;1;0;Kuliev, Emil;Кулиев, Эмиль Сенанович;Mr;26.02.1989;;;02-JUL-26;06-JUL-26;;KING;ROOM;R;RU;Russia;35366493;47939186;CHECKED IN;19:42;12:00
+1417;1;0;Chubaev, Aleksandr;Chubaev, Aleksandr;Mr;;;;02-JUL-26;04-JUL-26;;TWIN;ROOM;R;RU;Russia;35366617;47939351;CHECKED IN;23:32;12:00
+1418;2;0;Metelkov, Yuriy;Метельков, Юрий;Mr;;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;;;35366466;47939201;DUE IN;15:00;12:00
+1418;1;0;Paschenko, Artem;Пащенко, Артем Александрович;Mr;24.05.1991;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35279438;47937827;DUE OUT;21:14;00:00
+1420;2;0;Vlasova, Olga;Власова, Ольга Сергеевна;Ms;06.04.1985;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;8346218;47938248;DUE IN;16:00;00:00
+1420;1;0;Sabirova, Olga;Сабирова, Ольга Фаритовна;Ms;24.01.1986;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;25186369;47938715;DUE OUT;17:37;12:00
+1422;2;0;Kokorina, Ulyana;;Ms;;;;03-JUL-26;05-JUL-26;;KING;ROOM;R;;;35355863;47928283;DUE IN;15:01;12:00
+1422;1;0;Ur-Rakhim, Kashif;Ур-Рахим, Кашиф Джавадович;Mr;25.07.1980;;;01-JUL-26;03-JUL-26;STANDARD;KING;ROOM;R;RU;Russia;35260989;47938714;DUE OUT;17:53;12:00
+1422;0;0;Kokorina, Anna;;;;;;03-JUL-26;04-JUL-26;;KING;ROOM;E;;;35355869;47928291;DUE IN;15:00;12:00
+1424;2;0;Kraev, Maksim;Краев, Максим Викторович;Mr;;V7;Guest Recognition;03-JUL-26;04-JUL-26;;KING;ROOM;R;;;35358603;47931603;DUE IN;15:01;14:00
+1424;1;0;Medovnik, Anastasia;Медовник, Анастасия Игоревна;Ms;17.12.1999;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35361677;47934885;DUE OUT;22:58;12:00
+1425;2;0;Kiselev, Stanislav;Киселев, Станислав Владиславо;Mr;22.09.1975;;;02-JUL-26;04-JUL-26;STANDARD;DLXK;DELUX;R;RU;Russia;35104893;47939251;CHECKED IN;00:41;00:00
+1426;1;0;Rzhevskiy, Andrey;Ржевский, Андрей Анатольевич;Mr;13.09.1987;;;01-JUL-26;07-JUL-26;;KING;ROOM;R;RU;Russia;10247087;47938549;CHECKED IN;21:43;12:00
+1430;1;0;Lyalin, Kirill;Лялин, Кирилл Юрьевич;Mr;18.01.1994;PP;Priority Plus;02-JUL-26;05-JUL-26;PRIORITY PLUS;KING;ROOM;R;RU;Russia;35023982;47933511;CHECKED IN;22:47;21:00
+1432;2;0;Ivanenko, Elena;Иваненко, Елена Сергеевна;Ms;13.02.1991;;;02-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35363175;47935871;DUE OUT;20:58;12:00
+1432;2;0;Khusaenov, Renat;Хусаенов, Ренат Яхияевич;Mr;28.10.1984;;;03-JUL-26;05-JUL-26;;TWIN;ROOM;R;RU;Russia;35295614;47939241;DUE IN;15:00;12:00
+1432;0;0;Sinitsyna, Aleksandra;Синицина, Александра Александр;Ms;07.05.1994;;;02-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35363362;47936038;DUE OUT;21:00;12:00
+1502;2;0;Gushtelo, Ilona;Гуштело, Илона;Ms;;;;03-JUL-26;04-JUL-26;;TWIN;ROOM;R;;;35361611;47934783;DUE IN;15:00;12:00
+1502;2;0;Gorshenin, Aleksandr;Горшенин, Александр Владимиров;Mr;30.06.1987;;;02-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35366025;47938799;DUE OUT;15:20;12:00
+1502;0;0;Gorshenina, Olga;Горшенина, Ольга Вячеславовна;Ms;14.01.1986;;;02-JUL-26;03-JUL-26;;TWIN;ROOM;R;RU;Russia;35366371;47939047;DUE OUT;15:21;12:00
+1502;0;0;Khalturin, Mikhail;;Mr;;;;03-JUL-26;04-JUL-26;;TWIN;ROOM;;;;35361673;47934880;DUE IN;15:00;12:00
+1504;1;0;Khamitova, Yulia;Хамитова, Юлия Раисовна;Ms;03.04.1985;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35049313;47939136;DUE OUT;14:06;12:00
+1504;1;0;Kamchatnyy, Sergey;;Mr;;;;03-JUL-26;07-JUL-26;;KING;ROOM;R;;;35354468;47924369;DUE IN;16:00;12:00
+1504;1;0;Ten, Anatoliy;Тен, Анатолий Дмитриевич;Mr;11.02.1983;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35168705;47934800;DUE OUT;18:16;12:00
+1506;1;0;Loskutova, Evgenia;Лоскутова, Евгения Александровн;Ms;28.03.1979;;;03-JUL-26;04-JUL-26;;TWIN;ROOM;R;RU;Russia;25761856;47939218;DUE IN;12:00;12:00
+1508;2;0;Mukhametvaleev, Rinat;Мухаметвалеев, Ринат Райханович;Mr;04.03.1979;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35363938;47936901;CHECKED IN;23:20;12:00
+1508;0;0;Mukhametvaleeva, Anastasia;Мухаметвалеева, Анастасия Алексеевна;Ms;09.02.1988;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35363953;47936923;CHECKED IN;23:21;12:00
+1510;1;0;Nemchikov, Aleksandr;;Mr;;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;;;35366448;47939178;CHECKED IN;*03:57;12:00
+1512;2;0;Kiselev, Vasiliy;Киселев, Василий Викторович;Mr;09.05.1992;;;30-JUN-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35352188;47924910;CHECKED IN;14:32;12:00
+1512;0;0;Golomyzdo, Maria;Голомыздо, Мария Ивановна;Ms;06.07.1955;;;30-JUN-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35365945;47938677;CHECKED IN;16:55;12:00
+1514;1;0;Rakitin, Dmitriy;Ракитин, Дмитрий Анатольевич;Mr;25.10.1976;;;02-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;34935118;47931570;CHECKED IN;21:15;00:00
+1516;2;0;Balakina, Ekaterina;Балакина, Елена Андреевна;Ms;26.06.1982;;;01-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35351371;47923922;CHECKED IN;23:14;12:00
+1517;1;0;Kryukov, Kirill;Крюков, Кирилл Вячеславович;Mr;12.08.1994;;;02-JUL-26;05-JUL-26;;TWIN;ROOM;R;RU;Russia;35366700;47939464;CHECKED IN;16:49;00:00
+1517;1;0;Lobanov, Artem;Лобанов, Артем Николаевич;Mr;27.04.1994;;;02-JUL-26;05-JUL-26;;TWIN;ROOM;R;RU;Russia;35366686;47939445;CHECKED IN;16:47;00:00
+1518;1;0;Golomyzdo, Nataliia;Голомыздо, Наталия Сергеевна;Ms;06.03.1990;;;30-JUN-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35352189;47924911;CHECKED IN;14:40;12:00
+1520;2;0;Gallyamov, Ilya;Галлямов, Илья Альфридович;Mr;07.07.1991;;;02-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35183421;47929779;CHECKED IN;15:10;14:00
+1520;0;0;Shamsutdinova, Ksenia;Шамсутдинова, Ксения Алексеевна;Ms;20.02.1989;;;02-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35284410;47929974;CHECKED IN;15:10;14:00
+1522;1;0;Lyskov, Dmitriy;;Mr;;;;03-JUL-26;07-JUL-26;;KING;ROOM;R;;;35351667;47924370;DUE IN;16:00;12:00
+1524;1;0;Mikhaylova, Valeria;Михайлова, Валерия Иосифовна;Ms;27.08.1960;;;01-JUL-26;05-JUL-26;;KING;ROOM;R;RU;Russia;35347983;47920566;CHECKED IN;16:13;12:00
+1526;1;0;Petelina, Vera;Петелина, Вера Владимировна;Ms;15.10.1981;;;01-JUL-26;04-JUL-26;;KING;ROOM;R;RU;Russia;35363772;47936590;CHECKED IN;15:39;12:00
+1528;1;1;Nefedov, Dmitriy;Нефедов, Дмитрий Викторович;Mr;15.05.1978;PR;Priority;28-JUN-26;04-JUL-26;PRIORITY;TWIN;ROOM;R;RU;Russia;35136866;47934840;CHECKED IN;17:45;00:00
+1528;0;0;Nefedov, Ilya;Нефедов, Илья Дмитриевич;Mr;23.06.2014;;;28-JUN-26;04-JUL-26;;TWIN;ROOM;R;RU;Russia;35208016;47937978;CHECKED IN;17:46;00:00
+1530;2;0;Prokazov, Nikita;;Mr;;V7;Guest Recognition;03-JUL-26;05-JUL-26;;KING;ROOM;R;;;35313521;47881413;DUE IN;15:00;12:00
+1530;1;0;Sorokin, Aleksey;Сорокин, Алексей Владимирович;Mr;10.02.1984;;;01-JUL-26;03-JUL-26;;KING;ROOM;R;RU;Russia;35337359;47938231;DUE OUT;19:17;12:00
+1532;2;0;Zhuk, Artem;Zhuk, Artem;Mr;;;;03-JUL-26;05-JUL-26;;TWIN;ROOM;R;;;35366477;47939224;DUE IN;15:00;12:00
+1604;1;0;Semenova, Olga;Семенова, Ольга Геннадьевна;Ms;27.05.1961;;;02-JUL-26;09-JUL-26;;CLBK;CLUB;R;RU;Russia;34909929;47937494;CHECKED IN;19:57;12:00
+1608;2;0;Ivanova, Lyubov;Иванова, Любовь Сергеевна;Ms;07.10.1991;;;02-JUL-26;05-JUL-26;;CLBK;CLUB;R;RU;Russia;35366356;47939030;CHECKED IN;00:47;12:00
+1608;0;0;Ivanov, Denis;Иванов, Денис Андреевич;Mr;17.05.1992;;;02-JUL-26;05-JUL-26;;CLBK;CLUB;R;RU;Russia;35366768;47939549;CHECKED IN;00:47;12:00
+1609;1;0;Popov, Andrey;Попов, Андрей Васильевич;Mr;11.05.1965;HP;High Priority;29-JUN-26;05-JUL-26;HIGH PRIORITY;DLXK;DELUX;R;RU;Russia;8205468;47938165;CHECKED IN;23:15;00:00
+1610;1;0;Velikiy, Stanislav;Великий, Станислав Игоревич;Mr;09.03.1981;HP;High Priority;01-JUL-26;03-JUL-26;HIGH PRIORITY;CLBK;CLUB;R;RU;Russia;35344629;47939202;DUE OUT;20:35;12:00
+1612;2;0;Shevchenko, Denis;Шевченко, Денис Владимирович;Mr;27.06.1978;;;02-JUL-26;03-JUL-26;;CLBK;CLUB;R;RU;Russia;34904150;47939255;DUE OUT;19:57;00:00
+1612;1;0;Ibadzade, Amir;Ибадзаде, Амир Валех Оглы;Mr;23.01.1992;;;03-JUL-26;05-JUL-26;;CLBK;CLUB;R;RU;Russia;35341862;47939368;DUE IN;18:01;00:00
+1612;0;0;Grozdkova, Tatyana;Гроздкова, Татьяна Владимировна;Ms;13.05.1987;;;02-JUL-26;03-JUL-26;;CLBK;CLUB;R;RU;Russia;35366747;47939524;DUE OUT;19:58;00:00
+1614;1;0;Shushpanova, Natalia;Шушпанова, Наталья;Ms;;;;03-JUL-26;04-JUL-26;;CLBK;CLUB;R;;;35365966;47938705;DUE IN;15:00;12:00
+1614;1;0;Antipova, Elena;Антипова, Елена Валерьевна;Ms;11.09.1989;;;02-JUL-26;03-JUL-26;;CLBK;CLUB;R;RU;Russia;35339436;47938182;DUE OUT;16:46;12:00
+1616;1;0;Dyachkov, Sergey;Дьячков, Сергей Владимирович;Mr;12.10.1969;;;03-JUL-26;05-JUL-26;;CLBK;CLUB;R;RU;Russia;35004411;47937404;DUE IN;15:00;12:00
+1616;1;0;Zaripov, Kasim;Зарипов, Касим Альфредович;Mr;30.06.1984;;;01-JUL-26;03-JUL-26;;CLBK;CLUB;R;RU;Russia;34882414;47938566;DUE OUT;22:45;00:00
+1618;1;0;Vozisov, Igor;Возисов, Игорь Вячеславович;Mr;29.04.1982;HP;High Priority;02-JUL-26;05-JUL-26;HIGH PRIORITY;CLBK;CLUB;R;RU;Russia;7042712;47937794;CHECKED IN;18:23;00:00
+1620;1;0;Litvinenko, Nikita;Литвиненко, Никита Викторович;Ms;14.10.1986;;;30-JUN-26;04-JUL-26;;CLBK;CLUB;R;RU;Russia;35363142;47935827;CHECKED IN;16:25;12:00
+1622;2;0;Ivanov, Evgeniy;Иванов, Евгений Валерьевич;Mr;04.05.1975;;;02-JUL-26;05-JUL-26;;CLBK;CLUB;R;RU;Russia;35268124;47939212;NO SHOW;07:00;12:00
+1624;1;0;Abzalov, Danil;Абзалов, Данил Александрович;Mr;08.04.1995;;;02-JUL-26;04-JUL-26;;CLBK;CLUB;R;RU;Russia;35366440;47939166;CHECKED IN;23:04;12:00
+1626;1;0;Shakhova, Marina;Шахова, Марина Андреевна;Ms;08.09.1997;;;30-JUN-26;04-JUL-26;;CLBK;CLUB;R;RU;Russia;35005624;47938770;CHECKED IN;19:29;12:00
+1630;1;0;Davydov, Denis;Давыдов, Денис Николаевич;Mr;01.12.1986;HP;High Priority;01-JUL-26;03-JUL-26;HIGH PRIORITY;CLBK;CLUB;R;RU;Russia;10261336;47938691;DUE OUT;00:09;00:00
+1704;1;0;Kurganov, Mikhail;Курганов, Михаил Евгеньевич;Mr;08.02.1979;;;02-JUL-26;03-JUL-26;;CLBK;CLUB;R;RU;Russia;35284040;47939194;DUE OUT;12:14;12:00
+1708;1;0;Rodivilov, Sergey;Родивилов, Сергей Николаевич;Mr;07.05.1985;;;02-JUL-26;03-JUL-26;;CLBK;CLUB;R;RU;Russia;35260193;47936812;DUE OUT;17:45;12:00
+1710;1;0;Tkachev, Evgeniy;Ткачёв, Евгений Викторович;Mr;22.04.1978;;;02-JUL-26;03-JUL-26;;CLBK;CLUB;R;RU;Russia;35305120;47933417;DUE OUT;15:27;12:00
+1712;1;0;Skopintsev, Dmitriy;Скопинцев, Дмитрий;Mr;23.06.1994;;;02-JUL-26;09-JUL-26;;CLBK;CLUB;R;KZ;Kazakhstan;35256630;47937500;CHECKED IN;20:00;12:00
+1714;2;0;Kolchin, Sergey;Колчин, Сергей Вадимович;Mr;03.07.1981;;;02-JUL-26;04-JUL-26;;CLBK;CLUB;R;RU;Russia;34916672;47939338;CHECKED IN;19:45;12:00
+1714;0;0;Kolchina, Yulia;Колчина, Юлия Игоревна;Ms;20.04.1982;;;02-JUL-26;04-JUL-26;;CLBK;CLUB;R;RU;Russia;34887870;47939341;CHECKED IN;19:45;12:00
+1716;1;0;Strelkin, Sergey;Стрелкин, Сергей Александрович;Mr;02.01.1989;;;02-JUL-26;05-JUL-26;;CLBK;CLUB;R;RU;Russia;35366532;47939322;CHECKED IN;16:40;12:00
+1718;2;0;Kuznetsov, Evgeniy;Кузнецов, Евгений;Mr;;;;03-JUL-26;04-JUL-26;;CLBK;CLUB;R;;;35366039;47938817;DUE IN;15:00;12:00
+1718;2;0;Starkov, Anton;Старков, Антон Андреевич;Mr;17.05.1994;;;02-JUL-26;03-JUL-26;;CLBK;CLUB;R;RU;Russia;35149450;47939553;DUE OUT;01:25;00:00
+1718;0;0;Starkova, Anastasia;Старкова, Анастасия Алексеевна;Ms;08.02.1997;;;02-JUL-26;03-JUL-26;;CLBK;CLUB;R;RU;Russia;35343200;47939555;DUE OUT;01:29;00:00
+1811;1;0;Kozachek, Viktoria;Козачек, Виктория Васильевна;Ms;13.10.1984;HP;High Priority;29-JUN-26;05-JUL-26;HIGH PRIORITY;DLXK;DELUX;R;RU;Russia;35000221;47938181;CHECKED IN;23:16;00:00
+CF_LOGO;CF_1
+;1

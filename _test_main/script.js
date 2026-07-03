@@ -88,7 +88,6 @@ function toggleRoom(header) {
     }
 }
 
-function guestClick(element) {
-    const name = element.querySelector('.guest-name').textContent;
-    // alert('Вы выбрали: ' + name);
+function guestClick(element, guestName) {
+    alert('Вы выбрали: ' + guestName);
 }
