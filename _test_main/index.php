@@ -188,6 +188,7 @@ $username = htmlspecialchars($_SESSION['username']);
                                 
                                 <!-- ВЫПАДАЮЩЕЕ ПОЛЕ (ПОД БЛОКОМ) -->
                                 <div class="guest-dropdown">
+                                    <button class="add-comment-btn">Добавить комментарий</button>
                                     <div class="comment">Многострочный комментарий 1</div>
                                     <div class="comment">Многострочный комментарий 2</div>
                                     <div class="comment">Многострочный комментарий 3</div>
