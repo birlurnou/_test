@@ -140,9 +140,9 @@ $username = htmlspecialchars($_SESSION['username']);
                                 <!-- нижняя строка комнаты -->
                                 <div class="room-row-bottom">
                                     <div class="room-badge status-badge"><?php echo $status; ?></div>
-                                    <div class="room-badge nationality-badge"><?php echo $nationality1; ?></div>
-                                    <div class="room-badge nationality-badge"><?php echo $nationality2; ?></div>
-                                    <div class="room-badge reservation-badge"><?php echo $res_stat; ?></div>
+                                    <!--<div class="room-badge nationality-badge"><?php echo $nationality1; ?></div> -->
+                                    <!--<div class="room-badge nationality-badge"><?php echo $nationality2; ?></div> -->
+                                    <!--<div class="room-badge reservation-badge"><?php echo $res_stat; ?></div> -->
                                 </div>
                             </div>
                             <!-- кнопка переключателя -->
