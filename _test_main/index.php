@@ -123,33 +123,43 @@ $username = htmlspecialchars($_SESSION['username']);
                         $nationality2 = $nationalities[array_rand($nationalities)];
                         $res_stats = ['Checked In', 'Due In', 'Due Out', 'No Show', 'Walk In'];
                         $res_stat = $res_stats[array_rand($res_stats)];
-                        $hasBirthday = $i % 3 == 0;
+                        $hasNearBirthday = $i % 3 == 0;
+                        $hasBirthday = ($i + 1) % 3 == 0;
                     ?>
                     <div class="room-card">
+
                         <div class="room-header" onclick="toggleRoom(this)">
                             <div class="room-content">
+
                                 <!-- верхняя строка комнаты -->
                                 <div class="room-row-top">
                                     <div class="room-badge room-number-badge">100<?php echo $i; ?></div>
                                     <div class="room-badge room-type-badge">KING</div>
                                     <div class="room-badge room-guests-badge">Attended 0 / 3</div>
-                                    <?php if ($hasBirthday): ?>
-                                    <div class="room-badge birthday-badge near">Birthday was 3 days ago</div>
-                                    <?php endif; ?>
                                 </div>
+
                                 <!-- нижняя строка комнаты -->
                                 <div class="room-row-bottom">
+
                                     <div class="room-badge status-badge"><?php echo $status; ?></div>
-                                    <!--<div class="room-badge nationality-badge"><?php echo $nationality1; ?></div> -->
-                                    <!--<div class="room-badge nationality-badge"><?php echo $nationality2; ?></div> -->
-                                    <!--<div class="room-badge reservation-badge"><?php echo $res_stat; ?></div> -->
+                                    <?php if ($hasBirthday): ?>
+                                    <div class="room-badge birthday-badge exact">Happy Birthday</div>
+                                    <?php endif; ?>
+
+                                    <?php if ($hasNearBirthday): ?>
+                                    <div class="room-badge birthday-badge near">Birthday was 3 days ago</div>
+                                    <?php endif; ?>
+
                                 </div>
                             </div>
+
                             <!-- кнопка переключателя -->
                             <div class="room-badge toggle-badge" onclick="event.stopPropagation(); toggleRoom(this.closest('.room-card').querySelector('.room-header'));">
                                 <span class="toggle-icon">▼</span>
                             </div>
+
                         </div>
+
                         <!-- блоки с гостями -->
                         <div class="room-guests">
                             <?php for ($j = 1; $j <= 3; $j++):
@@ -159,6 +169,7 @@ $username = htmlspecialchars($_SESSION['username']);
                             <div class="guest-wrapper">
                                 <div class="guest-item" onclick="toggleGuest(this)">
                                     <div class="guest-header">
+
                                         <!-- верхняя строка гостя -->
                                         <div class="guest-row-top">
                                             <span class="guest-badge guest-name-badge"><?php echo $guest[0]; ?></span>
@@ -167,6 +178,7 @@ $username = htmlspecialchars($_SESSION['username']);
                                             <span class="guest-badge guest-nationality-badge"><?php echo $guest[2]; ?></span>
                                             <span class="guest-badge guest-maturity-badge"><?php echo $guest[4]; ?></span>
                                         </div>
+
                                         <!-- средняя строка гостя -->
                                         <div class="guest-row-middle">
                                             <span class="guest-badge guest-arrival-date-badge">01.07.2026</span>
@@ -175,23 +187,75 @@ $username = htmlspecialchars($_SESSION['username']);
                                             <span class="guest-badge guest-departure-time-badge">08:20</span>
                                             <span class="guest-badge guest-comment-badge">3 comments</span>
                                         </div>
+
                                         <!-- нижняя строка гостя -->
                                         <div class="guest-row-bottom">
                                             <span class="guest-badge guest-res-stat-badge">Checked In</span>
                                             <span class="guest-badge guest-birthday-badge exact">Happy Birthday</span>
                                             <span class="guest-badge guest-attention-badge">Attention: 09:30:03</span>
                                         </div>
+
                                     </div>
                                     <!-- кликабельная область справа -->
                                     <div class="guest-click-area" onclick="event.stopPropagation(); guestClick(this, 'Гость <?php echo $j; ?> (комната 100<?php echo $i; ?>)')"></div>
+                                
                                 </div>
                                 
                                 <!-- ВЫПАДАЮЩЕЕ ПОЛЕ (ПОД БЛОКОМ) -->
                                 <div class="guest-dropdown">
-                                    <button class="add-comment-btn">Добавить комментарий</button>
-                                    <div class="comment">Многострочный комментарий 1</div>
-                                    <div class="comment">Многострочный комментарий 2</div>
-                                    <div class="comment">Многострочный комментарий 3</div>
+                                    
+                                    <button class="add-comment-btn">Add comment</button>
+
+                                    <div class="comment-item">
+                                        <div class="comment-header">
+                                            <div class="comment-info">
+                                                <span class="comment-time">13.07.2026 09:15</span>
+                                                <span class="comment-creator">i_starikov</span>
+                                            </div>
+                                            <div class="comment-actions">
+                                                <button class="comment-btn edit-btn">Change</button>
+                                                <button class="comment-btn delete-btn">Delete</button>
+                                            </div>
+                                        </div>
+                                        <div class="comment-text">
+                                            Отличный гость, очень вежливый. Всегда улыбается и благодарит персонал. Оставил хорошие чаевые.
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="comment-item">
+                                        <div class="comment-header">
+                                            <div class="comment-info">
+                                                <span class="comment-time">13.07.2026 09:15</span>
+                                                <span class="comment-creator">i_starikov</span>
+                                            </div>
+                                            <div class="comment-actions">
+                                                <button class="comment-btn edit-btn">Change</button>
+                                                <button class="comment-btn delete-btn">Delete</button>
+                                            </div>
+                                        </div>
+                                        <div class="comment-text">
+                                            Просила дополнительное полотенце и подушку. Также интересовалась вегетарианскими блюдами в ресторане.
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="comment-item">
+                                        <div class="comment-header">
+                                            <div class="comment-info">
+                                                <span class="comment-time">13.07.2026 09:15</span>
+                                                <span class="comment-creator">i_starikov</span>
+                                            </div>
+                                            <div class="comment-actions">
+                                                <button class="comment-btn edit-btn">Change</button>
+                                                <button class="comment-btn delete-btn">Delete</button>
+                                            </div>
+                                        </div>
+                                        <div class="comment-text">
+                                            Заказал веганский завтрак. Попросили заменить обычное молоко на растительное. Очень доволен обслуживанием.
+                                        </div>
+                                    </div>
+
+                                    <!-- <button class="add-comment-btn">Add comment</button> -->
+
                                 </div>
                             </div>
                             <?php endfor; ?>
