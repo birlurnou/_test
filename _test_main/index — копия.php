@@ -118,11 +118,6 @@ $username = htmlspecialchars($_SESSION['username']);
                     <?php for ($i = 1; $i <= 20; $i++):
                         $statuses = ['Priority', 'Standard', 'High Priority', 'Special Attention'];
                         $status = $statuses[array_rand($statuses)];
-                        $nationalities = ['RU', 'BY', 'KZ', 'US', 'GB'];  
-                        $nationality1 = $nationalities[array_rand($nationalities)];
-                        $nationality2 = $nationalities[array_rand($nationalities)];
-                        $res_stats = ['Checked In', 'Due In', 'Due Out', 'No Show', 'Walk In'];
-                        $res_stat = $res_stats[array_rand($res_stats)];
                         $hasNearBirthday = $i % 3 == 0;
                         $hasBirthday = ($i + 1) % 3 == 0;
                     ?>
@@ -204,7 +199,7 @@ $username = htmlspecialchars($_SESSION['username']);
                                 <!-- выпадающее поле (под блоком) -->
                                 <div class="guest-dropdown">
                                     
-                                    <button class="add-comment-btn">Add comment</button>
+                                    <button class="add-comment-btn" onclick="openModal(this)">Add Comment</button>
 
                                     <div class="comment-item">
                                         <div class="comment-header">
@@ -267,7 +262,21 @@ $username = htmlspecialchars($_SESSION['username']);
 
         </div>
     </div>
-    
+    <!-- Модальное окно для добавления комментария -->
+    <div id="commentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>New Comment</h2>
+            </div>
+            <div class="modal-body">
+                <textarea id="commentText" placeholder="Enter your comment text..." rows="5"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel-btn" onclick="closeModal()">Cancel</button>
+                <button class="modal-btn add-btn" onclick="addComment()">Add Comment</button>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
     <script>
         window.loginTime = <?php echo $login_time; ?>;

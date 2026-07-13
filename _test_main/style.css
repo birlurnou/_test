@@ -741,13 +741,14 @@ body {
 }
 
 .modal-btn.cancel-btn {
+    min-width: 161.5px;
     background: #e0e0e0;
     color: #333;
 }
 
 .modal-btn.cancel-btn:hover {
     background: #d0d0d0;
-    transform: scale(1.02);
+    transform: scale(1.0);
 }
 
 .modal-btn.add-btn {
@@ -757,13 +758,14 @@ body {
 
 .modal-btn.add-btn:hover {
     background: #4a4762;
-    transform: scale(1.02);
+    transform: scale(1.0);
 }
 
 .modal-btn.add-btn:active,
 .modal-btn.cancel-btn:active {
-    transform: scale(0.98);
+    transform: scale(1.0);
 }
+
 
 /* Адаптив для модального окна */
 @media (max-width: 600px) {
