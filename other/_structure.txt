@@ -1,4 +1,10 @@
 path/
+├── _test_main/					тестовая основная страница
+│   ├── assets/
+│	├── index.php
+│	├── script.js
+│	└── style.css
+│
 ├── admin/						страница админки
 │   ├── core/					crud операции
 │	│	├── create_user.php
