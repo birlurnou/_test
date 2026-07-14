@@ -368,7 +368,7 @@ function truncateText($text, $length) {
                         }
 
                     ?>
-                    <div class="room-card<?php echo $cornerClasses; ?>" data-room="<?php echo $roomNumber; ?>">
+                    <div class="room-card" style="--corner-color: <?php echo htmlspecialchars($cornerBg); ?>;" data-room="<?php echo $roomNumber; ?>">
 
                         <div class="room-header" onclick="toggleRoom(this)">
                             <div class="room-content">
@@ -571,6 +571,22 @@ function truncateText($text, $length) {
         </div>
     </div>
     
+    <!-- модальное окно подтверждения -->
+    <div id="confirmModal" class="modal confirm-modal">
+        <div class="modal-content confirm-modal-content">
+            <div class="modal-header confirm-modal-header">
+                <h2 id="confirmModalTitle">Confirmation</h2>
+            </div>
+            <div class="modal-body confirm-modal-body">
+                <p id="confirmModalMessage">Are you sure?</p>
+            </div>
+            <div class="modal-footer confirm-modal-footer">
+                <button class="modal-btn cancel-btn" onclick="closeConfirmModal()">Cancel</button>
+                <button class="modal-btn add-btn" id="confirmModalConfirmBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
     <script>
         window.loginTime = <?php echo $login_time; ?>;

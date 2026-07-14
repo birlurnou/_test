@@ -71,10 +71,20 @@ document.addEventListener('input', handleUserActivity);
 timerInterval = setInterval(checkTime, 1000);
 setInterval(checkSession, 5000);
 
-function confirmLogout() {
+/* function confirmLogout() {
     if (confirm('Вы уверены, что хотите выйти?')) {
         window.location.href = '../auth/logout.php';
     }
+} */
+
+function confirmLogout() {
+    openConfirmModal(
+        'Logout',
+        'Are you sure you want to exit?',
+        function() {
+            window.location.href = '../auth/logout.php';
+        }
+    );
 }
 
 function toggleRoom(header) {
@@ -95,7 +105,7 @@ function toggleGuest(element) {
     const wrapper = element.closest('.guest-wrapper');
     const dropdown = wrapper.querySelector('.guest-dropdown');
     
-    // Закрываем все другие
+    // закрываем все другие
     document.querySelectorAll('.guest-dropdown').forEach(d => {
         if (d !== dropdown) {
             d.style.display = 'none';
@@ -109,9 +119,117 @@ function toggleGuest(element) {
     }
 }
 
-// Функция для переключения Check In/Unmark Check In
+// функция для переключения Check In/Unmark Check In
+
+function performCheckIn(element, guestId, roomNumber) {
+    fetch('../processing/checkin.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            guest_id: guestId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Меняем внешний вид кнопки
+            element.classList.add('checked-in');
+            element.textContent = 'Unmark\nCheck In';
+
+            // Добавляем плашку Attention с датой и временем
+            const guestItem = element.closest('.guest-item');
+            const bottomRow = guestItem.querySelector('.guest-row-bottom');
+            if (bottomRow && data.attended_at) {
+                let attentionBadge = guestItem.querySelector('.guest-attention-badge');
+                if (!attentionBadge) {
+                    attentionBadge = document.createElement('span');
+                    attentionBadge.className = 'guest-badge guest-attention-badge';
+                    attentionBadge.style.cssText = 'background: rgba(210, 140, 44, 0.8); color: white;';
+                    bottomRow.appendChild(attentionBadge);
+                }
+                const attendedDate = new Date(data.attended_at);
+                const dateStr = attendedDate.toLocaleDateString('ru-RU');
+                const timeStr = attendedDate.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+                attentionBadge.textContent = `${dateStr} ${timeStr}`;
+            }
+
+            // Обновляем счётчик Attended
+            updateAttendedCount(roomNumber);
+        } else {
+            alert('Error: ' + (data.error || 'Operation failed'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error: ' + error.message);
+    });
+}
+
+// Выполняет снятие отметки Check In (без подтверждения)
+function performUncheck(element, guestId, roomNumber) {
+    fetch('../processing/unmark_checkin.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            guest_id: guestId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Меняем внешний вид кнопки
+            element.classList.remove('checked-in');
+            element.textContent = 'Check In';
+
+            // Удаляем плашку Attention
+            const guestItem = element.closest('.guest-item');
+            const attentionBadge = guestItem.querySelector('.guest-attention-badge');
+            if (attentionBadge) {
+                attentionBadge.remove();
+            }
+
+            // Обновляем счётчик Attended
+            updateAttendedCount(roomNumber);
+        } else {
+            alert('Error: ' + (data.error || 'Operation failed'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error: ' + error.message);
+    });
+}
+
+// Основная функция переключения (использует кастомную модалку для снятия)
 function toggleCheckIn(element, guestId, roomNumber) {
     const isCheckedIn = element.classList.contains('checked-in');
+
+    if (isCheckedIn) {
+        // Для снятия отметки — показываем модалку подтверждения
+        openConfirmModal(
+            'Unmark Check In',
+            'Are you sure you want to uncheck Check In?',
+            function() {
+                performUncheck(element, guestId, roomNumber);
+            }
+        );
+    } else {
+        // Для отметки — сразу выполняем без подтверждения
+        performCheckIn(element, guestId, roomNumber);
+    }
+}
+
+/* function toggleCheckIn(element, guestId, roomNumber) {
+    const isCheckedIn = element.classList.contains('checked-in');
+    if (isCheckedIn) {
+        if (!confirm('Are you sure you want to uncheck Check In?')) {
+            return;
+        }
+    }
     const url = isCheckedIn ? '../processing/unmark_checkin.php' : '../processing/checkin.php';
     
     fetch(url, {
@@ -130,23 +248,23 @@ function toggleCheckIn(element, guestId, roomNumber) {
                 // Unmark
                 element.classList.remove('checked-in');
                 element.textContent = 'Check In';
-                // Удаляем плашку Attention
+                // удаляем плашку Attention
                 const guestItem = element.closest('.guest-item');
                 const attentionBadge = guestItem.querySelector('.guest-attention-badge');
                 if (attentionBadge) {
                     attentionBadge.remove();
                 }
-                // Обновляем счетчик Attended
+                // обновляем счетчик Attended
                 updateAttendedCount(roomNumber);
             } else {
                 // Check In
                 element.classList.add('checked-in');
                 element.textContent = 'Unmark\nCheck In';
-                // Добавляем плашку Attention с датой и временем
+                // добавляем плашку Attention с датой и временем
                 const guestItem = element.closest('.guest-item');
                 const bottomRow = guestItem.querySelector('.guest-row-bottom');
                 if (bottomRow && data.attended_at) {
-                    // Проверяем, есть ли уже плашка Attention
+                    // проверяем, есть ли уже плашка Attention
                     let attentionBadge = guestItem.querySelector('.guest-attention-badge');
                     if (!attentionBadge) {
                         attentionBadge = document.createElement('span');
@@ -154,13 +272,13 @@ function toggleCheckIn(element, guestId, roomNumber) {
                         attentionBadge.style.cssText = 'background: rgba(210, 140, 44, 0.8); color: white;';
                         bottomRow.appendChild(attentionBadge);
                     }
-                    // Форматируем дату и время
+                    // форматируем дату и время
                     const attendedDate = new Date(data.attended_at);
                     const dateStr = attendedDate.toLocaleDateString('ru-RU');
                     const timeStr = attendedDate.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
-                    attentionBadge.textContent = /*`Attention: */`${dateStr} ${timeStr}`;
+                    attentionBadge.textContent = `Attention: `${dateStr} ${timeStr}`;
                 }
-                // Обновляем счетчик Attended
+                // обновляем счетчик Attended
                 updateAttendedCount(roomNumber);
             }
         } else {
@@ -172,6 +290,7 @@ function toggleCheckIn(element, guestId, roomNumber) {
         alert('Error: ' + error.message);
     });
 }
+*/
 
 function updateAttendedCount(roomNumber) {
     const roomCard = document.querySelector(`.room-card[data-room="${roomNumber}"]`);
@@ -200,33 +319,10 @@ function updateAttendedCount(roomNumber) {
                 badge.classList.add('all-attended');
             }
         }
-
-        
-
-        /*if (attendedCount > 0 && total > 0 && attendedCount <= total) {
-            if (attendedCount === total) {
-                badge.classList.add('all-attended');
-            } 
-            else {
-                badge.classList.add('path-attended');
-            }
-        }
-        else {
-            badge.classList.remove('all-attended');
-        }*/
-
-
-        // меняем фон, если все отмечены
-        /*if (attendedCount === total && total > 0) {
-            badge.classList.add('all-attended');
-        } 
-        else {
-            badge.classList.remove('all-attended');
-        }*/
     }
 }
 
-// Функции для модального окна
+// функции для модального окна
 function openModal(buttonElement, guestId) {
     const modal = document.getElementById('commentModal');
     const textarea = document.getElementById('commentText');
@@ -234,15 +330,15 @@ function openModal(buttonElement, guestId) {
     currentGuestIdForComment = guestId;
     currentCommentId = null;
     
-    // Очищаем текстовое поле
+    // очищаем текстовое поле
     textarea.value = '';
     textarea.focus();
     
-    // Меняем заголовок
+    // меняем заголовок
     modal.querySelector('h2').textContent = 'New Comment';
     modal.querySelector('.add-btn').textContent = 'Add Comment';
     
-    // Показываем модальное окно
+    // показываем модальное окно
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
@@ -281,7 +377,7 @@ function saveComment() {
     .then(result => {
         if (result.success) {
             if (currentCommentId) {
-                // Обновляем существующий комментарий
+                // обновляем существующий комментарий
                 const commentItem = document.querySelector(`.comment-item[data-comment-id="${currentCommentId}"]`);
                 if (commentItem) {
                     const textDiv = commentItem.querySelector('.comment-text');
@@ -291,7 +387,7 @@ function saveComment() {
                 }
                 showNotification('Comment updated successfully!');
             } else {
-                // Добавляем новый комментарий
+                // добавляем новый комментарий
                 const dropdown = document.querySelector(`.guest-dropdown[data-guest-id="${currentGuestIdForComment}"]`);
                 if (dropdown) {
                     const newComment = createCommentElement(result.comment_id, commentText);
@@ -302,10 +398,10 @@ function saveComment() {
                         dropdown.appendChild(newComment);
                     }
                     
-                    // Убираем класс no-comments
+                    // убираем класс no-comments
                     dropdown.classList.remove('no-comments');
                     
-                    // Обновляем счетчик комментариев
+                    // обновляем счетчик комментариев
                     updateCommentCount(currentGuestIdForComment);
                 }
                 showNotification('Comment added successfully!');
@@ -365,43 +461,49 @@ function editComment(button, commentId) {
 }
 
 function deleteComment(button, commentId) {
-    if (!confirm('Are you sure you want to delete this comment?')) {
+    /* if (!confirm('Are you sure you want to delete this comment?')) {
         return;
-    }
+    } */
     
-    fetch('../processing/delete_comment.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ comment_id: commentId })
-    })
-    .then(response => response.json())
-    .then(result => {
-        if (result.success) {
-            const commentItem = button.closest('.comment-item');
-            if (commentItem) {
-                const dropdown = commentItem.closest('.guest-dropdown');
-                const guestId = dropdown.dataset.guestId;
-                commentItem.remove();
-                
-                // Проверяем, остались ли комментарии
-                const remainingComments = dropdown.querySelectorAll('.comment-item');
-                if (remainingComments.length === 0) {
-                    dropdown.classList.add('no-comments');
+    openConfirmModal(
+        'Deleting a comment',
+        'Are you sure you want to delete this comment?',
+        function() {
+
+        fetch('../processing/delete_comment.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ comment_id: commentId })
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                const commentItem = button.closest('.comment-item');
+                if (commentItem) {
+                    const dropdown = commentItem.closest('.guest-dropdown');
+                    const guestId = dropdown.dataset.guestId;
+                    commentItem.remove();
+                    
+                    // Проверяем, остались ли комментарии
+                    const remainingComments = dropdown.querySelectorAll('.comment-item');
+                    if (remainingComments.length === 0) {
+                        dropdown.classList.add('no-comments');
+                    }
+                    
+                    updateCommentCount(guestId);
+                    showNotification('Comment deleted.');
                 }
-                
-                updateCommentCount(guestId);
-                showNotification('Comment deleted.');
+            } else {
+                alert('Error: ' + (result.error || 'Operation failed'));
             }
-        } else {
-            alert('Error: ' + (result.error || 'Operation failed'));
-        }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error: ' + error.message);
+        });
     })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error: ' + error.message);
-    });
 }
 
 function updateCommentCount(guestId) {
@@ -420,7 +522,7 @@ function updateCommentCount(guestId) {
             }
         } else {
             if (!commentBadge) {
-                // Создаем новый badge, если его нет
+                // создаем новый badge, если его нет
                 const middleRow = guestItem.querySelector('.guest-row-middle');
                 if (middleRow) {
                     commentBadge = document.createElement('span');
@@ -435,18 +537,17 @@ function updateCommentCount(guestId) {
         }
     }
 
-    // Находим карточку комнаты
+    // находим карточку комнаты
     const roomCard = dropdown.closest('.room-card');
     if (roomCard) {
-        // Считаем все комментарии в этой комнате
+        // считаем все комментарии в этой комнате
         const allComments = roomCard.querySelectorAll('.comment-item');
         const totalCount = allComments.length;
         
-        // Находим бейдж комнаты для комментариев
+        // находим бейдж комнаты для комментариев
         const roomCommentsBadge = roomCard.querySelector('.room-comments-badge');
         if (roomCommentsBadge) {
             roomCommentsBadge.textContent = `${totalCount} comment${totalCount > 1 ? 's' : ''}`;
-            // Если нужно скрывать при 0 – добавьте логику
         }
     }
 }
@@ -491,7 +592,9 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Закрытие модального окна по клику вне его
+
+
+// закрытие модального окна по клику вне его
 window.onclick = function(event) {
     const modal = document.getElementById('commentModal');
     if (event.target === modal) {
@@ -499,14 +602,14 @@ window.onclick = function(event) {
     }
 };
 
-// Закрытие по клавише Esc
+// закрытие по клавише Esc
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeModal();
     }
 });
 
-// Поиск комнат
+// поиск комнат
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchRoom');
     if (searchInput) {
@@ -523,5 +626,57 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
+    }
+});
+
+
+
+
+
+// переменная для хранения функции, которая выполнится при подтверждении
+let confirmCallback = null;
+
+function openConfirmModal(title, message, callback) {
+    const modal = document.getElementById('confirmModal');
+    const titleEl = document.getElementById('confirmModalTitle');
+    const messageEl = document.getElementById('confirmModalMessage');
+    const confirmBtn = document.getElementById('confirmModalConfirmBtn');
+
+    titleEl.textContent = title || 'Подтверждение';
+    messageEl.textContent = message || 'Вы уверены?';
+    confirmCallback = callback || null;
+
+    // сбрасываем предыдущие обработчики (чтобы не накапливались)
+    confirmBtn.onclick = null;
+    if (confirmCallback) {
+        confirmBtn.onclick = function() {
+            confirmCallback();
+            closeConfirmModal();
+        };
+    }
+
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeConfirmModal() {
+    const modal = document.getElementById('confirmModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+    confirmCallback = null;
+}
+
+// закрытие по клику на фон
+window.onclick = function(event) {
+    const modal = document.getElementById('confirmModal');
+    if (event.target === modal) {
+        closeConfirmModal();
+    }
+};
+
+// закрытие по Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeConfirmModal();
     }
 });

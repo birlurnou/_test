@@ -860,6 +860,32 @@ body {
     transform: scale(1.0);
 }
 
+.confirm-modal .modal-content {
+    max-width: 420px; /* чуть уже */
+}
+
+.confirm-modal .modal-body {
+    padding: 30px 24px;
+    text-align: center;
+}
+
+.confirm-modal #confirmModalMessage {
+    font-size: 1.1rem;
+    color: #2c2a3a;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* кнопки в модалке подтверждения можно сделать немного другими */
+.confirm-modal .modal-footer {
+    justify-content: center; /* центрируем кнопки */
+    gap: 20px;
+}
+
+.confirm-modal .modal-btn {
+    min-width: 160px;
+}
+
 
 /* Адаптив для модального окна */
 @media (max-width: 600px) {
