@@ -41,12 +41,12 @@ $rooms = $dataLoader->getRooms();
 function formatName($fullName) {
     if (empty($fullName)) return 'Unknown';
     
-    $parts = explode(' ', $fullName);
+    $parts = explode(' ', trim($fullName));
     if (count($parts) < 2) return $fullName;
     
-    $firstName = $parts[0];
-    $lastName = $parts[1] ?? '';
-    $middleName = $parts[2] ?? '';
+    // Формат: "Фамилия Имя Отчество" -> "Имя Ф*"
+    $firstName = $parts[1] ?? $parts[0];
+    $lastName = $parts[0] ?? '';
     
     if (!empty($lastName) && !empty($firstName)) {
         return $firstName . ' ' . substr($lastName, 0, 2) . '*';
@@ -58,57 +58,71 @@ function formatName($fullName) {
 // Функция для определения пола
 function getGender($title) {
     if (empty($title)) return 'Unknown';
-    $titleLower = strtolower($title);
-    if ($titleLower === 'mr') return 'Male';
-    if (in_array($titleLower, ['mrs', 'ms'])) return 'Female';
+    $titleLower = strtolower(trim($title));
+    if ($titleLower === 'mr' || $titleLower === 'mr.') return 'Male';
+    if (in_array($titleLower, ['mrs', 'ms', 'miss', 'mrs.', 'ms.'])) return 'Female';
     return 'Unknown';
 }
 
 // Функция для определения возраста
 function getAge($birthDate) {
     if (empty($birthDate)) return null;
-    $birth = new DateTime($birthDate);
-    $today = new DateTime();
-    $age = $today->diff($birth)->y;
-    return $age;
+    try {
+        $birth = new DateTime($birthDate);
+        $today = new DateTime();
+        return $today->diff($birth)->y;
+    } catch (Exception $e) {
+        return null;
+    }
 }
 
 // Функция для определения статуса дня рождения
 function getBirthdayStatus($birthDate) {
     if (empty($birthDate)) return null;
     
-    $birth = new DateTime($birthDate);
-    $today = new DateTime();
-    $today->setTime(0, 0, 0);
-    $birth->setDate($today->format('Y'), $birth->format('m'), $birth->format('d'));
-    $birth->setTime(0, 0, 0);
-    
-    $diff = $today->diff($birth);
-    $days = $diff->days;
-    
-    if ($diff->invert == 0) {
-        // День рождения сегодня
-        return ['type' => 'today', 'days' => 0];
-    } elseif ($diff->invert == 1) {
-        // День рождения был
-        if ($days >= 1 && $days <= 3) {
-            return ['type' => 'was', 'days' => $days];
+    try {
+        $birth = new DateTime($birthDate);
+        $today = new DateTime();
+        $today->setTime(0, 0, 0);
+        
+        // День рождения в этом году
+        $birthThisYear = new DateTime($birthDate);
+        $birthThisYear->setDate($today->format('Y'), $birth->format('m'), $birth->format('d'));
+        $birthThisYear->setTime(0, 0, 0);
+        
+        $diff = $today->diff($birthThisYear);
+        $days = (int)$diff->days;
+        
+        // Если день рождения сегодня
+        if ($diff->invert == 0 && $days == 0) {
+            return ['type' => 'today', 'days' => 0];
         }
-    } else {
-        // День рождения будет
-        if ($days >= 1 && $days <= 3) {
-            return ['type' => 'will', 'days' => $days];
+        
+        // Если день рождения был (в прошлом) - invert == 1
+        if ($diff->invert == 1) {
+            if ($days >= 1 && $days <= 3) {
+                return ['type' => 'was', 'days' => $days];
+            }
         }
+        
+        // Если день рождения будет (в будущем) - invert == 0 и days > 0
+        if ($diff->invert == 0 && $days > 0) {
+            if ($days >= 1 && $days <= 3) {
+                return ['type' => 'will', 'days' => $days];
+            }
+        }
+        
+        return null;
+    } catch (Exception $e) {
+        return null;
     }
-    
-    return null;
 }
 
 // Функция для получения статуса VIP
 function getVipStatus($roomInfo) {
     foreach ($roomInfo as $guest) {
         if (!empty($guest['vip_code_description'])) {
-            return $guest['vip_code_description'];
+            return ucwords(trim($guest['vip_code_description']));
         }
     }
     return null;
@@ -126,34 +140,55 @@ function getRoomType($roomInfo) {
 
 // Функция для форматирования времени
 function formatTime($time) {
-    if (empty($time)) return '';
-    $timeObj = new DateTime($time);
-    return $timeObj->format('H:i');
+    if (empty($time)) return '--:--';
+    try {
+        $timeObj = new DateTime($time);
+        return $timeObj->format('H:i');
+    } catch (Exception $e) {
+        return '--:--';
+    }
 }
 
 // Функция для форматирования даты
 function formatDate($date) {
-    if (empty($date)) return '';
-    $dateObj = new DateTime($date);
-    return $dateObj->format('d.m.Y');
+    if (empty($date)) return '--.--.----';
+    try {
+        $dateObj = new DateTime($date);
+        return $dateObj->format('d.m.Y');
+    } catch (Exception $e) {
+        return '--.--.----';
+    }
 }
 
-// Функция для вычисления времени Attention
-function calculateAttentionTime($attendedAt) {
-    if (empty($attendedAt)) return null;
-    $attended = new DateTime($attendedAt);
-    $now = new DateTime();
-    $diff = $now->diff($attended);
-    
-    if ($diff->days > 0) {
-        return sprintf('%02d:%02d:%02d', 
-            $diff->days * 24 + $diff->h, 
-            $diff->i, 
-            $diff->s
-        );
+// Функция для форматирования даты и времени
+function formatDateTime($datetime) {
+    if (empty($datetime)) return '--.--.---- --:--';
+    try {
+        $dt = new DateTime($datetime);
+        return $dt->format('d.m.Y H:i');
+    } catch (Exception $e) {
+        return '--.--.---- --:--';
     }
-    
-    return sprintf('%02d:%02d:%02d', $diff->h, $diff->i, $diff->s);
+}
+
+// Функция для форматирования страны с заглавной буквы
+function formatCountry($country) {
+    if (empty($country)) return 'Unknown ';
+    $words = explode(' ', trim($country));
+    $formatted = array_map(function($word) {
+        return ucfirst(strtolower(trim($word)));
+    }, $words);
+    return implode(' ', $formatted);
+}
+
+// Функция для форматирования статуса бронирования
+function formatReservationStatus($status) {
+    if (empty($status)) return 'Unknown Reservation Status';
+    $words = explode(' ', trim($status));
+    $formatted = array_map(function($word) {
+        return ucfirst(strtolower(trim($word)));
+    }, $words);
+    return implode(' ', $formatted);
 }
 
 function truncateText($text, $length) {
@@ -177,49 +212,6 @@ function truncateText($text, $length) {
     <title>Restaurant Accounting</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Добавляем стили для кнопки Check In/Unmark */
-        .guest-click-area {
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 90px;
-            height: 100%;
-            cursor: pointer;
-            background: rgba(76, 175, 80, 0.7);
-            transition: background 0.2s ease;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: white;
-            text-align: center;
-        }
-        
-        .guest-click-area.checked-in {
-            background: rgba(244, 67, 54, 0.7);
-        }
-        
-        .guest-click-area.checked-in::after {
-            content: 'Unmark\nCheck In';
-            white-space: pre-line;
-        }
-        
-        .guest-click-area:not(.checked-in)::after {
-            content: 'Check In';
-        }
-        
-        .guest-click-area:hover {
-            background: rgba(76, 175, 80, 0.8);
-        }
-        
-        .guest-click-area.checked-in:hover {
-            background: rgba(244, 67, 54, 0.8);
-        }
-    </style>
 </head>
 <body>
     <div class="layout">
@@ -244,7 +236,7 @@ function truncateText($text, $length) {
 
                         <!-- информация о пользователе -->
                         <div class="user-info">
-                            <p class="username"><?php echo htmlspecialchars($_SESSION['login']) . ' ' . gmdate('H:i:s', $time_left); ?></p>
+                            <p class="username"><?php echo htmlspecialchars($_SESSION['login']) #. ' ' . gmdate('H:i:s', $time_left); ?></p>
                             <p><?php echo htmlspecialchars($_SESSION['username']); ?></p>
                         </div>
 
@@ -304,32 +296,52 @@ function truncateText($text, $length) {
                                 }
                             }
                         }
+                        
+                        // проверяем содержимое нижней строки
+                        $hasBottomContent = !empty($vipStatus) || ($birthdayStatus !== null);
+                        $roomContentClass = 'room-content' . ($hasBottomContent ? '' : ' no-bottom');
+
+                        // Проверяем, все ли гости отмечены
+                        $allAttended = true;
+                        $attendedCount = 0;
+                        foreach ($roomInfo as $guest) {
+                            if (!empty($guest['attended_at'])) {
+                                $attendedCount++;
+                            } else {
+                                $allAttended = false;
+                            }
+                        }
                     ?>
                     <div class="room-card" data-room="<?php echo $roomNumber; ?>">
 
                         <div class="room-header" onclick="toggleRoom(this)">
                             <div class="room-content">
+                                <div class="<?php echo $roomContentClass; ?>">
+                                
+                                    <!-- верхняя строка комнаты -->
+                                    <div class="room-row-top">
+                                        <div class="room-badge room-number-badge"><?php echo $roomNumber; ?></div>
+                                        <div class="room-badge room-type-badge"><?php echo $roomType; ?></div>
+                                        <div class="room-badge room-guests-badge <?php echo ($allAttended && $guestCount > 0) ? 'all-attended' : ''; ?>">
+                                            Attended <?php echo $attendedCount; ?> / <?php echo $guestCount; ?>
+                                        </div>
+                                    </div>
 
-                                <!-- верхняя строка комнаты -->
-                                <div class="room-row-top">
-                                    <div class="room-badge room-number-badge"><?php echo $roomNumber; ?></div>
-                                    <div class="room-badge room-type-badge"><?php echo $roomType; ?></div>
-                                    <div class="room-badge room-guests-badge">Attended 0 / <?php echo $guestCount; ?></div>
-                                </div>
+                                    <!-- нижняя строка комнаты -->
+                                    <div class="room-row-bottom">
+                                        <?php if ($vipStatus): ?>
+                                        <div class="room-badge status-badge"><?php echo htmlspecialchars($vipStatus); ?></div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($birthdayStatus === 'today'): ?>
+                                        <div class="room-badge birthday-badge exact">Happy Birthday</div>
+                                        <?php elseif ($birthdayStatus === 'was'): ?>
+                                        <div class="room-badge birthday-badge near">Birthday was <?php echo $closestBirthday; ?> day<?php echo $closestBirthday > 1 ? 's' : ''; ?> ago</div>
+                                        <?php elseif ($birthdayStatus === 'will'): ?>
+                                        <div class="room-badge birthday-badge near">Birthday in <?php echo $closestBirthday; ?> day<?php echo $closestBirthday > 1 ? 's' : ''; ?></div>
+                                        <?php endif; ?>
+                                    </div>
 
-                                <!-- нижняя строка комнаты -->
-                                <div class="room-row-bottom">
-                                    <?php if ($vipStatus): ?>
-                                    <div class="room-badge status-badge"><?php echo htmlspecialchars($vipStatus); ?></div>
-                                    <?php endif; ?>
-                                    
-                                    <?php if ($birthdayStatus === 'today'): ?>
-                                    <div class="room-badge birthday-badge exact">Happy Birthday</div>
-                                    <?php elseif ($birthdayStatus === 'was'): ?>
-                                    <div class="room-badge birthday-badge near">Birthday was <?php echo $closestBirthday; ?> day<?php echo $closestBirthday > 1 ? 's' : ''; ?> ago</div>
-                                    <?php elseif ($birthdayStatus === 'will'): ?>
-                                    <div class="room-badge birthday-badge near">Birthday in <?php echo $closestBirthday; ?> day<?php echo $closestBirthday > 1 ? 's' : ''; ?></div>
-                                    <?php endif; ?>
                                 </div>
                             </div>
 
@@ -349,11 +361,11 @@ function truncateText($text, $length) {
                                 $isChild = $age !== null && $age < 13;
                                 $commentsCount = $dataLoader->getCommentsCount($guest['guest_id']);
                                 $isAttended = !empty($guest['attended_at']);
-                                $attentionTime = $isAttended ? calculateAttentionTime($guest['attended_at']) : null;
+                                $attentionTime = $isAttended ? $dataLoader->calculateAttentionTime($guest['attended_at']) : null;
                                 $guestComments = $dataLoader->getGuestComments($guest['guest_id']);
                                 
                                 // Статус гостя
-                                $guestVipStatus = !empty($guest['vip_code_description']) ? $guest['vip_code_description'] : null;
+                                $guestVipStatus = !empty($guest['vip_code_description']) ? ucwords(strtolower(trim($guest['vip_code_description']))) : null;
                                 
                                 // Статус дня рождения гостя
                                 $guestBirthdayStatus = getBirthdayStatus($guest['birth_date']);
@@ -368,11 +380,11 @@ function truncateText($text, $length) {
                                             <?php if ($guestVipStatus): ?>
                                             <span class="guest-badge guest-status-badge"><?php echo htmlspecialchars($guestVipStatus); ?></span>
                                             <?php endif; ?>
-                                            <span class="guest-badge guest-gender-badge" style="background: <?php echo $gender === 'Male' ? 'rgba(100, 149, 237, 0.8)' : 'rgba(255, 182, 193, 0.8)'; ?>;">
+                                            <span class="guest-badge guest-gender-badge" style="background: <?php echo $gender === 'Male' ? '#6495ED' : '#FFB6C1'; ?>;">
                                                 <?php echo htmlspecialchars($gender); ?>
                                             </span>
                                             <span class="guest-badge guest-nationality-badge">
-                                                <?php echo htmlspecialchars($guest['nationality_code_description'] ?? 'Unknown'); ?>
+                                                <?php echo htmlspecialchars(formatCountry($guest['nationality_code_description'] ?? 'Unknown Country')); ?>
                                             </span>
                                             <?php if ($isChild): ?>
                                             <span class="guest-badge guest-maturity-badge">Child</span>
@@ -385,13 +397,17 @@ function truncateText($text, $length) {
                                             <span class="guest-badge guest-arrival-time-badge"><?php echo formatTime($guest['arrival_time']); ?></span>
                                             <span class="guest-badge guest-departure-date-badge"><?php echo formatDate($guest['departure_date']); ?></span>
                                             <span class="guest-badge guest-departure-time-badge"><?php echo formatTime($guest['departure_time']); ?></span>
-                                            <span class="guest-badge guest-comment-badge"><?php echo $commentsCount; ?> comment<?php echo $commentsCount != 1 ? 's' : ''; ?></span>
+                                            <?php if ($commentsCount > 0): ?>
+                                            <span class="guest-badge guest-comment-badge"><?php echo $commentsCount; ?> comment<?php echo $commentsCount > 1 ? 's' : ''; ?></span>
+                                            <?php else: ?>
+                                            <span class="guest-badge guest-comment-badge" style="display: none;">0 comments</span>
+                                            <?php endif; ?>
                                         </div>
 
                                         <!-- нижняя строка гостя -->
                                         <div class="guest-row-bottom">
-                                            <?php if (strtolower($guest['reservation_status'] ?? '') !== 'check in'): ?>
-                                            <span class="guest-badge guest-res-stat-badge"><?php echo htmlspecialchars($guest['reservation_status'] ?? 'Unknown'); ?></span>
+                                            <?php if (strtolower($guest['reservation_status'] ?? '') !== 'check in' && !empty($guest['reservation_status'])): ?>
+                                            <span class="guest-badge guest-res-stat-badge"><?php echo htmlspecialchars(formatReservationStatus($guest['reservation_status'])); ?></span>
                                             <?php endif; ?>
                                             
                                             <?php if ($guestBirthdayStatus && $guestBirthdayStatus['type'] === 'today'): ?>
@@ -410,13 +426,12 @@ function truncateText($text, $length) {
                                     </div>
                                     <!-- кликабельная область справа -->
                                     <div class="guest-click-area <?php echo $isAttended ? 'checked-in' : ''; ?>" 
-                                         onclick="event.stopPropagation(); toggleCheckIn(this, <?php echo $guest['guest_id']; ?>, <?php echo $roomNumber; ?>)">
-                                    </div>
+                                         onclick="event.stopPropagation(); toggleCheckIn(this, <?php echo $guest['guest_id']; ?>, <?php echo $roomNumber; ?>)"><?php echo $isAttended ? "Unmark\nCheck In" : "Check In"; ?></div>
                                 
                                 </div>
                                 
                                 <!-- выпадающее поле (под блоком) -->
-                                <div class="guest-dropdown" data-guest-id="<?php echo $guest['guest_id']; ?>">
+                                <div class="guest-dropdown <?php echo empty($guestComments) ? 'no-comments' : ''; ?>" data-guest-id="<?php echo $guest['guest_id']; ?>">
                                     
                                     <button class="add-comment-btn" onclick="openModal(this, <?php echo $guest['guest_id']; ?>)">Add Comment</button>
 
@@ -424,7 +439,7 @@ function truncateText($text, $length) {
                                     <div class="comment-item" data-comment-id="<?php echo $comment['comment_id']; ?>">
                                         <div class="comment-header">
                                             <div class="comment-info">
-                                                <span class="comment-time"><?php echo formatDate($comment['created_at']) . ' ' . formatTime($comment['created_at']); ?></span>
+                                                <span class="comment-time"><?php echo formatDateTime($comment['created_at']); ?></span>
                                                 <span class="comment-creator"><?php echo htmlspecialchars($comment['created_by'] ?? 'Unknown'); ?></span>
                                             </div>
                                             <div class="comment-actions">

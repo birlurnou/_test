@@ -1,9 +1,4 @@
 path/
-├── _test_main/					тестовая основная страница
-│   ├── assets/
-│	├── index.php
-│	├── script.js
-│	└── style.css
 │
 ├── admin/						страница админки
 │   ├── core/					crud операции
@@ -40,8 +35,12 @@ path/
 │	├── index.php
 │	├── script.js
 │	├── style.css
-│	└── .php
+│	└── data_loader.php
 │
 └── processing/
-	└── index.php
-
+	├── add_comment.php
+ 	├── checkin.php
+  	├── delete_comment.php
+ 	├── unmark_checkin.php
+ 	└── update_comment.php
+ 

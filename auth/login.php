@@ -54,7 +54,7 @@ try {
             
             // определяем страницу для редиректа в зависимости от роли
             // $redirect = in_array($user['role'], ['manager', 'admin']) ? '../processing/index.php' : '../main/user.php';
-            $redirect = in_array($user['role'], ['manager', 'admin']) ? '../_test_main/index.php' : '../_test_main/index.php';
+            $redirect = in_array($user['role'], ['manager', 'admin']) ? '../main/index.php' : '../main/index.php';
             
             echo json_encode([
                 'success' => true,

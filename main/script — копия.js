@@ -130,6 +130,7 @@ function toggleCheckIn(element, guestId, roomNumber) {
             if (isCheckedIn) {
                 // Unmark
                 element.classList.remove('checked-in');
+                element.textContent = 'Check In';
                 // Удаляем плашку Attention
                 const guestItem = element.closest('.guest-item');
                 const attentionBadge = guestItem.querySelector('.guest-attention-badge');
@@ -141,15 +142,24 @@ function toggleCheckIn(element, guestId, roomNumber) {
             } else {
                 // Check In
                 element.classList.add('checked-in');
-                // Добавляем плашку Attention
+                element.textContent = 'Unmark\nCheck In';
+                // Добавляем плашку Attention с датой и временем
                 const guestItem = element.closest('.guest-item');
                 const bottomRow = guestItem.querySelector('.guest-row-bottom');
                 if (bottomRow && data.attended_at) {
-                    const attentionBadge = document.createElement('span');
-                    attentionBadge.className = 'guest-badge guest-attention-badge';
-                    attentionBadge.style.cssText = 'background: rgba(244, 67, 54, 0.8); color: white;';
-                    attentionBadge.textContent = `Attention: ${formatAttentionTime(data.attended_at)}`;
-                    bottomRow.appendChild(attentionBadge);
+                    // Проверяем, есть ли уже плашка Attention
+                    let attentionBadge = guestItem.querySelector('.guest-attention-badge');
+                    if (!attentionBadge) {
+                        attentionBadge = document.createElement('span');
+                        attentionBadge.className = 'guest-badge guest-attention-badge';
+                        attentionBadge.style.cssText = 'background: rgba(244, 67, 54, 0.8); color: white;';
+                        bottomRow.appendChild(attentionBadge);
+                    }
+                    // Форматируем дату и время
+                    const attendedDate = new Date(data.attended_at);
+                    const dateStr = attendedDate.toLocaleDateString('ru-RU');
+                    const timeStr = attendedDate.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+                    attentionBadge.textContent = `Attention: ${dateStr} ${timeStr}`;
                 }
                 // Обновляем счетчик Attended
                 updateAttendedCount(roomNumber);
@@ -164,16 +174,23 @@ function toggleCheckIn(element, guestId, roomNumber) {
     });
 }
 
-function formatAttentionTime(attendedAt) {
-    const now = new Date();
-    const attended = new Date(attendedAt);
-    const diff = now - attended;
+// Таймер для обновления времени Attention
+function startAttentionTimer(element, attendedAt) {
+    if (element._timer) {
+        clearInterval(element._timer);
+    }
     
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-    
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    element._timer = setInterval(() => {
+        const now = new Date();
+        const attended = new Date(attendedAt);
+        const diff = now - attended;
+        
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        element.textContent = `Attention: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }, 1000);
 }
 
 function updateAttendedCount(roomNumber) {
@@ -193,6 +210,13 @@ function updateAttendedCount(roomNumber) {
     if (badge) {
         const total = guests.length;
         badge.textContent = `Attended ${attendedCount} / ${total}`;
+        
+        // Меняем фон, если все отмечены
+        if (attendedCount === total && total > 0) {
+            badge.classList.add('all-attended');
+        } else {
+            badge.classList.remove('all-attended');
+        }
     }
 }
 
@@ -272,6 +296,9 @@ function saveComment() {
                         dropdown.appendChild(newComment);
                     }
                     
+                    // Убираем класс no-comments
+                    dropdown.classList.remove('no-comments');
+                    
                     // Обновляем счетчик комментариев
                     updateCommentCount(currentGuestIdForComment);
                 }
@@ -348,8 +375,16 @@ function deleteComment(button, commentId) {
         if (result.success) {
             const commentItem = button.closest('.comment-item');
             if (commentItem) {
-                const guestId = commentItem.closest('.guest-dropdown').dataset.guestId;
+                const dropdown = commentItem.closest('.guest-dropdown');
+                const guestId = dropdown.dataset.guestId;
                 commentItem.remove();
+                
+                // Проверяем, остались ли комментарии
+                const remainingComments = dropdown.querySelectorAll('.comment-item');
+                if (remainingComments.length === 0) {
+                    dropdown.classList.add('no-comments');
+                }
+                
                 updateCommentCount(guestId);
                 showNotification('Comment deleted.');
             }
@@ -372,9 +407,25 @@ function updateCommentCount(guestId) {
     
     const guestItem = dropdown.closest('.guest-wrapper').querySelector('.guest-item');
     if (guestItem) {
-        const commentBadge = guestItem.querySelector('.guest-comment-badge');
-        if (commentBadge) {
-            commentBadge.textContent = `${count} comment${count !== 1 ? 's' : ''}`;
+        let commentBadge = guestItem.querySelector('.guest-comment-badge');
+        if (count === 0) {
+            if (commentBadge) {
+                commentBadge.style.display = 'none';
+            }
+        } else {
+            if (!commentBadge) {
+                // Создаем новый badge, если его нет
+                const middleRow = guestItem.querySelector('.guest-row-middle');
+                if (middleRow) {
+                    commentBadge = document.createElement('span');
+                    commentBadge.className = 'guest-badge guest-comment-badge';
+                    middleRow.appendChild(commentBadge);
+                }
+            }
+            if (commentBadge) {
+                commentBadge.style.display = 'inline-flex';
+                commentBadge.textContent = `${count} comment${count > 1 ? 's' : ''}`;
+            }
         }
     }
 }

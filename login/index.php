@@ -6,9 +6,9 @@ session_start();
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     if ($_SESSION['role'] === 'user') {
         // header('Location: ../main/user.php');
-        header('Location: ../_test_main/index.php');
+        header('Location: ../main/index.php');
     } elseif (in_array($_SESSION['role'], ['manager', 'admin'])) {
-        header('Location: ../_test_main/');
+        header('Location: ../main/');
     }
     exit();
 }
