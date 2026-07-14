@@ -158,7 +158,7 @@ function toggleCheckIn(element, guestId, roomNumber) {
                     const attendedDate = new Date(data.attended_at);
                     const dateStr = attendedDate.toLocaleDateString('ru-RU');
                     const timeStr = attendedDate.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
-                    attentionBadge.textContent = `Attention: ${dateStr} ${timeStr}`;
+                    attentionBadge.textContent = /*`Attention: */`${dateStr} ${timeStr}`;
                 }
                 // Обновляем счетчик Attended
                 updateAttendedCount(roomNumber);

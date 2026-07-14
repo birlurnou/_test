@@ -17,8 +17,7 @@ class DataLoader {
             WHERE DATE(created_at) = :today
                 -- AND LOWER(reservation_status) IN ('checked in', 'due out', 'walk in', 'walkin')
                 -- ('checked in', 'due out', 'due in', 'no show', walk in', 'walkin')
-                AND (LOWER(reservation_status) IN ('checked in', 'due out', 'walk in', 'walkin')
-                OR arrival_time < '08:00')
+                AND (LOWER(reservation_status) IN ('checked in', 'due out', 'walk in', 'walkin') OR arrival_time < '08:00' OR arrival_time IS NULL OR arrival_time IS NOT NULL)
             ORDER BY room_number ASC
         ");
         $stmt->execute([':today' => $this->today]);
@@ -51,8 +50,7 @@ class DataLoader {
                 AND DATE(r.created_at) = :today
                 -- AND LOWER(reservation_status) IN ('checked in', 'due out', 'walk in', 'walkin')
                 -- ('checked in', 'due out', 'due in', 'no show', walk in', 'walkin')
-                AND (LOWER(reservation_status) IN ('checked in', 'due out', 'walk in', 'walkin')
-                OR arrival_time < '08:00')
+                AND (LOWER(reservation_status) IN ('checked in', 'due out', 'walk in', 'walkin') OR arrival_time < '08:00' OR arrival_time IS NULL OR arrival_time IS NOT NULL)
             ORDER BY r.created_at ASC, r.room_number ASC, r.vip_code_description ASC NULLS LAST, g.birth_date ASC
         ");
         $stmt->execute([
@@ -68,6 +66,7 @@ class DataLoader {
             FROM records
             WHERE DATE(created_at) = :today
                 AND room_number = :room_number
+                AND (LOWER(reservation_status) IN ('checked in', 'due out', 'walk in', 'walkin') OR arrival_time < '08:00' OR arrival_time IS NULL OR arrival_time IS NOT NULL)
             GROUP BY room_number
         ");
         $stmt->execute([
@@ -110,6 +109,7 @@ class DataLoader {
             FROM records 
             WHERE guest_id = :guest_id 
                 AND DATE(created_at) = :today
+                AND (LOWER(reservation_status) IN ('checked in', 'due out', 'walk in', 'walkin') OR arrival_time < '08:00' OR arrival_time IS NULL OR arrival_time IS NOT NULL)
             LIMIT 1
         ");
         $stmt->execute([
@@ -118,25 +118,6 @@ class DataLoader {
         ]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result && $result['attended_at'] !== null;
-    }
-    
-    // Добавляем метод для расчета времени внимания
-    public function calculateAttentionTime($attendedAt) {
-        if (empty($attendedAt)) return null;
-        
-        try {
-            $attended = new DateTime($attendedAt);
-            $now = new DateTime();
-            $diff = $now->getTimestamp() - $attended->getTimestamp();
-            
-            $hours = floor($diff / 3600);
-            $minutes = floor(($diff % 3600) / 60);
-            $seconds = $diff % 60;
-            
-            return sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
-        } catch (Exception $e) {
-            return null;
-        }
     }
 
     public function getRoomInfoByGuestId($guestId) {

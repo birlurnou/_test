@@ -480,12 +480,12 @@ body {
 }
 
 .guest-arrival-date-badge {
-    background: rgba(76, 175, 80, 0.6);
+    background: rgba(76, 175, 80, 0.7);
     /* color: #1e5c21; */
 }
 
 .guest-arrival-time-badge {
-    background: rgba(76, 175, 80, 0.45);
+    background: rgba(76, 175, 80, 0.6);
     /* color: #1e5c21; */
 }
 
@@ -508,6 +508,10 @@ body {
     background: rgba(76, 175, 80, 1);
     color: white;
     text-transform: none;
+}
+
+.guest-res-stat-badge[style*="Checked In"] {
+    background: rgba(255, 182, 193, 0.8) !important;
 }
 
 .guest-birthday-badge.near {
@@ -882,14 +886,6 @@ body {
 .guest-gender-badge {
     min-width: 40px;
     color: white;
-}
-
-.guest-gender-badge[style*="Male"] {
-    background: rgba(100, 149, 237, 0.8) !important;
-}
-
-.guest-gender-badge[style*="Female"] {
-    background: rgba(255, 182, 193, 0.8) !important;
 }
 
 /* Анимация для уведомлений */
