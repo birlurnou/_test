@@ -31,13 +31,13 @@ $username = htmlspecialchars($_SESSION['username']);
 $login_time = $_SESSION['login_time'];
 $time_left = $session_lifetime - (time() - $login_time);
 
-// Инициализируем загрузчик данных
+// инициализируем загрузчик данных
 $dataLoader = new DataLoader($pdo);
 
-// Получаем список комнат
+// получаем список комнат
 $rooms = $dataLoader->getRooms();
 
-// Функция для форматирования имени
+// функция форматирования имени
 function formatName($fullName) {
     if (empty($fullName)) return 'Unknown';
     
@@ -55,16 +55,16 @@ function formatName($fullName) {
     return $firstName;
 }
 
-// Функция для определения пола
+// функция определения пола
 function getGender($title) {
     if (empty($title)) return 'Unknown';
     $titleLower = strtolower(trim($title));
     if ($titleLower === 'mr' || $titleLower === 'mr.') return 'Male';
     if (in_array($titleLower, ['mrs', 'ms', 'miss', 'mrs.', 'ms.'])) return 'Female';
-    return 'Unknown';
+    return 'Unknown Gender';
 }
 
-// Функция для определения возраста
+// функция определения возраста
 function getAge($birthDate) {
     if (empty($birthDate)) return null;
     try {
@@ -76,7 +76,7 @@ function getAge($birthDate) {
     }
 }
 
-// Функция для определения статуса дня рождения
+// функция определения статуса дня рождения
 function getBirthdayStatus($birthDate) {
     if (empty($birthDate)) return null;
     
@@ -85,7 +85,7 @@ function getBirthdayStatus($birthDate) {
         $today = new DateTime();
         $today->setTime(0, 0, 0);
         
-        // День рождения в этом году
+        // день рождения в этом году
         $birthThisYear = new DateTime($birthDate);
         $birthThisYear->setDate($today->format('Y'), $birth->format('m'), $birth->format('d'));
         $birthThisYear->setTime(0, 0, 0);
@@ -93,19 +93,19 @@ function getBirthdayStatus($birthDate) {
         $diff = $today->diff($birthThisYear);
         $days = (int)$diff->days;
         
-        // Если день рождения сегодня
+        // если день рождения сегодня
         if ($diff->invert == 0 && $days == 0) {
             return ['type' => 'today', 'days' => 0];
         }
         
-        // Если день рождения был (в прошлом) - invert == 1
+        // если день рождения был (в прошлом) - invert == 1
         if ($diff->invert == 1) {
             if ($days >= 1 && $days <= 3) {
                 return ['type' => 'was', 'days' => $days];
             }
         }
         
-        // Если день рождения будет (в будущем) - invert == 0 и days > 0
+        // если день рождения будет (в будущем) - invert == 0 и days > 0
         if ($diff->invert == 0 && $days > 0) {
             if ($days >= 1 && $days <= 3) {
                 return ['type' => 'will', 'days' => $days];
@@ -118,7 +118,7 @@ function getBirthdayStatus($birthDate) {
     }
 }
 
-// Функция для получения статуса VIP
+// функция получения статуса гостя
 function getVipStatus($roomInfo) {
     foreach ($roomInfo as $guest) {
         if (!empty($guest['vip_code_description'])) {
@@ -128,7 +128,7 @@ function getVipStatus($roomInfo) {
     return null;
 }
 
-// Функция для получения типа комнаты
+// функция получения типа комнаты
 function getRoomType($roomInfo) {
     foreach ($roomInfo as $guest) {
         if (!empty($guest['room_type'])) {
@@ -138,7 +138,7 @@ function getRoomType($roomInfo) {
     return 'STANDARD';
 }
 
-// Функция для форматирования времени
+// функция форматирования времени
 function formatTime($time) {
     if (empty($time)) return '--:--';
     try {
@@ -149,7 +149,7 @@ function formatTime($time) {
     }
 }
 
-// Функция для форматирования даты
+// функция форматирования даты
 function formatDate($date) {
     if (empty($date)) return '--.--.----';
     try {
@@ -160,7 +160,7 @@ function formatDate($date) {
     }
 }
 
-// Функция для форматирования даты и времени
+// функция форматирования даты и времени
 function formatDateTime($datetime) {
     if (empty($datetime)) return '--.--.---- --:--';
     try {
@@ -171,7 +171,7 @@ function formatDateTime($datetime) {
     }
 }
 
-// Функция для форматирования страны с заглавной буквы
+// функция форматирования страны с заглавной буквы
 function formatCountry($country) {
     if (empty($country)) return 'Unknown ';
     $words = explode(' ', trim($country));
@@ -181,7 +181,7 @@ function formatCountry($country) {
     return implode(' ', $formatted);
 }
 
-// Функция для форматирования статуса бронирования
+// функция форматирования статуса бронирования
 function formatReservationStatus($status) {
     if (empty($status)) return 'Unknown Reservation Status';
     $words = explode(' ', trim($status));
@@ -280,7 +280,7 @@ function truncateText($text, $length) {
                         $vipStatus = getVipStatus($roomInfo);
                         $roomType = getRoomType($roomInfo);
                         
-                        // Проверяем дни рождения в комнате
+                        // проверяем дни рождения в комнате
                         $birthdayStatus = null;
                         $closestBirthday = null;
                         foreach ($roomInfo as $guest) {
@@ -301,7 +301,7 @@ function truncateText($text, $length) {
                         $hasBottomContent = !empty($vipStatus) || ($birthdayStatus !== null);
                         $roomContentClass = 'room-content' . ($hasBottomContent ? '' : ' no-bottom');
 
-                        // Проверяем, все ли гости отмечены
+                        // проверяем, все ли гости отмечены
                         $allAttended = true;
                         $attendedCount = 0;
                         foreach ($roomInfo as $guest) {

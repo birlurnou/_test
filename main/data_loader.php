@@ -15,6 +15,10 @@ class DataLoader {
             SELECT DISTINCT room_number 
             FROM records 
             WHERE DATE(created_at) = :today
+                -- AND LOWER(reservation_status) IN ('checked in', 'due out', 'walk in', 'walkin')
+                -- ('checked in', 'due out', 'due in', 'no show', walk in', 'walkin')
+                AND (LOWER(reservation_status) IN ('checked in', 'due out', 'walk in', 'walkin')
+                OR arrival_time < '08:00')
             ORDER BY room_number ASC
         ");
         $stmt->execute([':today' => $this->today]);
@@ -45,7 +49,11 @@ class DataLoader {
             INNER JOIN guests g ON r.guest_id = g.guest_id
             WHERE r.room_number = :room_number 
                 AND DATE(r.created_at) = :today
-            ORDER BY r.created_at ASC
+                -- AND LOWER(reservation_status) IN ('checked in', 'due out', 'walk in', 'walkin')
+                -- ('checked in', 'due out', 'due in', 'no show', walk in', 'walkin')
+                AND (LOWER(reservation_status) IN ('checked in', 'due out', 'walk in', 'walkin')
+                OR arrival_time < '08:00')
+            ORDER BY r.created_at ASC, r.room_number ASC, r.vip_code_description ASC NULLS LAST, g.birth_date ASC
         ");
         $stmt->execute([
             ':room_number' => $roomNumber,
@@ -130,7 +138,7 @@ class DataLoader {
             return null;
         }
     }
-    
+
     public function getRoomInfoByGuestId($guestId) {
         $stmt = $this->pdo->prepare("
             SELECT 
