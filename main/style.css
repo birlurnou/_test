@@ -903,11 +903,14 @@ body {
 
 
 
-
-
 /* Добавляем стили для плашки Attended, когда все отмечены */
 .room-guests-badge.all-attended {
     background: rgba(76, 175, 80, 0.7) !important;
+    color: white;
+}
+
+.room-guests-badge.path-attended {
+    background: rgba(166, 236, 74, 0.5) !important;
     color: white;
 }
 

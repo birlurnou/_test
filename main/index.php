@@ -311,6 +311,17 @@ function truncateText($text, $length) {
                                 $allAttended = false;
                             }
                         }
+
+                        // вычисляем класс для бейджа
+                        $badgeClass = '';
+                        if ($guestCount > 0) {
+                            if ($allAttended) {
+                                $badgeClass = 'all-attended';
+                            } elseif ($attendedCount > 0) {
+                                $badgeClass = 'path-attended';
+                            }
+                        }
+
                     ?>
                     <div class="room-card" data-room="<?php echo $roomNumber; ?>">
 
@@ -322,7 +333,7 @@ function truncateText($text, $length) {
                                     <div class="room-row-top">
                                         <div class="room-badge room-number-badge"><?php echo $roomNumber; ?></div>
                                         <div class="room-badge room-type-badge"><?php echo $roomType; ?></div>
-                                        <div class="room-badge room-guests-badge <?php echo ($allAttended && $guestCount > 0) ? 'all-attended' : ''; ?>">
+                                        <div class="room-badge room-guests-badge <?php echo $badgeClass; ?>">
                                             Attended <?php echo $attendedCount; ?> / <?php echo $guestCount; ?>
                                         </div>
                                     </div>
@@ -446,7 +457,7 @@ function truncateText($text, $length) {
                                             <?php elseif ($guest['birth_date'] === null): ?>
                                             <span class="guest-badge">Unknown Date Birth</span>
                                             <?php endif; ?>
-                                            
+
 
                                             <?php if ($isAttended && $attentionTime): ?>
                                             <span class="guest-badge guest-attention-badge" style="background: rgba(210, 140, 44, 0.8); color: white; font-size: 1.05rem; font-weight: 600;">

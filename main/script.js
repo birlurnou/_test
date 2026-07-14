@@ -190,13 +190,39 @@ function updateAttendedCount(roomNumber) {
     if (badge) {
         const total = guests.length;
         badge.textContent = `Attended ${attendedCount} / ${total}`;
+
+        badge.classList.remove('all-attended', 'path-attended');
         
-        // Меняем фон, если все отмечены
-        if (attendedCount === total && total > 0) {
-            badge.classList.add('all-attended');
-        } else {
-            badge.classList.remove('all-attended');
+        if (total > 0) {
+            if (attendedCount > 0 && attendedCount < total) {
+                badge.classList.add('path-attended');
+            } else if (attendedCount === total) {
+                badge.classList.add('all-attended');
+            }
         }
+
+        
+
+        /*if (attendedCount > 0 && total > 0 && attendedCount <= total) {
+            if (attendedCount === total) {
+                badge.classList.add('all-attended');
+            } 
+            else {
+                badge.classList.add('path-attended');
+            }
+        }
+        else {
+            badge.classList.remove('all-attended');
+        }*/
+
+
+        // меняем фон, если все отмечены
+        /*if (attendedCount === total && total > 0) {
+            badge.classList.add('all-attended');
+        } 
+        else {
+            badge.classList.remove('all-attended');
+        }*/
     }
 }
 
