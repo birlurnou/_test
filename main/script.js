@@ -151,7 +151,7 @@ function toggleCheckIn(element, guestId, roomNumber) {
                     if (!attentionBadge) {
                         attentionBadge = document.createElement('span');
                         attentionBadge.className = 'guest-badge guest-attention-badge';
-                        attentionBadge.style.cssText = 'background: rgba(244, 67, 54, 0.8); color: white;';
+                        attentionBadge.style.cssText = 'background: rgba(210, 140, 44, 0.8); color: white;';
                         bottomRow.appendChild(attentionBadge);
                     }
                     // Форматируем дату и время

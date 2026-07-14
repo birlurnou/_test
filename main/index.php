@@ -361,7 +361,7 @@ function truncateText($text, $length) {
                                 $isChild = $age !== null && $age < 13;
                                 $commentsCount = $dataLoader->getCommentsCount($guest['guest_id']);
                                 $isAttended = !empty($guest['attended_at']);
-                                $attentionTime = $isAttended ? $dataLoader->calculateAttentionTime($guest['attended_at']) : null;
+                                $attentionTime = $attentionTime = $isAttended ? date('d.m.Y H:i', strtotime($guest['attended_at'])) : null;   // $isAttended ? $dataLoader->calculateAttentionTime($guest['attended_at']) : null;
                                 $guestComments = $dataLoader->getGuestComments($guest['guest_id']);
                                 
                                 // Статус гостя
@@ -419,7 +419,7 @@ function truncateText($text, $length) {
                                             <?php endif; ?>
                                             
                                             <?php if ($isAttended && $attentionTime): ?>
-                                            <span class="guest-badge guest-attention-badge" style="background: rgba(244, 67, 54, 0.8); color: white;">Attention: <?php echo $attentionTime; ?></span>
+                                            <span class="guest-badge guest-attention-badge" style="background: rgba(210, 140, 44, 0.8); color: white;">Attention: <?php echo $attentionTime; ?></span>
                                             <?php endif; ?>
                                         </div>
 

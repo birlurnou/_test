@@ -383,7 +383,7 @@ body {
     align-items: center;
     min-height: 60px;
     cursor: pointer;
-    font-weight: 600px;
+    font-weight: 600;
 }
 
 .guest-item:hover {
@@ -510,9 +510,6 @@ body {
     text-transform: none;
 }
 
-.guest-attention-badge {
-}
-
 .guest-birthday-badge.near {
     min-width: 150px;
     color: white;
@@ -590,7 +587,7 @@ body {
     color: white;
     border: none;
     cursor: pointer;
-    font-size: 1.0rem;
+    font-size: 1.1rem;
     font-weight: 600;
     font-family: 'Nunito', sans-serif;
     text-align: center;
@@ -626,7 +623,7 @@ body {
 }
 
 .comment-time {
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.9);
     font-weight: 600;
     background: rgba(91, 87, 120, 0.7);
@@ -635,7 +632,7 @@ body {
 }
 
 .comment-creator {
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.9);
     font-weight: 600;
     background: rgba(91, 87, 120, 0.7);
@@ -652,35 +649,36 @@ body {
     background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     padding: 4px 10px;
     border-radius: 0px;
     transition: all 0.2s ease;
     color: white;
     font-weight: 600;
     font-family: 'Nunito', sans-serif;
+    min-width: 100px;
 }
 
 .comment-btn.edit-btn {
-    background: rgba(255, 193, 7, 0.7);
+    background: rgba(255, 193, 7, 0.6);
 }
 
 .comment-btn.edit-btn:hover {
-    background: rgba(255, 193, 7, 1);
+    background: rgba(255, 193, 7, 0.9);
     transform: scale(1.00);
 }
 
 .comment-btn.delete-btn {
-    background: rgba(255, 77, 77, 0.7);
+    background: rgba(255, 77, 77, 0.6);
 }
 
 .comment-btn.delete-btn:hover {
-    background: rgba(255, 77, 77, 1);
+    background: rgba(255, 77, 77, 0.9);
     transform: scale(1.00);
 }
 
 .comment-text {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     color: rgba(91, 87, 120, 1);
     line-height: 1.5;
     word-wrap: break-word;
@@ -818,7 +816,7 @@ body {
 /* Адаптив для модального окна */
 @media (max-width: 600px) {
     .modal-content {
-        margin: 20% auto;
+        margin: 50% auto;
         width: 95%;
     }
     
@@ -876,7 +874,7 @@ body {
 
 /* Стили для плашек */
 .guest-attention-badge {
-    background: rgba(244, 67, 54, 0.8);
+    background: rgba(210, 140, 44, 0.8);
     color: white;
     min-width: 150px;
 }
