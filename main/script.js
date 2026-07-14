@@ -434,6 +434,21 @@ function updateCommentCount(guestId) {
             }
         }
     }
+
+    // Находим карточку комнаты
+    const roomCard = dropdown.closest('.room-card');
+    if (roomCard) {
+        // Считаем все комментарии в этой комнате
+        const allComments = roomCard.querySelectorAll('.comment-item');
+        const totalCount = allComments.length;
+        
+        // Находим бейдж комнаты для комментариев
+        const roomCommentsBadge = roomCard.querySelector('.room-comments-badge');
+        if (roomCommentsBadge) {
+            roomCommentsBadge.textContent = `${totalCount} comment${totalCount > 1 ? 's' : ''}`;
+            // Если нужно скрывать при 0 – добавьте логику
+        }
+    }
 }
 
 function escapeHtml(text) {

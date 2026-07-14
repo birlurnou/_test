@@ -286,6 +286,11 @@ body {
     min-width: 150px;
 }
 
+.room-comments-badge {
+    min-width: 150px;
+    background: rgba(238, 184, 104, 0.7);
+}
+
 /* Бейдж статуса */
 .status-badge {
     min-width: 160px;

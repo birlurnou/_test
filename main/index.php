@@ -279,6 +279,7 @@ function truncateText($text, $length) {
                         $guestCount = $dataLoader->getGuestCount($roomNumber);
                         $vipStatus = getVipStatus($roomInfo);
                         $roomType = getRoomType($roomInfo);
+                        $roomCommentsCount = $dataLoader->getRoomCommentsCount($roomNumber);
                         
                         // проверяем дни рождения в комнате
                         $birthdayStatus = null;
@@ -336,6 +337,10 @@ function truncateText($text, $length) {
                                         <div class="room-badge room-guests-badge <?php echo $badgeClass; ?>">
                                             Attended <?php echo $attendedCount; ?> / <?php echo $guestCount; ?>
                                         </div>
+                                        <?php if ($roomCommentsCount > 0): ?>
+                                        <span class="room-badge room-comments-badge"><?php echo $roomCommentsCount; ?> comment<?php echo $roomCommentsCount > 1 ? 's' : ''; ?></span>
+                                        <?php else: ?>
+                                        <?php endif; ?>
                                     </div>
 
                                     <!-- нижняя строка комнаты -->

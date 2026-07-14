@@ -88,6 +88,20 @@ class DataLoader {
         return $result ? $result['comment_count'] : 0;
     }
     
+    public function getRoomCommentsCount($roomNumber) {
+        $stmt = $this->pdo->prepare("
+            SELECT COUNT(*) as room_comment_count 
+            FROM comments 
+            WHERE guest_id IN (SELECT guest_id from records WHERE DATE(created_at) = :today AND room_number = :room_number) 
+        ");
+        $stmt->execute([
+            ':today' => $this->today,
+            ':room_number' => $roomNumber
+        ]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['room_comment_count'] : 0;
+    }
+
     public function getGuestComments($guestId) {
         $stmt = $this->pdo->prepare("
             SELECT 
