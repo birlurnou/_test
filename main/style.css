@@ -195,7 +195,7 @@ body {
 .rooms-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 .room-card {
@@ -203,6 +203,45 @@ body {
     border-radius: 0px;
     overflow: hidden;
     border: 0px solid rgba(91, 87, 120, 0.85);
+}
+
+.room-card {
+    position: relative;
+    overflow: hidden;
+}
+
+/* верхний левый угол (зелёный) */
+.room-card::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 15px;
+    height: 15px;
+    background-color: rgba(12, 133, 17, 0.7);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    z-index: 2;
+    display: none;
+}
+.room-card.has-green::before {
+    display: block;
+}
+
+/* нижний левый угол (красный) */
+.room-card::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    left: 3px;
+    width: 15px;
+    height: 15px;
+    background-color: rgba(168, 12, 12, 0.7);
+    clip-path: polygon(0 100%, 100% 100%, 0 0);
+    z-index: 2;
+    display: none;
+}
+.room-card.has-red::after {
+    display: block;
 }
 
 .room-header {
