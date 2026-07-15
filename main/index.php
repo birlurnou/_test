@@ -363,7 +363,7 @@ function truncateText($text, $length) {
                                 
                                     <!-- верхняя строка комнаты -->
                                     <div class="room-row-top">
-                                        <div class="room-badge room-number-badge"><?php echo $roomNumber; ?></div>
+                                        <div class="room-badge room-number-badge"><?php echo str_pad($roomNumber, 4, '0', STR_PAD_LEFT); ?></div>
                                         <div class="room-badge room-type-badge"><?php echo $roomType; ?></div>
                                         <div class="room-badge room-guests-badge <?php echo $badgeClass; ?>">
                                             Attended <?php echo $attendedCount; ?> / <?php echo $guestCount; ?>

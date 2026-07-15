@@ -615,11 +615,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase().trim();
+
+            const searchClean = searchTerm.replace(/^0+/, '');
+
             const roomCards = document.querySelectorAll('.room-card');
             
             roomCards.forEach(card => {
-                const roomNumber = card.dataset.room || '';
-                if (roomNumber.includes(searchTerm) || searchTerm === '') {
+                const roomNumber = (card.dataset.room || '').replace(/^0+/, '');
+
+                if (roomNumber.includes(searchClean) || searchTerm === '') {
                     card.style.display = '';
                 } else {
                     card.style.display = 'none';
