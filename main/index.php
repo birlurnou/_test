@@ -28,6 +28,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 $login = htmlspecialchars($_SESSION['login']);
 $username = htmlspecialchars($_SESSION['username']);
+$userrole = htmlspecialchars($_SESSION['role']);
 $login_time = $_SESSION['login_time'];
 $time_left = $session_lifetime - (time() - $login_time);
 
@@ -238,6 +239,7 @@ function truncateText($text, $length) {
                         <div class="user-info">
                             <p class="username"><?php echo htmlspecialchars($_SESSION['login'])# . ' ' . gmdate('H:i:s', $time_left); ?></p>
                             <p><?php echo htmlspecialchars($_SESSION['username']); ?></p>
+                            <p><?php echo htmlspecialchars($_SESSION['role']); ?></p>
                         </div>
 
                         <!-- кнопка выхода -->
@@ -521,10 +523,12 @@ function truncateText($text, $length) {
                                                 <span class="comment-time"><?php echo formatDateTime($comment['created_at']); ?></span>
                                                 <span class="comment-creator"><?php echo htmlspecialchars($comment['created_by'] ?? 'Unknown'); ?></span>
                                             </div>
+                                            <?php if (in_array($_SESSION['role'], ['admin', 'manager'])): ?>
                                             <div class="comment-actions">
                                                 <button class="comment-btn edit-btn" onclick="editComment(this, <?php echo $comment['comment_id']; ?>)">Change</button>
                                                 <button class="comment-btn delete-btn" onclick="deleteComment(this, <?php echo $comment['comment_id']; ?>)">Delete</button>
                                             </div>
+                                            <?php endif; ?>
                                         </div>
                                         <div class="comment-text"><?php echo htmlspecialchars($comment['comment']); ?></div>
                                     </div>
@@ -579,6 +583,7 @@ function truncateText($text, $length) {
         window.loginTime = <?php echo $login_time; ?>;
         window.sessionLifetime = <?php echo $session_lifetime; ?>;
         window.currentUser = '<?php echo htmlspecialchars($_SESSION['login']); ?>';
+        window.currentRole = '<?php echo htmlspecialchars($_SESSION['role']); ?>';
     </script>
 </body>
 </html>
