@@ -544,11 +544,39 @@ function updateCommentCount(guestId) {
         const allComments = roomCard.querySelectorAll('.comment-item');
         const totalCount = allComments.length;
         
+        let roomCommentsBadge = roomCard.querySelector('.room-comments-badge');
+    
+        if (totalCount === 0) {
+            if (roomCommentsBadge) {
+                roomCommentsBadge.style.display = 'none';   // ← скрываем
+            }
+        } else {
+            if (!roomCommentsBadge) {
+                // ← создаём бейдж, если его нет
+                const rowTop = roomCard.querySelector('.room-row-top');
+                if (rowTop) {
+                    roomCommentsBadge = document.createElement('span');
+                    roomCommentsBadge.className = 'room-badge room-comments-badge';
+                    const guestsBadge = rowTop.querySelector('.room-guests-badge');
+                    if (guestsBadge) {
+                        guestsBadge.after(roomCommentsBadge);
+                    } else {
+                        rowTop.appendChild(roomCommentsBadge);
+                    }
+                }
+            }
+            if (roomCommentsBadge) {
+                roomCommentsBadge.style.display = 'inline-flex'; // ← показываем
+                roomCommentsBadge.textContent = `${totalCount} comment${totalCount > 1 ? 's' : ''}`;
+            }
+        }
+
+        
         // находим бейдж комнаты для комментариев
-        const roomCommentsBadge = roomCard.querySelector('.room-comments-badge');
+        /*const roomCommentsBadge = roomCard.querySelector('.room-comments-badge');
         if (roomCommentsBadge) {
             roomCommentsBadge.textContent = `${totalCount} comment${totalCount > 1 ? 's' : ''}`;
-        }
+        }*/
     }
 }
 

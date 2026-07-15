@@ -239,7 +239,7 @@ function truncateText($text, $length) {
                         <div class="user-info">
                             <p class="username"><?php echo htmlspecialchars($_SESSION['login'])# . ' ' . gmdate('H:i:s', $time_left); ?></p>
                             <p><?php echo htmlspecialchars($_SESSION['username']); ?></p>
-                            <p><?php echo htmlspecialchars($_SESSION['role']); ?></p>
+                            <!-- <p><?php echo htmlspecialchars($_SESSION['role']); ?></p> -->
                         </div>
 
                         <!-- кнопка выхода -->

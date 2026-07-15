@@ -59,13 +59,12 @@ body {
 .search-input {
   width: 100%;
   padding: 15px 16px;
-  border: 0px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 0px;
   background: rgba(255, 255, 255, 0.15);
   color: #FFFFFF;
   font-size: 1.3rem;
   font-weight: 500;
-
   transition: all 0.3s ease;
   outline: none;
 }
