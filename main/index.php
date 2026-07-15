@@ -325,21 +325,8 @@ function truncateText($text, $length) {
 
 
                         // фон статуса
-                        $resStat = formatReservationStatus($guest['reservation_status']);
-                        $statusColorMap = [
-                            'checked in' => 'rgba(12, 133, 17, 0.7)',
-                            'due out'    => 'rgba(12, 133, 17, 0.7)',
-                            'walk in'    => 'rgba(12, 133, 17, 0.7)',
-                            'walkin'     => 'rgba(12, 133, 17, 0.7)',
-                            'no show'    => 'rgba(168, 12, 12, 0.7)',
-                            'due in'     => 'rgba(168, 12, 12, 0.7)',
-                            'due in old' => 'rgba(217, 139, 42, 0.7)'
-                        ];
-                        $rawStatus = $guest['reservation_status'] ?? '';
-                        $bgColor = $statusColorMap[$rawStatus] ?? 'rgba(200, 200, 200, 0.5)';
                         
-
-                        // Категории статусов
+                        // категории статусов
                         $greenStatuses = ['checked in', 'due out', 'walk in', 'walkin'];
                         $redStatuses   = ['no show', 'due in'];
 
@@ -368,7 +355,7 @@ function truncateText($text, $length) {
                         }
 
                     ?>
-                    <div class="room-card" style="--corner-color: <?php echo htmlspecialchars($cornerBg); ?>;" data-room="<?php echo $roomNumber; ?>">
+                    <div class="room-card <?php echo $cornerClasses; ?>" style="--corner-color: <?php echo htmlspecialchars($cornerBg); ?>;" data-room="<?php echo $roomNumber; ?>">
 
                         <div class="room-header" onclick="toggleRoom(this)">
                             <div class="room-content">
