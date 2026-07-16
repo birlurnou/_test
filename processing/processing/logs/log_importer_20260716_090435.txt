@@ -1,0 +1,8 @@
+[2026-07-16 09:04:35] Колонки в DataFrame: ['room_number', 'adult_count', 'child_count', 'f_name', 'alt_f_name', 'title', 'birth_date', 'vip_code', 'vip_code_description', 'arrival_date', 'departure_date', 'membership_level_tng', 'room_type', 'room_class', 'language', 'nationality_code', 'nationality_code_description', 'profile_id', 'reservation_id', 'reservation_status', 'arrival_time', 'departure_time']
+[2026-07-16 09:04:35] Загружено 394 строк из CSV
+[2026-07-16 09:04:35] Найдено 386 уникальных гостей
+[2026-07-16 09:04:35] Подготовлено 386 уникальных гостей
+[2026-07-16 09:04:35] Вставлено 121 новых гостей
+[2026-07-16 09:04:35] Подготовлено 394 записей для вставки
+[2026-07-16 09:04:35] Вставлено 394 записей в records
+[2026-07-16 09:04:35] Файл completed_20260716_090432.csv удалён

@@ -56,29 +56,6 @@ body {
   margin-right: 20px;
 }
 
-.search-input {
-  width: 100%;
-  padding: 15px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 0px;
-  background: rgba(255, 255, 255, 0.15);
-  color: #FFFFFF;
-  font-size: 1.3rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  outline: none;
-}
-
-.search-input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.search-input:focus {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
-}
-
 .right-section {
   display: flex;
   align-items: center;
@@ -94,7 +71,7 @@ body {
 
 /* Базовые стили */
 .user-info .username {
-    font-size: clamp(0.7rem, 2vw, 1.25rem);
+    font-size: clamp(0.9rem, 3vw, 1.25rem);
     max-width: clamp(60px, 20vw, 250px);
     font-weight: 600;
     color: #FFFFFF;
@@ -185,7 +162,7 @@ body {
 }
 
 .logo-image {
-    height: 40px;
+    height: 35px;
     width: auto;
     display: block;
 }
@@ -213,10 +190,10 @@ body {
 .room-card::before {
     content: '';
     position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 15px;
-    height: 15px;
+    top: 0px;
+    left: 0px;
+    width: 18px;
+    height: 18px;
     background-color: rgba(12, 133, 17, 0.7);
     clip-path: polygon(0 0, 100% 0, 0 100%);
     z-index: 2;
@@ -230,10 +207,10 @@ body {
 .room-card::after {
     content: '';
     position: absolute;
-    bottom: 3px;
-    left: 3px;
-    width: 15px;
-    height: 15px;
+    bottom: 0px;
+    left: 0px;
+    width: 18px;
+    height: 18px;
     background-color: rgba(168, 12, 12, 0.7);
     clip-path: polygon(0 100%, 100% 100%, 0 0);
     z-index: 2;
@@ -563,6 +540,7 @@ body {
     font-size: 0.9rem;
     padding: 6px;
     justify-content: space-around;
+    background: linear-gradient(135deg, rgba(255, 154, 60, 0.5), rgba(255, 77, 77, 0.5));
 }
 
 .guest-birthday-badge.exact {
@@ -924,12 +902,12 @@ body {
 /* Стили для поиска */
 .search-input {
     width: 100%;
-    padding: 8px 16px;
+    padding: 10px 16px;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 1px;
+    border-radius: 0px;
     background: rgba(255, 255, 255, 0.15);
     color: #FFFFFF;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 500;
     transition: all 0.3s ease;
     outline: none;

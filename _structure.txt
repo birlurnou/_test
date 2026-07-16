@@ -1,0 +1,48 @@
+path/
+│
+├── admin/						
+│   ├── core/					
+│	│	├── create_user.php
+│	│	├── delete_user.php
+│	│	├── get_user.php
+│	│	├── get_users.php
+│	│	└── update_user.php
+│	├── index.php
+│	├── script.js
+│	└── style.css
+│
+├── assets/						
+│	├── icons/
+│	│	└── logout.svg
+│   └── images/
+│		├── logo.webp
+│		└── background.jpg
+│
+├── auth/						
+│	├── check_session.php
+│	├── login.php
+│	├── logout.php
+│	└── reset_session.php
+│
+├── config/						
+│	├── config.php
+│	└── encryption_key.php
+│
+├── login/						
+│	├── index.php
+│	├── script.js
+│	└── style.css
+│
+├── main/						
+│	├── index.php
+│	├── script.js
+│	├── style.css
+│	└── data_loader.php
+│
+└── processing/
+	├── add_comment.php
+ 	├── checkin.php
+  	├── delete_comment.php
+ 	├── unmark_checkin.php
+ 	└── update_comment.php
+ 
