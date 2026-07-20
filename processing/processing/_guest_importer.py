@@ -6,9 +6,17 @@ import datetime
 import os
 import glob
 import re
+import configparser
+
+
+# создание директорий
 
 for folder in ['logs']:
     os.makedirs(folder, exist_ok=True)
+
+
+# функция логирования
+
 start_log_time = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
 def _logging(log_text):
     try:
@@ -17,13 +25,46 @@ def _logging(log_text):
     except:
         pass
 
+
+# подключение конфига
+
+config_file = 'config'
+config = configparser.ConfigParser()
+config.read(config_file, encoding='utf-8')
+
+def get_config(setting_parent, setting_child):
+    if config.has_section(f'{setting_parent}'):
+        if config.has_option(f'{setting_parent}', f'{setting_child}'):
+            return config.get(f'{setting_parent}', f'{setting_child}')
+    _logging(f'Ошибка: параметр ["{setting_parent}"]["{setting_child}"] не найден')
+
+
+# получение данных из конфига
+
+host = get_config('import', 'host') \
+    if get_config('import', 'host') else exit()
+
+port = get_config('import', 'port') \
+    if get_config('import', 'port') else exit()
+
+dbname = get_config('import', 'dbname') \
+    if get_config('import', 'dbname') else exit()
+
+user = get_config('import', 'user') \
+    if get_config('import', 'user') else exit()
+
+password = get_config('import', 'password') # \
+    # if get_config('import', 'password') else exit()
+
+
 # параметры подключения к БД
+
 DB_CONFIG = {
-    'host': 'localhost',
-    'port': '5432',
-    'dbname': 'hotel_breakfast',
-    'user': 'postgres',
-    'password': ''
+    'host': f'{host}',
+    'port': f'{port}',
+    'dbname': f'{dbname}',
+    'user': f'{user}',
+    'password': f'{password}',
 }
 
 
@@ -363,11 +404,12 @@ def insert_records(records):
 
 def main():
     """основная функция"""
-    # чтение csv файла
+    
     files = glob.glob('completed_*.csv')
     if files:
         csv_file = files[0]
     else:
+        _logging(f'Файл с паттерном completed_*.csv не найден')
         exit()
 
     df = read_csv_file(csv_file)
