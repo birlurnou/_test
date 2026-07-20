@@ -1,0 +1,10 @@
+[processor]
+source_folder = \\yekhrpmsnod01\d$\MICROS\OPERA\export\OPERA\yekhr
+csv_pattern = guest_profile_extract_for_web_*
+
+[import]
+host = localhost
+port = 5432
+dbname = hotel_breakfast
+user = postgres
+password = 

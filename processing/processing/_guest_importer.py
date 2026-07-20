@@ -404,7 +404,7 @@ def insert_records(records):
 
 def main():
     """основная функция"""
-    
+
     files = glob.glob('completed_*.csv')
     if files:
         csv_file = files[0]
