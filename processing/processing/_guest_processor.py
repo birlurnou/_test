@@ -6,17 +6,17 @@ import shutil
 import glob
 import re
 import traceback
+import configparser
+
 
 # создание директорий
-# source_folder = r'D:\MICROS\OPERA\export\OPERA\yekhr'
-source_folder = r'\\yekhrpmsnod01\d$\MICROS\OPERA\export\OPERA\yekhr'
-# source_folder = r'C:\xampp\htdocs\_test\processing\new'
 
-# for folder in ['archive', 'archive/completed', 'logs']:
 for folder in ['archive', 'logs']:
     os.makedirs(folder, exist_ok=True)
 
+
 # функция логирования
+
 start_log_time = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
 
 def _logging(log_text):
@@ -29,17 +29,43 @@ def _logging(log_text):
 def _error(e):
     _logging(f'Ошибка: {str(e)}\nТип: {type(e).__name__}\nTraceback:\n{traceback.format_exc()}')
 
+
+# подключение конфига
+
+config_file = 'config'
+config = configparser.ConfigParser()
+config.read(config_file, encoding='utf-8')
+
+def get_config(setting_parent, setting_child):
+    if config.has_section(f'{setting_parent}'):
+        if config.has_option(f'{setting_parent}', f'{setting_child}'):
+            return config.get(f'{setting_parent}', f'{setting_child}')
+    _logging(f'Ошибка: параметр ["{setting_parent}"]["{setting_child}"] не найден')
+
+
+# получение данных из конфига
+
+source_folder = get_config('Settings', 'source_folder') \
+    if get_config('Settings', 'source_folder') else exit()
+
+csv_pattern = get_config('Settings', 'csv_pattern') \
+    if get_config('Settings', 'csv_pattern') else exit()
+
+# source_folder = r'D:\MICROS\OPERA\export\OPERA\yekhr'
+# source_folder = r'\\yekhrpmsnod01\d$\MICROS\OPERA\export\OPERA\yekhr'
+
+
 # структуризация сырых данных
 
 start_idx = None
 end_idx = None
-search_pattern = os.path.join(source_folder, 'guest_profile_extract_for_web_*.csv')
+search_pattern = os.path.join(source_folder, csv_pattern + '.csv')
 files = glob.glob(search_pattern)
 if files:
     source_filename = files[0]
     _logging(f'Найден исходный файл по пути {source_filename}')
 else:
-    _logging(f'Исходный файл не найден в директории {source_folder}, завершение работы')
+    _logging(fr'Исходный файл не найден в директории по пути с паттерном {source_folder}\{csv_pattern}.csv, завершение работы')
     exit()
 
 try:
@@ -84,6 +110,7 @@ except Exception as e:
     _error(e)
     exit()
 
+
 # перемещаем source_filename в папку archive
 
 try:
@@ -93,6 +120,7 @@ except Exception as e:
     _logging(f'Ошибка при перемещении source_filename: {e}')
     _error(e)
     exit()
+
 
 # обработка сырых данных
 

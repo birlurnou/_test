@@ -4,70 +4,12 @@
 #C0C2C4 - добавочный
 #FFFFFF - добавочный
 
-#ffb6c1 rgba(255, 182, 193, 1);
-#87cefa rgba(135, 206, 250, 1);
-#6a5acd rgba(106, 90, 205, 1);
-
-#ff7f50 rgba(255, 127, 80, 1);
-
--- boxes
-1   room_number                     -- номер комнаты                 -- int
-2   adult_count                     -- кол-во взрослых               -- int
-3   child_count                     -- кол-во детей                  -- int
-4   f_name                          -- полное имя (eng)              -- nvarchar(255)
-5   alt_f_name                      -- полное имя (rus)              -- nvarchar(255)
-6   title                           -- title                         -- nvarchar(25)
-7   birth_date                      -- дата рождения                 -- date
-8   vip_code                        -- vip статус (код)              -- nvarchar(25)
-9   vip_code_description            -- vip статус (расшифровка)      -- nvarchar(255)
-10  arrival_date                    -- дата заезда                   -- date
-11  departure_date                  -- дата выезда                   -- date
-12  membership_level_tng            -- уровень приорити в tng        -- nvarchar(255)
-13  room_type                       -- название комнаты              -- nvarchar(255)
-14  room_class                      -- класс комнаты                 -- nvarchar(255)
-15  language                        -- язык                          -- nvarchar(25)
-16  nationality_code                -- национальность (код)          -- nvarchar(25)
-17  nationality_code_description    -- национальность (расшифровка)  -- nvarchar(255)
-18  profile_id                      -- номер профайла                -- int
-19  reservation_id                  -- номер бронирования            -- int
-20  reservation_status              -- статус бронирования           -- nvarchar(255)
-21  arrival_time                    -- время заселения               -- nvarchar(25)
-22  departure_time                  -- время выселения               -- nvarchar(25)
-
-
--- room box
-room_number
-room_type
-
-language (any)
-nationality_code (any)
-
-adult_count
-child_count
-vip_code (vip_code_description)
-membership_level_tng
-
-
--- guest box
-f_name
-alt_f_name
-birth_date
-arrival_date
-arrival_time
-departure_date
-departure_time
-language
-nationality_code_description
-profile_id
-
-*attended_at
-
-
 
 -- structure
 guests - гости
 records - дневные записи с гостями
 comments - комментарии, привязанные к гостям
+
 
 -- параметры, получаемые из отчёта
 1   room_number                     -- номер комнаты                 -- int
@@ -93,61 +35,6 @@ comments - комментарии, привязанные к гостям
 21  arrival_time                    -- время заселения               -- nvarchar(25)
 22  departure_time                  -- время выселения               -- nvarchar(25)
 
--- [guests] as g
-guest_id
-+
-(
-    f_name
-    alt_f_name
-    birth_date
-    profile_id
-    *created_at
-    *updated_at
-)
-
--- [records] as r
-record_id
-+
-(   
-    room_number
-    adult_count
-    child_count
-    title
-    vip_code
-    vip_code_description
-    arrival_date
-    departure_date
-    membership_level_tng
-    room_type
-    room_class
-    language
-    nationality_code
-    nationality_code_description
-    reservation_id
-    reservation_status
-    arrival_time
-    departure_time
-
-    g.guest_id
-    g.f_name
-    g.alt_f_name
-    g.birth_date
-    g.profile_id
-
-    *attended_at
-    *created_at
-)
-
--- [comments] as c
-comment_id
-+
-(
-    g.guest_id
-
-    *comment
-    *created_at
-    *created_by
-)
 
 -- таблицы
 CREATE TABLE guests (
@@ -198,6 +85,7 @@ CREATE TABLE users (
     username VARCHAR(100) DEFAULT NULL
 );
 
+
 -- индексы
 CREATE INDEX idx_records_guest_id ON records(guest_id);
 CREATE INDEX idx_records_arrival_date ON records(arrival_date);
@@ -206,14 +94,19 @@ CREATE INDEX idx_records_room_number ON records(room_number);
 CREATE INDEX idx_comments_guest_id ON comments(guest_id);
 CREATE INDEX idx_users_login ON users(login);
 
+
 -- удаление
 DROP TABLE IF EXISTS guests CASCADE;
 DROP TABLE IF EXISTS records CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
+
+-- удаление с очисткой счетчика
 TRUNCATE TABLE guests RESTART IDENTITY CASCADE;
 TRUNCATE TABLE records RESTART IDENTITY CASCADE;
+TRUNCATE TABLE comments RESTART IDENTITY CASCADE;
+TRUNCATE TABLE users RESTART IDENTITY CASCADE;
 
 
 -- удаляем все данные
@@ -222,8 +115,13 @@ DELETE FROM records;
 DELETE FROM comments;
 DELETE FROM users;
 
+
 -- незашифрованная дата рождения
 rep_gen.dob_str(b.encrypted_birth_date)
+
+
+-- отчёты
+
 
 -- records
 
@@ -277,6 +175,7 @@ left join count_coms cc on r.guest_id = cc.guest_id
 where date_trunc('day', r.created_at) = date_trunc('day', localtimestamp)
 order by r.record_id;
 
+
 -- comments
 
 select
@@ -290,42 +189,98 @@ inner join records r on c.guest_id = r.guest_id
 where date_trunc('day', r.created_at) = date_trunc('day', localtimestamp)
 order by room asc, created_at desc;
 
+
 -- results
 
 select
     (select count(*) from records r 
      where r.attended_at is not null
-       and date_trunc('day', r.created_at) = date_trunc('day', LOCALTIMESTAMP)) as "Attended Count",
+       and date_trunc('day', r.created_at) = date_trunc('day', localtimestamp)) as "Attended Count",
     
     (select count(*) from records r 
-     where date_trunc('day', r.created_at) = date_trunc('day', LOCALTIMESTAMP)) as "Guest Count",
+     where date_trunc('day', r.created_at) = date_trunc('day', localtimestamp)) as "Guest Count",
     
     (select count(*) from records 
      where reservation_status = 'checked in' 
-       and date_trunc('day', created_at) = date_trunc('day', LOCALTIMESTAMP)) as "Checked In",
+       and date_trunc('day', created_at) = date_trunc('day', localtimestamp)) as "Checked In",
     
     (select count(*) from records 
      where reservation_status = 'due out' 
-       and date_trunc('day', created_at) = date_trunc('day', LOCALTIMESTAMP)) as "Due Out",
+       and date_trunc('day', created_at) = date_trunc('day', localtimestamp)) as "Due Out",
     
     (select count(*) from records 
      where reservation_status = 'walk in' 
-       and date_trunc('day', created_at) = date_trunc('day', LOCALTIMESTAMP)) as "Walk In",
+       and date_trunc('day', created_at) = date_trunc('day', localtimestamp)) as "Walk In",
     
     (select count(*) from records 
      where reservation_status = 'due in' 
-       and date_trunc('day', created_at) = date_trunc('day', LOCALTIMESTAMP)) as "Due In",
+       and date_trunc('day', created_at) = date_trunc('day', localtimestamp)) as "Due In",
     
     (select count(*) from records 
      where reservation_status = 'no show' 
-       and date_trunc('day', created_at) = date_trunc('day', LOCALTIMESTAMP)) as "No Show",
+       and date_trunc('day', created_at) = date_trunc('day', localtimestamp)) as "No Show",
     
     (select count(*) from records r 
      inner join guests g on r.guest_id = g.guest_id
-     where date_trunc('day', r.created_at) = date_trunc('day', LOCALTIMESTAMP)
+     where date_trunc('day', r.created_at) = date_trunc('day', localtimestamp)
        and extract(month from g.birth_date) = extract(month from localtimestamp) 
        and extract(day from g.birth_date) = extract(day from localtimestamp)) as birthday_count,
     
     (select count(*) from records r 
      inner join comments c on r.guest_id = c.guest_id
-     where date_trunc('day', r.created_at) = date_trunc('day', LOCALTIMESTAMP)) as comment_count;
+     where date_trunc('day', r.created_at) = date_trunc('day', localtimestamp)) as comment_count;
+
+
+-- полезные запросы
+
+
+-- reservation_status
+select reservation_status, count(*) from records
+group by reservation_status 
+where date_trunc('day', r.created_at) = date_trunc('day', localtimestamp)
+order by 2 desc;
+
+-- room_type
+select room_type, count(*) from records
+group by room_type 
+where date_trunc('day', r.created_at) = date_trunc('day', localtimestamp)
+order by 2 desc;
+
+-- guest_id
+select guest_id, count(*) from records
+group by guest_id 
+where date_trunc('day', r.created_at) = date_trunc('day', localtimestamp)
+order by 2 desc, 1 asc;
+
+-- today guests with null parameters
+select * from guests
+where birth_date is null or f_name is null or alt_f_name is null
+where date_trunc('day', r.created_at) = date_trunc('day', localtimestamp);
+
+-- today records and guests count
+select
+    (
+    select count(g.guest_id)
+    from guests g
+    inner join records r on g.guest_id = r.guest_id
+    where date_trunc('day', r.created_at) = date_trunc('day', localtimestamp)
+    ) as guests_count, 
+    (
+    select count(r.record_id)
+    from records r
+    where date_trunc('day', r.created_at) = date_trunc('day', localtimestamp)
+    ) as records_count;
+
+-- guest where attended today
+select
+    r.room_number,
+    r.attended_at,
+    g.guest_id,
+    g.f_name,
+    g.alt_f_name,
+    g.birth_date
+from records r
+join guests g on r.guest_id = g.guest_id
+where date_trunc('day', r.created_at) = date_trunc('day', localtimestamp)
+order by r.attended_at desc nulls last, r.room_number;
+
