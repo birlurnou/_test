@@ -201,7 +201,17 @@ try:
     # print(f'title: {df['title'].unique()}')
 
     # форматируем дату рождения
+    # print(result['birth_date'])
+    def _check_date(birth_date):
+        if not pd.isna(birth_date):
+            birth_date_arr = birth_date.split('.')
+            year = int(birth_date_arr[-1])
+            if year < 1900 or year > 2200:
+                year = 1999
+            return birth_date_arr[0] + '.' + birth_date_arr[1] + '.' + str(year)
+    result['birth_date'] = result['birth_date'].apply(_check_date)
     result['birth_date'] = pd.to_datetime(result['birth_date'], format='%d.%m.%Y')
+    # print(result['birth_date'])
 
     # форматируем vip код
     result['vip_code'] = result['vip_code'].apply(lambda x: str(x).lower() if not pd.isna(x) else None)

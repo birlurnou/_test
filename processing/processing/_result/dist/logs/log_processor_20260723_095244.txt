@@ -1,0 +1,37 @@
+[2026-07-23 09:52:44] Найден исходный файл по пути C:\xampp\htdocs\_test\processing\processing\_result\dist\guest_profile_extract_for_web_135112488.csv
+[2026-07-23 09:52:44] Прочитан исходный файл C:\xampp\htdocs\_test\processing\processing\_result\dist\guest_profile_extract_for_web_135112488.csv, нужные индексы извлечены:
+[2026-07-23 09:52:44] Стартовый индекс: 3
+[2026-07-23 09:52:44] Конечный индекс: 362
+[2026-07-23 09:52:44] Всего строк: 360
+[2026-07-23 09:52:44] Создан файл с чистыми данными cleaned_20260723_095244.csv, переход к обработке
+[2026-07-23 09:52:44] Файл C:\xampp\htdocs\_test\processing\processing\_result\dist\guest_profile_extract_for_web_135112488.csv перемещен в archive
+[2026-07-23 09:52:44] Прочитан обработанный файл cleaned_20260723_095244.csv, создан DataFrame
+[2026-07-23 09:52:44] Ошибка при финальной обработке: time data "05.07.<class 'int'>" doesn't match format "%d.%m.%Y", at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+[2026-07-23 09:52:44] Ошибка: time data "05.07.<class 'int'>" doesn't match format "%d.%m.%Y", at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+Тип: ValueError
+Traceback:
+Traceback (most recent call last):
+  File "C:\xampp\htdocs\_test\processing\processing\_result\dist\processing.py", line 213, in <module>
+    result['birth_date'] = pd.to_datetime(result['birth_date'], format='%d.%m.%Y')
+                           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\4701120\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\tools\datetimes.py", line 1067, in to_datetime
+    values = convert_listlike(arg._values, format)
+  File "C:\Users\4701120\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\tools\datetimes.py", line 433, in _convert_listlike_datetimes
+    return _array_strptime_with_fallback(arg, name, utc, format, exact, errors)
+  File "C:\Users\4701120\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\tools\datetimes.py", line 467, in _array_strptime_with_fallback
+    result, tz_out = array_strptime(arg, fmt, exact=exact, errors=errors, utc=utc)
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "strptime.pyx", line 501, in pandas._libs.tslibs.strptime.array_strptime
+  File "strptime.pyx", line 451, in pandas._libs.tslibs.strptime.array_strptime
+  File "strptime.pyx", line 583, in pandas._libs.tslibs.strptime._parse_with_format
+ValueError: time data "05.07.<class 'int'>" doesn't match format "%d.%m.%Y", at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+
