@@ -45,11 +45,11 @@ def get_config(setting_parent, setting_child):
 
 # получение данных из конфига
 
-source_folder = get_config('processor', 'source_folder') \
-    if get_config('processor', 'source_folder') else exit()
+source_folder = get_config('processing', 'source_folder') \
+    if get_config('processing', 'source_folder') else exit()
 
-csv_pattern = get_config('processor', 'csv_pattern') \
-    if get_config('processor', 'csv_pattern') else exit()
+csv_pattern = get_config('processing', 'csv_pattern') \
+    if get_config('processing', 'csv_pattern') else exit()
 
 # source_folder = r'D:\MICROS\OPERA\export\OPERA\yekhr'
 # source_folder = r'\\yekhrpmsnod01\d$\MICROS\OPERA\export\OPERA\yekhr'
