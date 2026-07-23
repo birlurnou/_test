@@ -1,1 +1,0 @@
-[2026-07-23 09:39:34] Исходный файл не найден в директории по пути с паттерном \\yekhrpmsnod01\d$\MICROS\OPERA\export\OPERA\yekhr\guest_profile_extract_for_web_*.csv, завершение работы

@@ -1,5 +1,6 @@
 [processing]
 source_folder = \\yekhrpmsnod01\d$\MICROS\OPERA\export\OPERA\yekhr
+source_folder = D:\MICROS\OPERA\export\OPERA\yekhr
 source_folder = C:\xampp\htdocs\_test\processing\processing\_result\dist
 csv_pattern = guest_profile_extract_for_web_*
 
